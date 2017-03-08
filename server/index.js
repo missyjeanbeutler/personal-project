@@ -27,17 +27,17 @@ app.use(express.static('./public'));
 // app.set('db', massiveInstance);
 // const db = app.get('db');
 
-let db = massive.connect({
-    connectionString: config.database
-  },
-  (err, localdb) => {
-    db = localdb;
-    app.set('db', db);
-    db.set_trails((err, data) => {
-      if (err) console.log(err);
-      else console.log('All tables successfully reset');
-    });
-  })
+// let db = massive.connect({
+//     connectionString: config.database
+//   },
+//   (err, localdb) => {
+//     db = localdb;
+//     app.set('db', db);
+//     db.set_trails((err, data) => {
+//       if (err) console.log(err);
+//       else console.log('All tables successfully reset');
+//     });
+//   })
 
 
   app.listen('3000', function(){
