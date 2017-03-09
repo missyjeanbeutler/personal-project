@@ -1,18 +1,23 @@
 const express = require('express'),
       session = require('express-session'),
       bodyParser = require('body-parser'),
+      // cors = require('cors')
       massive = require('massive'),
       passport = require('passport'),
       Auth0Strategy = require('passport-auth0'),
       config = require('./config.js');
 
 const app = module.exports = express();
+// let corsOptions = {
+//     origin: 'http://localhost:8080'
+// };
 
 //---------------
 
 app.use(express.static('../www'));
 
 app.use(bodyParser.json());
+// app.use(cors(corsOptions));
 app.use(session({
   resave: true, 
   saveUninitialized: true, 
@@ -33,9 +38,7 @@ let controller = require('./trail_ctrl');
 //-----------------
 
 
-  app.get('/api/test', function(req, res) {
-    res.send('I AM TEXT')
-  })
+app.get('/search', controller.allTrails);
 
 
 

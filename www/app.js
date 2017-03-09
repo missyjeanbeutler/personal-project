@@ -10,15 +10,18 @@ angular.module('trailsApp', ['ui.router'])
         })
         .state('search', {
             url: '/search',
-            templateUrl: 'views/2-trail-search/search.html'
+            templateUrl: 'views/2-trail-search/search.html',
+            controller: 'searchCtrl'
         })
         .state('trail-data', {
             url: '/search/trail/:id',
-            templateUrl: 'views/3-trail-data/data.html'
+            templateUrl: 'views/3-trail-data/data.html',
+            controller: 'dataCtrl'
         })
         .state('profile', {
             url: '/profile',
-            templateUrl: 'views/5-profile-wrapper/profile.html'
+            templateUrl: 'views/5-profile-wrapper/profile.html',
+            controller: 'profileCtrl'
         })
         .state('stats', {
             parent: 'profile',
