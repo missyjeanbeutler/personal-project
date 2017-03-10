@@ -6,7 +6,6 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc) 
         } else {
             mainSvc.allTrails().then(response => {
                 $scope.trails = response;
-                console.log($scope.trails)
             })
         }
     }
