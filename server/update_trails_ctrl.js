@@ -8,29 +8,11 @@ const controller = require('./trail_ctrl')
 
 module.exports = {
 
-
-    //--------------Update Trail Info -------------//
-
-    // updateTrail: function (req, res, next) {
-    //     console.log(req.body)
-    //     let params = [
-    //         req.body.elevationChange,
-    //         req.body.ratio,
-    //         req.body.id
-    //     ]
-    //     db.UPDATEtrailInfo(params, function (err, updated) {
-    //         if (err) return next(err);
-    //         else return res.send('updated!');
-    //     })
-    // },
-
-
-
     updateTrail: function (req, res, next) {
         let trails = req.body.trails;
         // for (let i = 7; i < 1; i++) {
         //     if (trails[i].trail_id) {
-        startUpdate(trails[7].trail_id)
+        startUpdate(trails[30].trail_id)
 
 
         // } 
@@ -44,11 +26,9 @@ module.exports = {
             controller.trailDataWithPromise(id)
                 .then(response => {
                     let trail = response[0]
-                    console.log(trail.trail_name)
-                    // if (!trail.coords) return deferred.resolve('No data');
                     trail.coords = JSON.parse(trail.coords)
                     let polyline = coordsLength(trail);
-                    return [polyline, trail];
+                    return [polyline, trail]; 
                 })
                 .then(data => {
                     return getElevation(data[0], data[1]).then(response => {
@@ -56,17 +36,12 @@ module.exports = {
                     })
                 })
                 .then(response => {
-                    if (response !== 'No data') {
-
-
                         let arrayToSend = calculations(response)
                         console.log(arrayToSend, ' post calculations')
-
                         db.UPDATEtrailInfo(arrayToSend, function (err, updated) {
                             if (err) return next(err);
                             else return res.send('updated!');
                         })
-                    }
                 });
         }
 
@@ -119,7 +94,6 @@ module.exports = {
 
 
         function calculations(trail) {
-
             let sorted = trail.elevation_array.sort((a, b) => {
                 return b - a;
             })
@@ -129,44 +103,7 @@ module.exports = {
             if (isNaN(ratio)) ratio = Math.asin(distInFeet / elevationChange)
             ratio = Math.round((ratio * 100) * 10000) / 10000;
             let arrParams = [elevationChange, ratio, trail.trail_id]
-            console.log(arrParams, ' arrParams')
             return arrParams
-
         }
     }
 }
-
-// function (req, res) {
-//     return axios.get('https://maps.googleapis.com/maps/api/elevation/json?path=enc:'+ req.query.polyline + '&samples=' + req.query.samp + '&key=' + config.elevatationAPIkey).then(response => {
-//             if (response.data.status !== 'OK') return 'Error!';
-//             return response.data.results;
-//         })
-//         .then(response => {
-//             if (response === 'Error!') return 'Error!';
-//             var elArr = [];
-//             for (var i = 0; i < response.length; i++) {
-//                 elArr.push(response[i].elevation * 3.28084) // convert from meters to feet
-//             }
-//             res.send(elArr); 
-//         })
-// }
-
-
-
-
-
-
-
-
-//------------- update API ----------------//
-
-// function updateEndpoint(elevationChange, ratio, id) {
-//     return $http.put('/api/updateTrail', {
-//             elevationChange: elevationChange,
-//             ratio: ratio,
-//             id: id
-//         })
-//         .then(response => {
-//             return response.data;
-//         })
-// }

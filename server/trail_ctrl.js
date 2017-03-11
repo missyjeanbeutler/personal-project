@@ -67,7 +67,7 @@ module.exports = {
         })
     },
 
-    //---------
+    //-------------- Backend Calls ----------------//
 
     trailDataWithPromise: function (id) {
         let deferred = q.defer()
