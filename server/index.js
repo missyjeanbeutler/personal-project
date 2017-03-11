@@ -31,6 +31,7 @@ let db = massive.connectSync({
 app.set('db', db); 
 
 let controller = require('./trail_ctrl'); 
+let updater = require('./update_trails_ctrl')
 
 
 //-----------------
@@ -40,10 +41,11 @@ let controller = require('./trail_ctrl');
 
 app.get('/api/search', controller.allTrails);
 app.get('/search/trail/:id', controller.trailData)
+app.get('/search/trail/:id', controller.trailDataWithPromise)
 
-// ------------- API -------------//
+//--------- Update Trail ---------//
 
-app.get('/api/googleAPIdata/', controller.elevation)
+app.put('/api/updateTrail', updater.updateTrail)
 
 
 

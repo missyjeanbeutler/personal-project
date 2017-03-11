@@ -1,13 +1,13 @@
-angular.module('trailsApp').controller('dataCtrl', function($scope, $stateParams, mainSvc) {
-
+angular.module('trailsApp').controller('dataCtrl', function($scope, $stateParams, mainSvc, postSvc) {
 
     trailData($stateParams.id)
 
     function trailData(id) {
         mainSvc.trailData(id).then(response => {
-            console.log(response)
             $scope.trail = response;
         })
     }
+
+    
 
 })

@@ -2,7 +2,7 @@ const app = require('./index');
 const db = app.get('db');
 const config = require('./config.js');
 const axios = require('axios');
-const querystring = require('querystring');
+const q = require('q');
 
 module.exports = {
 
@@ -67,22 +67,15 @@ module.exports = {
         })
     },
 
-    //----------------- API Calls ----------------//
+    //---------
 
-    elevation: function (req, res) {
-        return axios.get('https://maps.googleapis.com/maps/api/elevation/json?path=enc:'+ req.query.polyline + '&samples=' + req.query.samp + '&key=' + config.elevatationAPIkey).then(response => {
-                if (response.data.status !== 'OK') return 'Error!';
-                return response.data.results;
-            })
-            .then(response => {
-                if (response === 'Error!') return 'Error!';
-                var elArr = [];
-                for (var i = 0; i < response.length; i++) {
-                    elArr.push(response[i].elevation * 3.28084) // convert from meters to feet
-                }
-                res.send(elArr); 
-            })
-    } 
+    trailDataWithPromise: function (id) {
+        let deferred = q.defer()
+        db.readOneTrail(id, function (err, trail) {
+            return deferred.resolve(trail);
+        })
+        return deferred.promise;
+    },
 
 
 }

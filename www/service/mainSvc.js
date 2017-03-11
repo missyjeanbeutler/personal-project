@@ -1,4 +1,4 @@
-angular.module('trailsApp').service('mainSvc', function($http, $q, polylineSvc, elevationSvc) {
+angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elevationSvc) {
     
     this.allTrails = allTrails;
     let trailNames;
@@ -20,16 +20,10 @@ angular.module('trailsApp').service('mainSvc', function($http, $q, polylineSvc, 
     //----------- single trail data ------------//
 
     function trailData(id) {
-        let deferred = $q.defer() 
-        $http.get('/search/trail/' + id).then(response => {
-            let trail = response.data[0]
-            trail.coords = JSON.parse(trail.coords)
-            let polyline = coordsLength(trail);
-            getElevation(polyline, trail).then(response => {
-                return deferred.resolve(response)
-            })
+
+        return $http.get('/search/trail/' + id).then(response => {
+            return response.data[0];
         })
-        return deferred.promise;
     }
 
 
@@ -65,6 +59,7 @@ angular.module('trailsApp').service('mainSvc', function($http, $q, polylineSvc, 
                 return trail;
             }) 
     }
+
 
     
 
