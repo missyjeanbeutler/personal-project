@@ -1,4 +1,24 @@
 <h1>Let's look for a trail!</h1>
+<br>
+<h1>DISTANCE IN MILES</h1>
+<h1>from</h1>
+<input type="range" min="0" max="100" value="25" step="1" ng-model='rangeStart'/>
+{{rangeStart}}
+<h1>to</h1>
+<input type="range" min="0" max="100" value="25" step="1" ng-model='rangeEnd'/>
+{{rangeEnd}}
+<button >SEARCH!</button>
+<br>
+<br>
+<h1>ELEVATION CHANGE IN FEET</h1>
+<h1>from</h1>
+<input type="range" min="0" max="10000" value="25" step="1" ng-model='heightStart'/>
+{{heightStart}}
+<h1>to</h1>
+<input type="range" min="0" max="10000" value="25" step="1" ng-model='heightEnd'/>
+{{heightEnd}}
+<button >SEARCH!</button>
+<br>
 <ul ng-repeat="trail in trails">
     <li ui-sref='trail-data({id: trail.trail_id})'>{{trail.trail_name}}</li>
 </ul>

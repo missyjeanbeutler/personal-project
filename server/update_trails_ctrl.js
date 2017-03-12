@@ -10,13 +10,10 @@ module.exports = {
 
     updateTrail: function (req, res, next) {
         let trails = req.body.trails;
-        // for (let i = 7; i < 1; i++) {
-        //     if (trails[i].trail_id) {
-        startUpdate(trails[30].trail_id)
-
-
+        // for (let i = 8; i <= 20; i++) {
+            startUpdate(19)  
         // } 
-        // }
+        
 
 
 
@@ -99,9 +96,9 @@ module.exports = {
             })
             let elevationChange = Math.round((sorted[0] - sorted[sorted.length - 1]) * 1000) / 1000;
             let distInFeet = trail.gis_miles * 5280;
-            let ratio = Math.asin(elevationChange / distInFeet);
-            if (isNaN(ratio)) ratio = Math.asin(distInFeet / elevationChange)
-            ratio = Math.round((ratio * 100) * 10000) / 10000;
+            let radians = Math.atan(elevationChange / distInFeet);
+            let ratio = radians * (180 / Math.PI);
+            ratio = Math.round(ratio * 100) / 100;
             let arrParams = [elevationChange, ratio, trail.trail_id]
             return arrParams
         }
