@@ -7,6 +7,6 @@ function updateTrail() {
     })
 }
 
-// updateTrail();
+updateTrail();
 
 })
