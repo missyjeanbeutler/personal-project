@@ -36,7 +36,7 @@ module.exports = {
                     let arrayToSend = calculations(response)
                     let diff = difficulty(response.gis_miles, arrayToSend[0]);
                     let time = naismithTime(response.gis_miles, arrayToSend[0], 2.5);
-                    let gradient = (arrayToSend[0]/response.gis_miles) * 100;
+                    let gradient = Math.round((arrayToSend[0]/(response.gis_miles * 5280))); // fix tabe so you don't have to round anymore
                     arrayToSend.push(diff, time, gradient);
                     console.log(arrayToSend, ' post calculations')
                     db.UPDATEtrailInfo(arrayToSend, function (err, updated) {

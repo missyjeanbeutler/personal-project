@@ -12,6 +12,9 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc) 
 
     allTrails();
 
+    $scope.filterTrails = function() {
+        
+    }
 
 
 
