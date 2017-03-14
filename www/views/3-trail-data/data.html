@@ -1,3 +1,5 @@
+<div>
+
 <h1>here's your trail!</h1>
 <br>
 <h1>{{trail.trail_name}}</h1>
@@ -13,12 +15,19 @@
 // 23 - 28	VERY DIFFICULT
 // 29 +	EXTREME
 <h2>{{trail.time}} - estimated completion time</h2>
-<!--<map-directive></map-directive>-->
+</div>
+
 
 <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
-  <ng-map center={{center}} zoom="12"><shape name="polyline" path="{{path}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2"></shape></ng-map>
+  <ng-map id='map' center={{center}} zoom="12" styles={{styles}} map-type-id="TERRAIN" zoom-to-include-markers="auto">
+    <marker position={{trailhead}}></marker>
+    <marker position={{trailend}}></marker>
+    <shape name="polyline" path="{{path}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2"></shape>
+    </ng-map>
   
 </div>
+
+
 
 
 

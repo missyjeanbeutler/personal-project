@@ -7,8 +7,11 @@ angular.module('trailsApp').controller('dataCtrl', function($scope, $stateParams
             response.time = Math.round((response.time / 60) * 10) / 10;
             $scope.trail = response;
             response.coords = path(JSON.parse(response.coords))
-
-            $scope.center = response.coords[0][0] + ',' + response.coords[0][1];
+            $scope.path = response.coords;
+            let middle = response.coords[Math.round(response.coords.length / 2)]
+            $scope.center = middle[0] + ',' + middle[1];
+            $scope.trailhead = $scope.path[0][0] + ',' + $scope.path[0][1];
+            $scope.trailend = $scope.path[$scope.path.length - 1][0] + ',' + $scope.path[$scope.path.length - 1][1];
         })
     }
 
@@ -20,6 +23,12 @@ angular.module('trailsApp').controller('dataCtrl', function($scope, $stateParams
         console.log('shapes', map.shapes);
 
     })
+
+    $scope.styles = [{
+    "stylers": [{
+        "saturation": -50
+    }]
+}];
 
 
     function path(coords) {
