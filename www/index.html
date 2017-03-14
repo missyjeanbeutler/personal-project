@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" ng-app='trailsApp'>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="./css/reset.css" rel="stylesheet">
-        <link href="./css/fonts.css" rel="stylesheet">
-        <link href="./css/style.css" rel="stylesheet">
-        <link href="./views/1-home/home.css" rel="stylesheet">
-        <link href="./views/2-trail-search/search.css" rel="stylesheet">
-        <link href="./views/3-trail-data/data.css" rel="stylesheet">
-        <link href="./views/6-user-stats/stats.css" rel="stylesheet">
-        <link href="./views/7-saved-trails/saved.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-        
-        
-    </head>
-    <body ng-controller='updateCtrl'>
 
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./css/reset.css" rel="stylesheet">
+    <link href="./css/fonts.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./views/1-home/home.css" rel="stylesheet">
+    <link href="./views/2-trail-search/search.css" rel="stylesheet">
+    <link href="./views/3-trail-data/data.css" rel="stylesheet">
+    <link href="./views/6-user-stats/stats.css" rel="stylesheet">
+    <link href="./views/7-saved-trails/saved.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.4/MarkerCluster.css"
+    />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.4/MarkerCluster.Default.css"
+    />
+</head>
 
-        
+<body ng-controller='updateCtrl'>
     <ui-view></ui-view>
+
+
+
 
 
 
@@ -38,12 +42,7 @@
     <script src="./controllers/updateTrailCtrl.js"></script>
     <script src="./views/3-trail-data/mapDirective.js"></script>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    
-    
-    
-    
-    
-    
-    
-    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.4/leaflet.markercluster-src.js"></script>
+</body>
+
 </html>

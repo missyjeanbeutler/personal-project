@@ -14,8 +14,19 @@ angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elev
 
     function allTrails() {
         return $http.get('/api/search').then(response => {
+            for(let i = 0; i < response.data.length; i++) {
+                response.data[i].coords = fixLatLong(JSON.parse(response.data[i].coords))
+            }
             return response.data;
         })
+    }
+
+    function fixLatLong(coords) {
+        let fixedLatLong = []
+        for (let i = 0; i < coords.length; i++) {
+            fixedLatLong.push([coords[i][1], coords[i][0]])
+        }
+        return fixedLatLong;
     }
 
     //------------- filter trails --------------//
@@ -30,6 +41,7 @@ angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elev
 
     function trailData(id) {
         return $http.get('/search/trail/' + id).then(response => {
+            response.data[0].coords = fixLatLong(JSON.parse(response.data[0].coords));
             return response.data[0];
         })
     }

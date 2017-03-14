@@ -9,7 +9,6 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
         mainSvc.trailData(id).then(response => {
             response.time = Math.round((response.time / 60) * 10) / 10;
             $scope.trail = response;
-            response.coords = path(JSON.parse(response.coords))
             let coords = response.coords;
             let middle = response.coords[Math.round(response.coords.length / 2)]
 
@@ -17,9 +16,7 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
 
             let map = L.map('trailmap').setView([middle[0], middle[1]], 13);
             L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA', {
-                maxZoom: 18,
-                id: 'your.mapbox.project.id',
-                accessToken: 'pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA'
+                maxZoom: 18
             }).addTo(map);
 
             //----------- markers -----------//
@@ -44,17 +41,6 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
     }
 
 
-
-
-
-
-    function path(coords) {
-        let fixedLatLong = []
-        for (let i = 0; i < coords.length; i++) {
-            fixedLatLong.push([coords[i][1], coords[i][0]])
-        }
-        return fixedLatLong;
-    }
 
 
 
