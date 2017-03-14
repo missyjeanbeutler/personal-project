@@ -18,14 +18,7 @@
 </div>
 
 
-<div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
-  <ng-map id='map' center={{center}} zoom="12" styles={{styles}} map-type-id="TERRAIN" zoom-to-include-markers="auto">
-    <marker position={{trailhead}}></marker>
-    <marker position={{trailend}}></marker>
-    <shape name="polyline" path="{{path}}" geodesic="true" stroke-color="#FF0000" stroke-opacity="1.0" stroke-weight="2"></shape>
-    </ng-map>
-  
-</div>
+<div id="trailmap"></div>
 
 
 

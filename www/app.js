@@ -1,4 +1,4 @@
-angular.module('trailsApp', ['ui.router', 'ngMap'])
+angular.module('trailsApp', ['ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.when('', '/');
