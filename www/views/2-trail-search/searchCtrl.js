@@ -12,8 +12,27 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc) 
 
     allTrails();
 
+    // $scope.distanceFilter = function() {
+
+    // }
+
+    // $scope.elevationFilter = function() {
+
+    // }
+
+    // $scope.difficultyFilter = function() {
+
+    // }
+
+    // $scope.timeFilter = function() {
+    //     let time
+    // }
+
+    $scope.difficulty = [];
+
     $scope.filterTrails = function() {
-        
+        console.log($scope.distance, $scope.height, $scope.difficulty,$scope.time)
+        mainSvc.filterTrails($scope.distance, $scope.height, $scope.difficulty,$scope.time)
     }
 
 

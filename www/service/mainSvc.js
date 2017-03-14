@@ -4,6 +4,7 @@ angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elev
     let trailNames;
     this.trailNames = trailNames;
     this.trailData = trailData;
+    this.filterTrails = filterTrails;
 
     //-------------- all trails ---------------//
 
@@ -17,10 +18,17 @@ angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elev
         })
     }
 
+    //------------- filter trails --------------//
+
+    function filterTrails() {
+
+    }
+
+
+
     //----------- single trail data ------------//
 
     function trailData(id) {
-
         return $http.get('/search/trail/' + id).then(response => {
             return response.data[0];
         })
@@ -28,7 +36,6 @@ angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elev
 
 
     function coordsLength(trail) {
-
         if (trail.coords.length < 500) {
             polyline = polylineSvc.createEncodings(trail.coords);
         } else if (trail.coords.length < 640) { // take out every other third element
