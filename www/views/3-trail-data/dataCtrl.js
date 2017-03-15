@@ -24,9 +24,6 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
             var trailhead = L.marker([coords[0][0], coords[0][1]]).addTo(map)
             var trailend = L.marker([coords[coords.length - 1][0], coords[coords.length - 1][1]]).addTo(map)
 
-            var markers = new L.featureGroup([trailhead, trailend]);
-            map.fitBounds(markers.getBounds());
-
             //---------- polyline -------------//
 
             var latlngs = coords;

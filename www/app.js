@@ -14,7 +14,7 @@ angular.module('trailsApp', ['ui.router'])
             controller: 'searchCtrl'
         })
         .state('trail-data', {
-            url: '/search/trail/:id',
+            url: '/trail/:id',
             templateUrl: 'views/3-trail-data/data.html',
             controller: 'dataCtrl'
         })
