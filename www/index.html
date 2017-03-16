@@ -17,13 +17,17 @@
 </head>
 
 <body ng-controller='mainCtrl'>
-    <div style="text-align: right">
-        log in
+
+
+    <div class="row">
+        <a href="/auth"><button class="button-primary">Login with Auth0</button></a>
+    </div>
+    <div class="row">
+        <a href="/auth/logout"><button class="button-primary">Logout</button></a>
     </div>
 
+
     <ui-view></ui-view>
-
-
 
 
 
@@ -42,6 +46,7 @@
     <script src="./controllers/updateTrailCtrl.js"></script>
     <script src="./views/3-trail-data/mapDirective.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.js'></script>
+    <script src="./service/loginSvc.js"></script>
 </body>
 
 </html>

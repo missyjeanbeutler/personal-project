@@ -34,7 +34,61 @@ let controller = require('./trail_ctrl');
 let updater = require('./update_trails_ctrl')
 
 
-//-----------------
+//------------Auth----------------//
+
+passport.use(new Auth0Strategy({ 
+   domain:       config.auth0.domain,
+   clientID:     config.auth0.clientID,
+   clientSecret: config.auth0.clientSecret,
+   callbackURL:  'http://localhost:3000/auth/callback' 
+  },
+  function(accessToken, refreshToken, extraParams, profile, done) { 
+    console.log(profile)
+    db.getUserByAuthId([profile.id], function(err, user) { //their profile.id with auth0
+      user = user[0];
+      if (!user) { 
+        console.log('CREATING USER');
+        db.createUserByAuth([profile.displayName, profile.id], function(err, user) { //right here we're specifying what information we're wanting to store. If we wanted something else we could do profile.whateverWeWanted in the array on this line.
+          console.log('USER CREATED', userA);
+          return done(err, user[0]); 
+        })
+      } else {  
+        console.log('FOUND USER', user);
+        return done(err, user); 
+      }
+    })
+  }
+));
+
+passport.serializeUser(function(userA, done) {
+  console.log('serializing', userA);
+  var userB = userA;
+  done(null, userB); 
+});
+
+passport.deserializeUser(function(userB, done) { 
+  var userC = userC;
+  //Things you might do here :
+    // Query the database with the user id, get other information to put on req.user
+  done(null, userC);
+});
+
+app.get('/auth', passport.authenticate('auth0'));
+
+app.get('/auth/callback',
+  passport.authenticate('auth0', {successRedirect: '/'}), function(req, res) {
+    res.status(200).send(req.user);
+})
+
+app.get('/auth/me', function(req, res) {
+  if (!req.user) return res.sendStatus(404);
+  res.status(200).send(req.user);
+})
+
+app.get('/auth/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+})
 
 
 // ---------- database -----------//
