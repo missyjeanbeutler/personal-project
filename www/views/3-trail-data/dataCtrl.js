@@ -14,24 +14,55 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
 
             //--------- create map -----------//
 
-            let map = L.map('trailmap').setView([middle[0], middle[1]], 13);
-            L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA', {
-                maxZoom: 18
-            }).addTo(map);
+            mapboxgl.accessToken = 'pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA';
+            var map = new mapboxgl.Map({
+                container: 'trailmap', // container id
+                style: 'mapbox://styles/mapbox/dark-v9', //stylesheet location
+                center: [middle[0], middle[1]], // starting position
+                zoom: 9 // starting zoom
+            });
 
-            //----------- markers -----------//
+            //------------polyline-------------//
 
-            var trailhead = L.marker([coords[0][0], coords[0][1]]).addTo(map)
-            var trailend = L.marker([coords[coords.length - 1][0], coords[coords.length - 1][1]]).addTo(map)
+            map.on('load', function () {
 
-            //---------- polyline -------------//
+                map.addLayer({
+                    "id": "route",
+                    "type": "line",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": coords
+                            }
+                        }
+                    },
+                    "layout": {
+                        "line-join": "round",
+                        "line-cap": "round"
+                    },
+                    "paint": {
+                        "line-color": "#f00",
+                        "line-width": 2
+                    }
+                });
 
-            var latlngs = coords;
-            var polyline = L.polyline(latlngs, {
-                color: 'red'
-            }).addTo(map);
-            // zoom the map to the polyline
-            map.fitBounds(polyline.getBounds());
+                //-------zoom into polyline--------//
+
+                var bounds = coords.reduce(function (bounds, coord) {
+                    return bounds.extend(coord);
+                }, new mapboxgl.LngLatBounds(coords[0], coords[0]));
+
+                map.fitBounds(bounds, {
+                    padding: 40
+                });
+
+            });
+
+
 
 
         })

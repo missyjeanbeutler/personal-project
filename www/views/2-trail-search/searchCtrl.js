@@ -2,13 +2,13 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
     function allTrails() {
         let deferred = $q.defer()
-        if (mainSvc.trailNames) {
-            $scope.trails = mainSvc.trailNames
-            return deferred.resolve($scope.trails)
+        if (mainSvc.geojson) {
+            // $scope.trails = mainSvc.trailNames
+            return deferred.resolve(response)
         } else {
             mainSvc.allTrails().then(response => {
-                $scope.trails = response;
-                return deferred.resolve($scope.trails)
+                // $scope.trails = response;
+                return deferred.resolve(response)
             })
         }
         return deferred.promise;
@@ -18,77 +18,85 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
     allTrails().then(response => {
 
-        let trails = response;
+        let geojson = response;
 
         //---------set map------------//
 
-        let map = L.map('alltrails', {
-            zoomControl: false
-        }).setView([40.233845, -111.658531], 7);
-        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA', {
-            maxZoom: 18
-        }).addTo(map);
-
-        //----------change side of zoom control------------//
-
-        L.control.zoom({
-            position: 'topright'
-        }).addTo(map);
-
-
-        //-------cluster groups-------//
-
-        var cluster = L.markerClusterGroup({
-            showCoverageOnHover: false,
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA';
+        var map = new mapboxgl.Map({
+            container: 'alltrails', // container id
+            style: 'mapbox://styles/mapbox/dark-v9', //stylesheet location
+            center: [-110.6585, 40.3338], // starting position
+            zoom: 9 // starting zoom
         });
 
 
-        trails.forEach(trail => {
-            let marker = L.marker([trail.coords[0][0], trail.coords[0][1]], {
-                title: trail.trail_name,
+
+        map.on('load', function () {
+            // Add a new source from our GeoJSON data and set the
+            // 'cluster' option to true.
+            map.addSource("trails", {
+                type: "geojson",
+                // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
+                // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+                data: geojson,
+                cluster: true,
+                clusterMaxZoom: 14, // Max zoom to cluster points on
+                clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
             });
-            cluster.addLayer(marker);
-        })
 
+            // Use the earthquakes source to create five layers:
+            // One for unclustered points, three for each cluster category,
+            // and one for cluster labels.
+            map.addLayer({
+                "id": "unclustered-points",
+                "type": "symbol",
+                "source": "trails",
+                "filter": ["!has", "point_count"],
+                "layout": {
+                    "icon-image": "marker-15"
+                }
+            });
 
-        map.addLayer(cluster)
+            // Display the earthquake data in three layers, each filtered to a range of
+            // count values. Each range gets a different fill color.
+            var layers = [
+                [150, '#f28cb1'],
+                [20, '#f1f075'],
+                [0, '#51bbd6']
+            ];
 
-        cluster.on('mouseover', function (e) {
-            console.log(e.latlng)
+            layers.forEach(function (layer, i) {
+                map.addLayer({
+                    "id": "cluster-" + i,
+                    "type": "circle",
+                    "source": "trails",
+                    "paint": {
+                        "circle-color": layer[1],
+                        "circle-radius": 18
+                    },
+                    "filter": i === 0 ? [">=", "point_count", layer[0]] : ["all", [">=", "point_count", layer[0]],
+                        ["<", "point_count", layers[i - 1][0]]
+                    ]
+                });
+            });
 
-        })
-
-        //--------list trails in map view----------//
-
-
-        var list = new L.Control.ListMarkers({
-            layer: cluster,
-            itemIcon: null,
-            // position: 'middleleft',
-            // label: this.trail_name
+            // Add a layer for the clusters' count labels
+            map.addLayer({
+                "id": "cluster-count",
+                "type": "symbol",
+                "source": "trails",
+                "layout": {
+                    "text-field": "{point_count}",
+                    "text-font": [
+                        "DIN Offc Pro Medium",
+                        "Arial Unicode MS Bold"
+                    ],
+                    "text-size": 12
+                }
+            });
         });
 
-        list
-            .on('item-mouseover', function (e) {
-                e.layer.setIcon(L.icon({
-                    iconUrl: '../images/select-marker.png'
-                }))
-            })
-            .on('item-mouseout', function (e) {
-                e.layer.setIcon(L.icon({
-                    iconUrl: L.Icon.Default.imagePath + '/marker-icon.png'
-                }))
-            })
-            .on('item-click', function (e) {
-                console.log('wwwhhhyyy')
-                $state.go('trail-data', {
-                    id: this.trail_id
-                });
-            }, this)
-
-
-
-        map.addControl(list);
 
 
 
@@ -96,12 +104,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
 
 
-    $scope.difficulty = [];
 
-    $scope.filterTrails = function () {
-        console.log($scope.distance, $scope.height, $scope.difficulty, $scope.time)
-        mainSvc.filterTrails($scope.distance, $scope.height, $scope.difficulty, $scope.time)
-    }
 
 
 

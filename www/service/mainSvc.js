@@ -1,47 +1,86 @@
-angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elevationSvc) {
-    
+angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, elevationSvc) {
+
     this.allTrails = allTrails;
-    let trailNames;
-    this.trailNames = trailNames;
+    // let trailNames;
+    // this.trailNames = trailNames;
     this.trailData = trailData;
-    this.filterTrails = filterTrails;
+    let geojson;
+    this.geojson = geojson
 
     //-------------- all trails ---------------//
 
-    allTrails().then(response => {
-        trailNames = response;
-    })
+    allTrails()
+    // .then(response => {
+    // trailNames = response;
+    // for (let i = 0; i < trailNames.length; i++) {
+    //     trailNames[i].coords = JSON.parse(trailNames[i].coords)
+    // }
+    // let geo = []
+    // response.forEach(e => {
+    //     geo.push({
+    //         type: "Feature",
+    //         properties: {
+    //             name: e.trail_name,
+    //             // id: e.trail_id,
+    //             // polyline: e.coords
+    //         },
+    //         geometry: {
+    //             type: "Point",
+    //             coordinates: e.coords[0]
+    //         }
+    //     })
+    // })
+    // geojson = JSON.stringify({ 
+    //     type: "FeatureCollection", 
+    //     crs: {
+    //         type: "name",
+    //         properties: {
+    //             name: "urn:ogc:def:crs:OGC:1.3:CRS84"
+    //         }
+    //     },
+    //     features: geo
+    // });
+    // return geojson;
+    // });
+
 
     function allTrails() {
         return $http.get('/api/search').then(response => {
-            for(let i = 0; i < response.data.length; i++) {
-                response.data[i].coords = fixLatLong(JSON.parse(response.data[i].coords))
-            }
-            return response.data;
+            let geo = []
+            response.data.forEach(e => {
+                e.coords = JSON.parse(e.coords);
+                geo.push({
+                    type: "Feature",
+                    properties: {
+                        name: e.trail_name,
+                        // id: e.trail_id,
+                        // polyline: e.coords
+                    },
+                    geometry: {
+                        type: "Point",
+                        coordinates: e.coords[0]
+                    }
+                })
+            })
+            geojson = JSON.stringify({
+                type: "FeatureCollection",
+                crs: {
+                    type: "name",
+                    properties: {
+                        name: "urn:ogc:def:crs:OGC:1.3:CRS84"
+                    }
+                },
+                features: geo
+            });
+            return geojson;
         })
     }
-
-    function fixLatLong(coords) {
-        let fixedLatLong = []
-        for (let i = 0; i < coords.length; i++) {
-            fixedLatLong.push([coords[i][1], coords[i][0]])
-        }
-        return fixedLatLong;
-    }
-
-    //------------- filter trails --------------//
-
-    function filterTrails() {
-
-    }
-
-
 
     //----------- single trail data ------------//
 
     function trailData(id) {
         return $http.get('/search/trail/' + id).then(response => {
-            response.data[0].coords = fixLatLong(JSON.parse(response.data[0].coords));
+            response.data[0].coords = JSON.parse(response.data[0].coords);
             return response.data[0];
         })
     }
@@ -76,10 +115,10 @@ angular.module('trailsApp').service('mainSvc', function($http, polylineSvc, elev
             .then(response => {
                 trail.elevation_array = response;
                 return trail;
-            }) 
+            })
     }
 
 
-    
+
 
 })

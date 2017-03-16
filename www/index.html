@@ -13,15 +13,14 @@
     <link href="./views/3-trail-data/data.css" rel="stylesheet">
     <link href="./views/6-user-stats/stats.css" rel="stylesheet">
     <link href="./views/7-saved-trails/saved.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.4/MarkerCluster.css"
-    />
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.4/MarkerCluster.Default.css"
-    />
-    <link rel="stylesheet" href="./listMarkers/leaflet-list-markers.css">
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
-<body ng-controller='updateCtrl'>
+<body ng-controller='mainCtrl'>
+    <div style="text-align: right">
+        log in
+    </div>
+
     <ui-view></ui-view>
 
 
@@ -42,9 +41,7 @@
     <script src="./service/postNewTrailSvc.js"></script>
     <script src="./controllers/updateTrailCtrl.js"></script>
     <script src="./views/3-trail-data/mapDirective.js"></script>
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.4/leaflet.markercluster-src.js"></script>
-    <script src="./listMarkers/leaflet-list-markers.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.js'></script>
 </body>
 
 </html>
