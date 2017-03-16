@@ -9,17 +9,6 @@ angular.module('trailsApp').controller('mainCtrl', function($scope, mainSvc, $st
 
   getUser();
 
-  $scope.loginLocal = function(username, password) {
-    console.log('Logging in with', username, password);
-    loginSvc.loginLocal({
-      username: username,
-      password: password
-    })
-    .then(function(res) {
-      getUser();
-    })
-  }
-
   $scope.logout = loginSvc.logout;
     
 

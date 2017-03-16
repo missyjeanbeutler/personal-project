@@ -43,13 +43,12 @@ passport.use(new Auth0Strategy({
    callbackURL:  'http://localhost:3000/auth/callback' 
   },
   function(accessToken, refreshToken, extraParams, profile, done) { 
-    console.log(profile)
     db.getUserByAuthId([profile.id], function(err, user) { //their profile.id with auth0
       user = user[0];
       if (!user) { 
         console.log('CREATING USER');
         db.createUserByAuth([profile.displayName, profile.id], function(err, user) { //right here we're specifying what information we're wanting to store. If we wanted something else we could do profile.whateverWeWanted in the array on this line.
-          console.log('USER CREATED', userA);
+          console.log('USER CREATED', user);
           return done(err, user[0]); 
         })
       } else {  
@@ -67,9 +66,17 @@ passport.serializeUser(function(userA, done) {
 });
 
 passport.deserializeUser(function(userB, done) { 
-  var userC = userC;
+  var userC = userB;
   //Things you might do here :
     // Query the database with the user id, get other information to put on req.user
+    db.getUserFavorites(userC.authid, function(err, favorites) {
+      if (!err) userC.favorites = favorites;
+      else res.send(err)
+    })
+    db.getUserCompleted(userC.authid, function(err, completed) {
+      if (!err) userC.completed = completed;
+      else res.send(err);
+    })
   done(null, userC);
 });
 
@@ -87,7 +94,7 @@ app.get('/auth/me', function(req, res) {
 
 app.get('/auth/logout', function(req, res) {
   req.logout();
-  res.redirect('/');
+  res.redirect('/'); 
 })
 
 
