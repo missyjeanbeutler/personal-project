@@ -1,0 +1,14 @@
+<h1>{{user}}</h1>
+<br>
+<br>
+<h1>Completed</h1>
+<div ng-repeat='complete in completed'>
+    {{complete.trail_id}}
+</div>
+<br>    
+<br>
+<h1>Favorites</h1>
+<div ng-repeat='favorite in favorites'>
+    {{favorite.trail_id}} <button>remove from favorites</button> 
+    <button>mark completed</button>
+</div>

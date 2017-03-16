@@ -20,19 +20,10 @@ angular.module('trailsApp', ['ui.router'])
         })
         .state('profile', {
             url: '/profile',
-            templateUrl: 'views/5-profile-wrapper/profile.html',
-            controller: 'profileCtrl'
+            templateUrl: 'views/5-profile/profile.html',
+            controller: 'mainCtrl'
         })
-        .state('stats', {
-            parent: 'profile',
-            url: '/profile/stats',
-            templateUrl: 'views/6-user-stats/stats.html'
-        })
-        .state('saved-trails', {
-            parent: 'profile',
-            url: '/profile/saved-trails',
-            templateUrl: 'views/7-saved-trails/saved.html'
-        })
+        
 
 
         $urlRouterProvider.otherwise('/');

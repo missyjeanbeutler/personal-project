@@ -48,6 +48,7 @@ passport.use(new Auth0Strategy({
       if (!user) { 
         console.log('CREATING USER');
         db.createUserByAuth([profile.displayName, profile.id], function(err, user) { //right here we're specifying what information we're wanting to store. If we wanted something else we could do profile.whateverWeWanted in the array on this line.
+        console.log('2b')
           console.log('USER CREATED', user);
           return done(err, user[0]); 
         })
@@ -71,11 +72,11 @@ passport.deserializeUser(function(userB, done) {
     // Query the database with the user id, get other information to put on req.user
     db.getUserFavorites(userC.authid, function(err, favorites) {
       if (!err) userC.favorites = favorites;
-      else res.send(err)
+      else return err;
     })
     db.getUserCompleted(userC.authid, function(err, completed) {
       if (!err) userC.completed = completed;
-      else res.send(err);
+      else return err;
     })
   done(null, userC);
 });

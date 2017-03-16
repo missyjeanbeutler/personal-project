@@ -11,8 +11,7 @@
     <link href="./views/1-home/home.css" rel="stylesheet">
     <link href="./views/2-trail-search/search.css" rel="stylesheet">
     <link href="./views/3-trail-data/data.css" rel="stylesheet">
-    <link href="./views/6-user-stats/stats.css" rel="stylesheet">
-    <link href="./views/7-saved-trails/saved.css" rel="stylesheet">
+    <link rel="stylesheet" href="./views/5-profile/profile.css">
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
@@ -26,6 +25,9 @@
         <a href="/auth/logout"><button class="button-primary">Logout</button></a>
     </div>
     {{user}}
+    <div>
+        <a ui-sref="profile"><button>Profile page</button></a>
+    </div>
 
 
     <ui-view></ui-view>
@@ -38,7 +40,6 @@
     <script src="app.js"></script>
     <script src="./views/2-trail-search/searchCtrl.js"></script>
     <script src="./views/3-trail-data/dataCtrl.js"></script>
-    <script src="./views/5-profile-wrapper/profileCtrl.js"></script>
     <script src="./service/mainSvc.js"></script>
     <script src="mainCtrl.js"></script>
     <script src="./service/polylineSvc.js"></script>
