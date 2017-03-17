@@ -2,14 +2,12 @@
 <br>
 <h1>DISTANCE IN MILES</h1>
 <h1>from 0 to</h1>
-<input type="range" min="0" max="100" value="25" step="1" ng-model='distance' ng-click='filterButtons()'/>
-{{distance}}
+<input type="range" min="0" max="100" value="25" step="1" ng-model='distance' ng-click='filterButtons()' /> {{distance}}
 <br>
 <br>
 <h1>ELEVATION CHANGE IN FEET</h1>
 <h1>from 0 to</h1>
-<input type="range" min="0" max="10000" value="25" step="1" ng-model='height'/>
-{{height}}
+<input type="range" min="0" max="10000" value="25" step="1" ng-model='height' /> {{height}}
 <h1>to</h1>
 <br>
 <br>
@@ -23,12 +21,16 @@
 <br>
 <h1>ESTIMATED TIME TO COMPLETE IN HOURS</h1>
 <h1>from 0 to</h1>
-<input type="range" min="0" max="20" value="25" step="1" ng-model='time'/>
-{{time}}
+<input type="range" min="0" max="20" value="25" step="1" ng-model='time' /> {{time}}
 <button ng-click='filterTrails()'>SEARCH!</button>
 <br>
 <!--<ul ng-repeat="trail in trails">
     <li ui-sref='trail-data({id: trail.trail_id})'>{{trail.trail_name}}</li>
 </ul>-->
-
-        <div id="alltrails"></div>
+<div id="alltrails"></div>
+<div class='map-overlay'>
+    <fieldset>
+        <input id='feature-filter' type='text' placeholder='Filter results by name' />
+    </fieldset>
+    <div id='feature-listing' class='listing'></div>
+</div>

@@ -17,29 +17,32 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             response.data.forEach(e => {
                 e.coords = JSON.parse(e.coords);
                 geo.push({
-                    type: "Feature",
-                    properties: {
-                        name: e.trail_name,
+                    "type": "Feature",
+                    "properties": {
+                        "name": `"${e.trail_name}"`,
                         // id: e.trail_id,
                         // polyline: e.coords
                     },
-                    geometry: {
-                        type: "Point",
-                        coordinates: e.coords[0]
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": e.coords[0]
                     }
                 })
             })
-            geojson = JSON.stringify({
-                type: "FeatureCollection",
-                crs: {
-                    type: "name",
-                    properties: {
-                        name: "urn:ogc:def:crs:OGC:1.3:CRS84"
-                    }
-                },
-                features: geo
-            });
-            return geojson;
+
+            return geo;
+
+            // geojson = JSON.stringify({
+            //     type: "FeatureCollection",
+            //     crs: {
+            //         type: "name",
+            //         // properties: {
+            //         //     name: "urn:ogc:def:crs:OGC:1.3:CRS84"
+            //         // }
+            //     },
+            //     features: geo
+            // });
+            // return geojson;
         })
     }
 

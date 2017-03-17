@@ -17,7 +17,7 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
             mapboxgl.accessToken = 'pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA';
             var map = new mapboxgl.Map({
                 container: 'trailmap', // container id
-                style: 'mapbox://styles/mapbox/dark-v9', //stylesheet location
+                style: 'mapbox://styles/missyjean/cj0bnm0ka00202rpbyll4nvzl', //stylesheet location
                 center: [middle[0], middle[1]], // starting position
                 zoom: 9 // starting zoom
             });
@@ -45,7 +45,7 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
                         "line-cap": "round"
                     },
                     "paint": {
-                        "line-color": "#f00",
+                        "line-color": "#7edccc",
                         "line-width": 2
                     }
                 });

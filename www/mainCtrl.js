@@ -3,8 +3,6 @@ angular.module('trailsApp').controller('mainCtrl', function($scope, mainSvc, $st
 
  //--------------- login/logout ----------------//
 
-// $scope.favorites;
-// $scope.completed;
 let id;
 
     function getUser() {
