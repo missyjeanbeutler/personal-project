@@ -1,4 +1,4 @@
-<h1>Let's look for a trail!</h1>
+<!--<h1>Let's look for a trail!</h1>
 <br>
 <h1>DISTANCE IN MILES</h1>
 <h1>from 0 to</h1>
@@ -23,13 +23,14 @@
 <h1>from 0 to</h1>
 <input type="range" min="0" max="20" value="25" step="1" ng-model='time' /> {{time}}
 <button ng-click='filterTrails()'>SEARCH!</button>
-<br>
-<!--<ul ng-repeat="trail in trails">
-    <li ui-sref='trail-data({id: trail.trail_id})'>{{trail.trail_name}}</li>
-</ul>-->
+<br>-->
+<h1>all the trails</h1>
+<ul ng-repeat="trail in trailListing">
+    <li ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'>{{trail.properties.name}}</li>
+</ul>
 <div id="alltrails"></div>
-<div class='map-overlay'>
-    <fieldset>
+<div class='alltrails-overlay'>
+    <fieldset >
         <input id='feature-filter' type='text' placeholder='Filter results by name' />
     </fieldset>
     <div id='feature-listing' class='listing'></div>

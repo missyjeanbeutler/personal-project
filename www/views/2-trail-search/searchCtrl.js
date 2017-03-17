@@ -89,196 +89,187 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     "text-size": 12
                 }
             });
-        // }); THIS IS THE ORIGINAL FUNCTION ENDING
+            // }); ORIGINAL
 
-        //-------------- center on click  ----------------//
+            //-------------- center on click  ----------------//
 
-        map.on('click', function (e) {
-            var features = map.queryRenderedFeatures(e.point, {
-                layers: ['unclustered-points']
-            });
-            if (features.length) {
-                map.flyTo({
-                    center: features[0].geometry.coordinates,
-                    speed: 0.7
+            map.on('click', function (e) {
+                var features = map.queryRenderedFeatures(e.point, {
+                    layers: ['unclustered-points']
                 });
-            }
-        });
-
-
-        map.on('mousemove', function (e) {
-            var features = map.queryRenderedFeatures(e.point, {
-                layers: ['unclustered-points', 'cluster-count']
+                if (features.length) {
+                    map.flyTo({
+                        center: features[0].geometry.coordinates,
+                        speed: 0.7
+                    });
+                }
             });
-            map.getCanvas().style.cursor = features.length ? 'pointer' : '';
-        });
 
-        //-------------- center and zoom on click for clusters ----------------//
 
-        map.on('click', function (e) {
-            var features = map.queryRenderedFeatures(e.point, {
-                layers: ['cluster-count']
-            });
-            if (features.length) {
-                map.flyTo({
-                    center: features[0].geometry.coordinates,
-                    speed: 0.7,
-                    zoom: map.getZoom() + 1
+            map.on('mousemove', function (e) {
+                var features = map.queryRenderedFeatures(e.point, {
+                    layers: ['unclustered-points', 'cluster-count']
                 });
+                map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+            });
+
+            //-------------- center and zoom on click for clusters ----------------//
+
+            map.on('click', function (e) {
+                var features = map.queryRenderedFeatures(e.point, {
+                    layers: ['cluster-count']
+                });
+                if (features.length) {
+                    map.flyTo({
+                        center: features[0].geometry.coordinates,
+                        speed: 0.7,
+                        zoom: map.getZoom() + 1
+                    });
+                }
+            });
+
+            //---------------- filter and list based on map view ----------------//
+
+            // Holds visible airport features for filtering
+            var filteredTrails = [];
+
+            // Create a popup, but don't add it to the map yet.
+            var popup = new mapboxgl.Popup({
+                closeButton: false
+            });
+
+            var filterEl = document.getElementById('feature-filter'); // input bar
+            var listingEl = document.getElementById('feature-listing'); // listing div
+
+            function renderListings(features) {
+                // Clear listings
+                listingEl.innerHTML = '';
+                if (features.length) {
+                    features.forEach(function (feature) {
+                        var prop = feature.properties;
+                        var item = document.createElement('a');
+                        // item.href = $state.go("trail-data", {id: prop.id});
+                        item.target = '_blank';
+                        item.textContent = prop.name;
+                        item.addEventListener('mouseover', function () {
+                            // Highlight feature on map
+                            popup.setLngLat(feature.geometry.coordinates)
+                                .setText(feature.properties.name)
+                                .addTo(map);
+                        });
+                        listingEl.appendChild(item);
+                    });
+
+                    // Show the filter input
+                    filterEl.parentNode.style.display = 'block';
+                } else {
+                    var empty = document.createElement('p');
+                    empty.textContent = 'Drag the map to populate results';
+                    listingEl.appendChild(empty);
+
+                    filterEl.parentNode.style.display = 'block';
+
+                    // remove features filter
+                    map.setFilter('unclustered-points', ['has', 'name']);
+                }
             }
+
+
+
+
+
+            function normalize(string) {
+                return string.trim().toLowerCase();
+            }
+
+            function getUniqueFeatures(array, comparatorProperty) {
+
+                var existingFeatureKeys = {};
+                var uniqueFeatures = array.filter(function (el) {
+                    if (existingFeatureKeys[el.properties[comparatorProperty]]) {
+                        return false;
+                    } else {
+                        existingFeatureKeys[el.properties[comparatorProperty]] = true;
+                        return true;
+                    }
+                });
+
+                return uniqueFeatures;
+            }
+
+            map.on('moveend', function () {
+                var features = map.queryRenderedFeatures({
+                    layers: ['unclustered-points']
+                });
+
+                if (features) {
+                    var uniqueFeatures = getUniqueFeatures(features, "name");
+                    // Populate features for the listing overlay.
+
+                    $scope.hoverList = function(coords, name) {
+                        popup.setLngLat(coords)
+                                .setText(name)
+                                .addTo(map);
+                    }
+
+                    $scope.trailListing = uniqueFeatures;
+                    $scope.$digest()
+                    renderListings(uniqueFeatures);
+
+                    // Clear the input container
+                    filterEl.value = '';
+
+                    filteredTrails = uniqueFeatures;
+                }
+            });
+
+            map.on('mousemove', function (e) {
+                var features = map.queryRenderedFeatures(e.point, {
+                    layers: ['unclustered-points']
+                });
+
+                // Change the cursor style as a UI indicator.
+                map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+
+                if (!features.length) {
+                    popup.remove();
+                    return;
+                }
+
+                var feature = features[0];
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(feature.geometry.coordinates)
+                    .setText(feature.properties.name)
+                    .addTo(map);
+            });
+
+            filterEl.addEventListener('keyup', function (e) {
+                var value = normalize(e.target.value);
+
+                // Filter visible features that don't match the input value.
+                var filtered = filteredTrails.filter(function (feature) {
+                    var name = normalize(feature.properties.name);
+                    return name.indexOf(value) > -1;
+                });
+                
+
+                // Populate the sidebar with filtered results
+                renderListings(filtered);
+
+                // Set the filter to populate features into the layer.
+                map.setFilter('unclustered-points', ['in', 'name'].concat(filtered.map(function (feature) {
+                    return feature.properties.name;
+                })));
+            });
+
+            // Call this function on initialization
+            // passing an empty array to render an empty state
+            renderListings([]);
         });
 
-        //---------------- filter and list based on map view ----------------//
-
-//         // Holds visible airport features for filtering
-//         var filteredTrails = [];
-
-//         // Create a popup, but don't add it to the map yet.
-//         var popup = new mapboxgl.Popup({
-//             closeButton: false
-//         });
-
-//         var filterEl = document.getElementById('feature-filter'); // input bar
-//         var listingEl = document.getElementById('feature-listing'); // listing div
-
-//         function renderListings(features) {
-//             // Clear any existing listings
-//             listingEl.innerHTML = '';
-//             if (features.length) {
-//                 features.forEach(function (feature) {
-//                     var prop = feature.properties;
-//                     var item = document.createElement('a');
-//                     item.href = prop.wikipedia; // CHANGE TO LIST TO TRAIL PAGE !!
-//                     item.target = '_blank';
-//                     item.textContent = prop.name + ' (' + prop.abbrev + ')';
-//                     item.addEventListener('mouseover', function () {
-//                         // Highlight corresponding feature on the map
-//                         popup.setLngLat(feature.geometry.coordinates)
-//                             .setText(feature.properties.name + ' (' + feature.properties.abbrev + ')')
-//                             .addTo(map);
-//                     });
-//                     listingEl.appendChild(item);
-//                 });
-
-//                 // Show the filter input
-//                 filterEl.parentNode.style.display = 'block';
-//             } else {
-//                 var empty = document.createElement('p');
-//                 empty.textContent = 'Drag the map to populate results';
-//                 listingEl.appendChild(empty);
-
-//                 // Hide the filter input
-//                 filterEl.parentNode.style.display = 'none';
-
-//                 // remove features filter
-//                 map.setFilter('unclustered-points', ['has', 'abbrev']);
-//             }
-//         }
-
-//         function normalize(string) {
-//             return string.trim().toLowerCase();
-//         }
-
-//         function getUniqueFeatures(array, comparatorProperty) {
-//             var existingFeatureKeys = {};
-//             // Because features come from tiled vector data, feature geometries may be split
-//             // or duplicated across tile boundaries and, as a result, features may appear
-//             // multiple times in query results.
-//             var uniqueFeatures = array.filter(function (el) {
-//                 if (existingFeatureKeys[el.properties[comparatorProperty]]) {
-//                     return false;
-//                 } else {
-//                     existingFeatureKeys[el.properties[comparatorProperty]] = true;
-//                     return true;
-//                 }
-//             });
-
-//             return uniqueFeatures;
-//         }
-
-//         // map.on('load', function () {
-
-//             // map.addLayer({
-//             //     "id": "airport",
-//             //     "source": {
-//             //         "type": "vector",
-//             //         "url": "mapbox://mapbox.04w69w5j"
-//             //     },
-//             //     "source-layer": "ne_10m_airports",
-//             //     "type": "symbol",
-//             //     "layout": {
-//             //         "icon-image": "airport-15",
-//             //         "icon-padding": 0,
-//             //         "icon-allow-overlap": true
-//             //     }
-//             // });
-
-//             map.on('moveend', function () {
-//                 var features = map.queryRenderedFeatures({
-//                     layers: ['unclustered-points']
-//                 });
-
-//                 if (features) {
-//                     var uniqueFeatures = getUniqueFeatures(features, "iata_code");
-//                     // Populate features for the listing overlay.
-//                     renderListings(uniqueFeatures);
-
-//                     // Clear the input container
-//                     filterEl.value = '';
-
-//                     // Store the current features in sn `airports` variable to
-//                     // later use for filtering on `keyup`.
-//                     filteredTrails = uniqueFeatures;
-//                 }
-//             });
-
-//             map.on('mousemove', function (e) {
-//                 var features = map.queryRenderedFeatures(e.point, {
-//                     layers: ['unclustered-points']
-//                 });
-
-//                 // Change the cursor style as a UI indicator.
-//                 map.getCanvas().style.cursor = features.length ? 'pointer' : '';
-
-//                 if (!features.length) {
-//                     popup.remove();
-//                     return;
-//                 }
-
-//                 var feature = features[0];
-//                 // Populate the popup and set its coordinates
-//                 // based on the feature found.
-//                 popup.setLngLat(feature.geometry.coordinates)
-//                     .setText(feature.properties.name + ' (' + feature.properties.abbrev + ')')
-//                     .addTo(map);
-//             });
-
-//             filterEl.addEventListener('keyup', function (e) {
-//                 var value = normalize(e.target.value);
-
-//                 // Filter visible features that don't match the input value.
-//                 var filtered = filteredTrails.filter(function (feature) {
-//                     var name = normalize(feature.properties.name);
-//                     var code = normalize(feature.properties.abbrev);
-//                     return name.indexOf(value) > -1 || code.indexOf(value) > -1;
-//                 });
-
-//                 // Populate the sidebar with filtered results
-//                 renderListings(filtered);
-
-//                 // Set the filter to populate features into the layer.
-//                 map.setFilter('unclustered-points', ['in', 'abbrev'].concat(filtered.map(function (feature) {
-//                     return feature.properties.abbrev;
-//                 })));
-//             });
-
-//             // Call this function on initialization
-//             // passing an empty array to render an empty state
-//             renderListings([]);
-//         // });
 
 
-});
 
 
     });
