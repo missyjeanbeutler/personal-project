@@ -130,6 +130,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
             //---------------- filter and list based on map view ----------------//
 
+
             // Holds visible airport features for filtering
             var filteredTrails = [];
 
@@ -139,48 +140,73 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             });
 
             var filterEl = document.getElementById('feature-filter'); // input bar
-            var listingEl = document.getElementById('feature-listing'); // listing div
+            // var listingEl = document.getElementById('feature-listing'); // listing div
 
-            function renderListings(features) {
+            // function renderListings(features) {
                 // Clear listings
-                listingEl.innerHTML = '';
-                if (features.length) {
-                    features.forEach(function (feature) {
-                        var prop = feature.properties;
-                        var item = document.createElement('a');
-                        // item.href = $state.go("trail-data", {id: prop.id});
-                        item.target = '_blank';
-                        item.textContent = prop.name;
-                        item.addEventListener('mouseover', function () {
-                            // Highlight feature on map
-                            popup.setLngLat(feature.geometry.coordinates)
-                                .setText(feature.properties.name)
-                                .addTo(map);
-                        });
-                        listingEl.appendChild(item);
-                    });
+                // listingEl.innerHTML = '';
+                // if (features.length) {
+                //     features.forEach(function (feature) {
+                //         var prop = feature.properties;
+                        // var item = document.createElement('a');
+                        // // item.href = $state.go("trail-data", {id: prop.id});
+                        // item.target = '_blank';
+                        // item.textContent = prop.name;
+                        // item.addEventListener('mouseover', function () {
+                        //     // Highlight feature on map
+                        //     popup.setLngLat(feature.geometry.coordinates)
+                        //         .setText(feature.properties.name)
+                        //         .addTo(map);
+                        // });
+                        // listingEl.appendChild(item);
+                    // });
 
                     // Show the filter input
-                    filterEl.parentNode.style.display = 'block';
-                } else {
-                    var empty = document.createElement('p');
-                    empty.textContent = 'Drag the map to populate results';
-                    listingEl.appendChild(empty);
+                    // filterEl.parentNode.style.display = 'block';
+                // } else {
+                //     var empty = document.createElement('p');
+                //     empty.textContent = 'Drag the map to populate results';
+                //     listingEl.appendChild(empty);
 
-                    filterEl.parentNode.style.display = 'block';
+                //     filterEl.parentNode.style.display = 'block';
 
-                    // remove features filter
-                    map.setFilter('unclustered-points', ['has', 'name']);
-                }
-            }
-
-
+                //     // remove features filter
+                //     map.setFilter('unclustered-points', ['has', 'name']);
+                // // }
+            // }
 
 
+
+            $scope.trailListing;
+            firstLoadPopulate()
 
             function normalize(string) {
                 return string.trim().toLowerCase();
             }
+
+            function firstLoadPopulate() {
+                var features = map.queryRenderedFeatures({
+                    layers: ['unclustered-points']
+                });
+
+                var existingFeatureKeys = {};
+                var uniqueFeatures = features.filter(function (el) {
+                    if (existingFeatureKeys[el.properties["name"]]) {
+                        return false;
+                    } else {
+                        existingFeatureKeys[el.properties["name"]] = true;
+                        return true;
+                    }
+                });
+
+                $scope.trailListing = uniqueFeatures;
+                $scope.$digest()
+
+            }
+
+            
+          
+
 
             function getUniqueFeatures(array, comparatorProperty) {
 
@@ -196,6 +222,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
                 return uniqueFeatures;
             }
+
+            
 
             map.on('moveend', function () {
                 var features = map.queryRenderedFeatures({
@@ -214,10 +242,10 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
                     $scope.trailListing = uniqueFeatures;
                     $scope.$digest()
-                    renderListings(uniqueFeatures);
+                    // renderListings(uniqueFeatures);
 
                     // Clear the input container
-                    filterEl.value = '';
+                    // filterEl.value = '';
 
                     filteredTrails = uniqueFeatures;
                 }
@@ -229,7 +257,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 });
 
                 // Change the cursor style as a UI indicator.
-                map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+                // map.getCanvas().style.cursor = features.length ? 'pointer' : '';
 
                 if (!features.length) {
                     popup.remove();
@@ -252,20 +280,22 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     var name = normalize(feature.properties.name);
                     return name.indexOf(value) > -1;
                 });
-                
+                $scope.trailListing = filtered;
+                $scope.$digest()
 
                 // Populate the sidebar with filtered results
-                renderListings(filtered);
+                // renderListings(filtered);
 
                 // Set the filter to populate features into the layer.
                 map.setFilter('unclustered-points', ['in', 'name'].concat(filtered.map(function (feature) {
                     return feature.properties.name;
                 })));
+                
             });
 
             // Call this function on initialization
             // passing an empty array to render an empty state
-            renderListings([]);
+            // renderListings([]);
         });
 
 
