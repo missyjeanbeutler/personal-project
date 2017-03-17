@@ -21,52 +21,24 @@ module.exports = {
             res.send(trail);
         })
     },
-    byElevation: function (req, res) {
-        db.readByElevation(function (err, elevations) {
 
-        })
-    },
-    byDistance: function (req, res) {
-        db.readByDistance(function (err, distances) {
+    //---------- adjust trails lists for user -----------//
 
-        })
-    },
-    byTime: function (req, res) {
-        db.readByTime(function (err, times) {
-
-        })
-    },
-    byCity: function (req, res) {
-        db.readByCity(function (err, cities) {
-
-        })
-    },
-    byDifficulty: function (req, res) {
-        db.readByDifficulty(function (err, difficulties) {
-
+    deleteFavorite: function(req, res) {
+        console.log(req.params.trailId, req.params.userId)
+        db.deleteFavorite([req.params.trailId, req.params.userId], function(err, deleted) {
+            if (!err) res.send(deleted)
         })
     },
 
-    //------------- saved trails -------------- //
-
-    saveTrail: function (req, res) {
-        db.updateSavedTrails(function (err, updated) {
-
-        })
-    },
-    removeSavedTrail: function (req, res) {
-        db.deleteSavedTrail(function (err, deleted) {
-
+    markCompleted: function(req, res) {
+        console.log(req.body.trailId, req.body.userId)
+        db.updateCompleted([req.body.trailId, req.body.userId], function(err, completed) {
+            if (!err) res.send(completed)
         })
     },
 
-    //------------- completed trails --------------//
-
-    completedTrail: function (req, res) {
-        db.createCompletedTrail(function (err, completed) {
-
-        })
-    },
+    
 
     //---------------------------------------------//
     //-------------- Backend Calls ----------------//

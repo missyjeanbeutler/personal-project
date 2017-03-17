@@ -99,15 +99,21 @@ app.get('/auth/logout', function(req, res) {
 })
 
 
-// ---------- database -----------//
+// ---------- trail search and data -----------//
 
 app.get('/api/search', controller.allTrails);
-app.get('/search/trail/:id', controller.trailData)
-app.get('/search/trail/:id', controller.trailDataWithPromise)
+app.get('/search/trail/:id', controller.trailData);
 
-//--------- Update Trail ---------//
+//-----------adjust trail lists for user ------------//
 
-app.put('/api/updateTrail', updater.updateTrail)
+app.delete('/api/deletefavorite/:trailId/:userId', controller.deleteFavorite);
+app.put('/api/markcompleted', controller.markCompleted)
+
+//--------- Update Trail in Mass ---------//
+
+app.put('/api/updateTrail', updater.updateTrail);
+app.get('/search/trail/:id', controller.trailDataWithPromise);
+
 
 
 

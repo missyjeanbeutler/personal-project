@@ -9,6 +9,7 @@
 <br>
 <h1>Favorites</h1>
 <div ng-repeat='favorite in favorites'>
-    {{favorite.trail_id}} <button>remove from favorites</button> 
-    <button>mark completed</button>
+    {{favorite.trail_id}} <button ng-click='deleteTrail(favorite.trail_id)'>remove from favorites</button> 
+    <button ng-click='markCompleted(favorite.trail_id)'>mark completed</button>
 </div>
+

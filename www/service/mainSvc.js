@@ -1,48 +1,15 @@
 angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, elevationSvc) {
 
     this.allTrails = allTrails;
-    // let trailNames;
-    // this.trailNames = trailNames;
     this.trailData = trailData;
     let geojson;
-    this.geojson = geojson
+    this.geojson = geojson;
+    this.deleteTrail = deleteTrail;
+    this.markCompleted = markCompleted;
 
     //-------------- all trails ---------------//
 
     allTrails()
-    // .then(response => {
-    // trailNames = response;
-    // for (let i = 0; i < trailNames.length; i++) {
-    //     trailNames[i].coords = JSON.parse(trailNames[i].coords)
-    // }
-    // let geo = []
-    // response.forEach(e => {
-    //     geo.push({
-    //         type: "Feature",
-    //         properties: {
-    //             name: e.trail_name,
-    //             // id: e.trail_id,
-    //             // polyline: e.coords
-    //         },
-    //         geometry: {
-    //             type: "Point",
-    //             coordinates: e.coords[0]
-    //         }
-    //     })
-    // })
-    // geojson = JSON.stringify({ 
-    //     type: "FeatureCollection", 
-    //     crs: {
-    //         type: "name",
-    //         properties: {
-    //             name: "urn:ogc:def:crs:OGC:1.3:CRS84"
-    //         }
-    //     },
-    //     features: geo
-    // });
-    // return geojson;
-    // });
-
 
     function allTrails() {
         return $http.get('/api/search').then(response => {
@@ -118,6 +85,23 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             })
     }
 
+    //--------------- adjust trails lists for user ----------------//
+
+    function deleteTrail(trailId, userId) {
+        return $http.delete('/api/deletefavorite/' + trailId + '/' + userId)
+        .then(response => {
+            return response.data;
+        })
+    }
+
+    function markCompleted(trailId, userId) {
+        return $http.put('/api/markcompleted', {
+            trailId: trailId,
+            userId: userId
+        }).then(response => {
+            return response.data;
+        })
+    }
 
 
 

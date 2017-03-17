@@ -25,11 +25,10 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
         mapboxgl.accessToken = 'pk.eyJ1IjoibWlzc3lqZWFuIiwiYSI6ImNqMDl4Zjh0dTBmZTQycXI3M2YyYjh4dnMifQ.p6Wiw8UO6txJFl6lAvGRBA';
         var map = new mapboxgl.Map({
             container: 'alltrails', // container id
-            style: 'mapbox://styles/mapbox/dark-v9', //stylesheet location
+            style: 'mapbox://styles/missyjean/cj0bnm0ka00202rpbyll4nvzl', //stylesheet location
             center: [-110.6585, 40.3338], // starting position
             zoom: 9 // starting zoom
         });
-
 
 
         map.on('load', function () {
