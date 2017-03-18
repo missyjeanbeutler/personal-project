@@ -1,4 +1,4 @@
-angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParams, mainSvc, postSvc) {
+angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParams, mainSvc, postSvc, loginSvc) {
 
     trailData($stateParams.id)
 
@@ -50,6 +50,28 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
                     }
                 });
 
+                map.addLayer({
+                    "id": "route-point",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "properties": {
+                                "description": "<strong>Trailhead</strong><p><a href=\"https://www.google.com/maps/preview/dir//'" + coords[0][1] + "," + coords[0][0] + "'/@" + coords[0][1] + "," + coords[0][0] + ",12z\" target=\"_blank\">Click here for directions</a>"
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": coords[0]
+                            }
+                        }
+
+                    },
+                    "layout": {
+                    "icon-image": "marker-15"
+                }
+                })
+
                 //-------zoom into polyline--------//
 
                 var bounds = coords.reduce(function (bounds, coord) {
@@ -62,6 +84,41 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
 
             });
 
+            //----------pop up-------------//
+
+            var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+});
+
+map.on('mousemove', function(e) {
+    var features = map.queryRenderedFeatures(e.point, { layers: ['route-point'] });
+    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+    if (!features.length) {
+        popup.remove();
+        return;
+    }
+
+    var feature = features[0];
+
+    // Populate the popup and set its coordinates
+    // based on the feature found.
+    popup.setLngLat(feature.geometry.coordinates)
+        .setHTML(feature.properties.description)
+        .addTo(map);
+});
+
+//-------------adjust user lists--------------//
+
+$scope.addToFavorites = function(trailId) {
+    mainSvc.addToFavorites(trailId).then(response => {
+        if (response !== 'Not logged in') {
+            loginSvc.updateFavorite(response)
+            console.log(response, ' added!')
+        } else console.log(response)
+    })
+}
 
 
 

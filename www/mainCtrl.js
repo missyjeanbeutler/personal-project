@@ -3,15 +3,16 @@ angular.module('trailsApp').controller('mainCtrl', function($scope, mainSvc, $st
 
  //--------------- login/logout ----------------//
 
-let id;
+    let id;
 
     function getUser() {
-    loginSvc.getUser().then(function(user) {
-      if (user) {
-        $scope.user = user.username;
-        id = user.authid
-        $scope.favorites = user.favorites;
-        $scope.completed = user.completed;
+    loginSvc.getUser().then((response) => {
+      if (response) {
+        console.log('again')
+        $scope.user = response.data.username;
+        id = response.data.id
+        $scope.favorites = response.data.favorites;
+        $scope.completed = response.data.completed;
       } else   $scope.user = 'NOT LOGGED IN';
     })
   }

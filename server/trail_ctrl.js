@@ -38,6 +38,12 @@ module.exports = {
         })
     },
 
+    addtofavorites: function(req, res) {
+        db.updateFavorites([req.body.trailId, req.body.userId], function(err, added) {
+            if (!err) res.send(added)
+        })
+    },
+
     
 
     //---------------------------------------------//

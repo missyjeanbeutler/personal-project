@@ -1,4 +1,4 @@
-angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, elevationSvc) {
+angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, elevationSvc, loginSvc) {
 
     this.allTrails = allTrails;
     this.trailData = trailData;
@@ -6,6 +6,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     this.geojson = geojson;
     this.deleteTrail = deleteTrail;
     this.markCompleted = markCompleted;
+    this.addToFavorites = addToFavorites;
 
     //-------------- all trails ---------------//
 
@@ -31,18 +32,6 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             })
 
             return geo;
-
-            // geojson = JSON.stringify({
-            //     type: "FeatureCollection",
-            //     crs: {
-            //         type: "name",
-            //         // properties: {
-            //         //     name: "urn:ogc:def:crs:OGC:1.3:CRS84"
-            //         // }
-            //     },
-            //     features: geo
-            // });
-            // return geojson;
         })
     }
 
@@ -92,9 +81,9 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     function deleteTrail(trailId, userId) {
         return $http.delete('/api/deletefavorite/' + trailId + '/' + userId)
-        .then(response => {
-            return response.data;
-        })
+            .then(response => {
+                return response.data;
+            })
     }
 
     function markCompleted(trailId, userId) {
@@ -104,6 +93,19 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
         }).then(response => {
             return response.data;
         })
+    }
+
+    function addToFavorites(trailId, userId) {
+        return $http.get('/api/userid').then(response => {
+            if(response.data === "No user") return "Not logged in";
+            return $http.put('/api/addtofavorites', {
+                trailId: trailId,
+                userId: response.data.authid
+            }).then(response => {
+                if (response.status === 200) return response.data[0].trail_id;  
+            })
+        })
+
     }
 
 

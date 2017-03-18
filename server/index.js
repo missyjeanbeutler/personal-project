@@ -32,6 +32,7 @@ app.set('db', db);
 
 let controller = require('./trail_ctrl'); 
 let updater = require('./update_trails_ctrl')
+let user = "No user";
 
 
 //------------Auth----------------//
@@ -66,7 +67,7 @@ passport.serializeUser(function(userA, done) {
   done(null, userB); 
 });
 
-passport.deserializeUser(function(userB, done) { 
+passport.deserializeUser(function(userB, done) {  
   var userC = userB;
   //Things you might do here :
     // Query the database with the user id, get other information to put on req.user
@@ -90,11 +91,13 @@ app.get('/auth/callback',
 
 app.get('/auth/me', function(req, res) {
   if (!req.user) return res.sendStatus(404);
+  user = req.user;
   res.status(200).send(req.user);
 })
 
 app.get('/auth/logout', function(req, res) {
   req.logout();
+  user = "No user"
   res.redirect('/'); 
 })
 
@@ -108,6 +111,10 @@ app.get('/search/trail/:id', controller.trailData);
 
 app.delete('/api/deletefavorite/:trailId/:userId', controller.deleteFavorite);
 app.put('/api/markcompleted', controller.markCompleted)
+app.put('/api/addtofavorites', controller.addtofavorites)
+app.get('/api/userid', (req, res) => {
+  res.send(user);
+})
 
 //--------- Update Trail in Mass ---------//
 
