@@ -2,11 +2,18 @@ angular.module('trailsApp').service('loginSvc', function ($http) {
 
 
   this.updateFavorite = updateFavorite;
-  let user;
+  this.updateCompleted = updateCompleted;
 
   function updateFavorite(id) {
-    user.favorites.push({ trail_id: id })
-    console.log('DONE!')
+    return $http.put('/api/updateFavoriteList/' + id).then(response => {
+      console.log(response.data)
+    })
+  }
+
+  function updateCompleted(id) {
+    return $http.put('/api/updateCompletedList/' + id).then(response => {
+      console.log(response.data)
+    })
   }
 
 
@@ -16,7 +23,6 @@ angular.module('trailsApp').service('loginSvc', function ($http) {
         url: '/auth/me'
       })
       .then(function (res) {
-        user = res.data;
         return res
       })
       .catch(function (err) {

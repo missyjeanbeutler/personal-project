@@ -32,7 +32,6 @@ app.set('db', db);
 
 let controller = require('./trail_ctrl'); 
 let updater = require('./update_trails_ctrl')
-let user = "No user";
 
 
 //------------Auth----------------//
@@ -49,7 +48,6 @@ passport.use(new Auth0Strategy({
       if (!user) { 
         console.log('CREATING USER');
         db.createUserByAuth([profile.displayName, profile.id], function(err, user) { //right here we're specifying what information we're wanting to store. If we wanted something else we could do profile.whateverWeWanted in the array on this line.
-        console.log('2b')
           console.log('USER CREATED', user);
           return done(err, user[0]); 
         })
@@ -91,13 +89,11 @@ app.get('/auth/callback',
 
 app.get('/auth/me', function(req, res) {
   if (!req.user) return res.sendStatus(404);
-  user = req.user;
   res.status(200).send(req.user);
 })
 
 app.get('/auth/logout', function(req, res) {
   req.logout();
-  user = "No user"
   res.redirect('/'); 
 })
 
@@ -109,11 +105,20 @@ app.get('/search/trail/:id', controller.trailData);
 
 //-----------adjust trail lists for user ------------//
 
-app.delete('/api/deletefavorite/:trailId/:userId', controller.deleteFavorite);
-app.put('/api/markcompleted', controller.markCompleted)
-app.put('/api/addtofavorites', controller.addtofavorites)
+app.delete('/api/deletefavorite/:id', controller.deleteFavorite);
+app.put('/api/markcompleted/:id', controller.markCompleted)
+app.put('/api/addtofavorites/:id', controller.addtofavorites)
 app.get('/api/userid', (req, res) => {
-  res.send(user);
+  if (!req.user) return res.sendStatus(404);
+  res.status(200).send('User logged in');
+})
+app.put('/api/updateFavoriteList/:id', (req, res) => {
+  req.user.favorites.push({trail_id: req.params.id})
+  res.send(req.user.favorites)
+})
+app.put('/api/updateCompletedList/:id', (req, res) => {
+  req.user.completed.push({trail_id: req.params.id})
+  res.send(req.user.completed)
 })
 
 //--------- Update Trail in Mass ---------//

@@ -25,21 +25,19 @@ module.exports = {
     //---------- adjust trails lists for user -----------//
 
     deleteFavorite: function(req, res) {
-        console.log(req.params.trailId, req.params.userId)
-        db.deleteFavorite([req.params.trailId, req.params.userId], function(err, deleted) {
+        db.deleteFavorite([req.params.id, req.user.authid], function(err, deleted) {
             if (!err) res.send(deleted)
         })
     },
 
     markCompleted: function(req, res) {
-        console.log(req.body.trailId, req.body.userId)
-        db.updateCompleted([req.body.trailId, req.body.userId], function(err, completed) {
+        db.updateCompleted([req.params.id, req.user.authid], function(err, completed) {
             if (!err) res.send(completed)
         })
     },
 
     addtofavorites: function(req, res) {
-        db.updateFavorites([req.body.trailId, req.body.userId], function(err, added) {
+        db.updateFavorites([req.params.id, req.user.authid], function(err, added) {
             if (!err) res.send(added)
         })
     },

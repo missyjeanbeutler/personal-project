@@ -7,6 +7,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     this.deleteTrail = deleteTrail;
     this.markCompleted = markCompleted;
     this.addToFavorites = addToFavorites;
+    this.markCompletedFromTrailData = markCompletedFromTrailData;
 
     //-------------- all trails ---------------//
 
@@ -79,30 +80,39 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     //--------------- adjust trails lists for user ----------------//
 
-    function deleteTrail(trailId, userId) {
-        return $http.delete('/api/deletefavorite/' + trailId + '/' + userId)
+    function deleteTrail(id) {
+        console.log(id)
+        return $http.delete('/api/deletefavorite/' + id)
             .then(response => {
+                console.log(response)
                 return response.data;
             })
     }
 
-    function markCompleted(trailId, userId) {
-        return $http.put('/api/markcompleted', {
-            trailId: trailId,
-            userId: userId
-        }).then(response => {
+    function markCompleted(id) {
+        return $http.put('/api/markcompleted/' + id).then(response => {
             return response.data;
         })
     }
 
-    function addToFavorites(trailId, userId) {
+    function addToFavorites(trailId) {
         return $http.get('/api/userid').then(response => {
-            if(response.data === "No user") return "Not logged in";
-            return $http.put('/api/addtofavorites', {
-                trailId: trailId,
-                userId: response.data.authid
-            }).then(response => {
-                if (response.status === 200) return response.data[0].trail_id;  
+            console.log(response)
+            if (!response) return "Not logged in";
+            return $http.put('/api/addtofavorites/' + trailId)
+                .then(response => {
+                    if (response.status === 200) return response.data[0].trail_id;
+                })
+        })
+
+    }
+
+    function markCompletedFromTrailData(trailId) {
+        return $http.get('/api/userid').then(response => {
+            console.log(response)
+            if (!response) return "Not logged in";
+            return $http.put('/api/markcompleted/' + trailId).then(response => {
+                return response.data[0].trail_id;
             })
         })
 

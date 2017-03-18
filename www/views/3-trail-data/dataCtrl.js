@@ -120,6 +120,15 @@ $scope.addToFavorites = function(trailId) {
     })
 }
 
+$scope.markCompletedFromTrailData = function(trailId) {
+    mainSvc.markCompletedFromTrailData(id).then(response => {
+      if (response !== 'Not logged in') {
+            loginSvc.updateCompleted(response)
+            console.log(response, ' added!')
+        } else console.log(response)
+    })
+}
+
 
 
         })

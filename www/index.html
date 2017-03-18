@@ -17,17 +17,14 @@
 
 <body ng-controller='mainCtrl'>
 
-
-    <div class="row">
-        <a href="/auth"><button class="button-primary">Login with Auth0</button></a>
-    </div>
-    <div class="row">
-        <a href="/auth/logout"><button class="button-primary">Logout</button></a>
+    <div id='loginProfile'>
+        <a ui-sref="profile">Profile</a>
     </div>
     {{user}}
-    <div>
-        <a ui-sref="profile"><button>Profile page</button></a>
+    <div id="logout">
+        <a href="/auth/logout"><button class="button-primary">Logout</button></a>
     </div>
+    
 
 
     <ui-view></ui-view>
