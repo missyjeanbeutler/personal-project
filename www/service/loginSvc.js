@@ -6,13 +6,13 @@ angular.module('trailsApp').service('loginSvc', function ($http) {
 
   function updateFavorite(id) {
     return $http.put('/api/updateFavoriteList/' + id).then(response => {
-      console.log(response.data)
+      return response;
     })
   }
 
   function updateCompleted(id) {
     return $http.put('/api/updateCompletedList/' + id).then(response => {
-      console.log(response.data)
+      return response;
     })
   }
 

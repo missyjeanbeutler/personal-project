@@ -1,9 +1,7 @@
 angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParams, mainSvc, postSvc, loginSvc) {
 
     trailData($stateParams.id)
-
-
-
+    disableFavorite()
 
     function trailData(id) {
         mainSvc.trailData(id).then(response => {
@@ -68,8 +66,8 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
 
                     },
                     "layout": {
-                    "icon-image": "marker-15"
-                }
+                        "icon-image": "marker-15"
+                    }
                 })
 
                 //-------zoom into polyline--------//
@@ -87,52 +85,77 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
             //----------pop up-------------//
 
             var popup = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false
-});
+                closeButton: false,
+                closeOnClick: false
+            });
 
-map.on('mousemove', function(e) {
-    var features = map.queryRenderedFeatures(e.point, { layers: ['route-point'] });
-    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+            map.on('mousemove', function (e) {
+                var features = map.queryRenderedFeatures(e.point, {
+                    layers: ['route-point']
+                });
+                map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-    if (!features.length) {
-        popup.remove();
-        return;
-    }
+                if (!features.length) {
+                    popup.remove();
+                    return;
+                }
 
-    var feature = features[0];
+                var feature = features[0];
 
-    // Populate the popup and set its coordinates
-    // based on the feature found.
-    popup.setLngLat(feature.geometry.coordinates)
-        .setHTML(feature.properties.description)
-        .addTo(map);
-});
-
-//-------------adjust user lists--------------//
-
-$scope.addToFavorites = function(trailId) {
-    mainSvc.addToFavorites(trailId).then(response => {
-        if (response !== 'Not logged in') {
-            loginSvc.updateFavorite(response)
-            console.log(response, ' added!')
-        } else console.log(response)
-    })
-}
-
-$scope.markCompletedFromTrailData = function(trailId) {
-    mainSvc.markCompletedFromTrailData(id).then(response => {
-      if (response !== 'Not logged in') {
-            loginSvc.updateCompleted(response)
-            console.log(response, ' added!')
-        } else console.log(response)
-    })
-}
-
-
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(feature.geometry.coordinates)
+                    .setHTML(feature.properties.description)
+                    .addTo(map);
+            });
 
         })
     }
+
+    //-------------adjust user lists--------------//
+
+    $scope.addToFavorites = function (trailId) {
+        mainSvc.addToFavorites(trailId).then(response => {
+            if (response !== 'Not logged in') {
+                loginSvc.updateFavorite(response).then(response => {
+                    if (response.status === 200) {
+                        document.getElementById('favorite').innerHTML = "<a>Favorite!</a>"
+                        console.log(response, ' added!')
+                    }
+                })
+            } else console.log(response)
+        })
+    }
+
+    $scope.markCompletedFromTrailData = function (trailId) {
+        mainSvc.markCompletedFromTrailData(id).then(response => {
+            if (response !== 'Not logged in') {
+                loginSvc.updateCompleted(response).then(response => {
+                    if (response.status === 200) {
+                        console.log(response, ' added!')
+                    }
+                })
+            } else console.log(response)
+        })
+    }
+
+    //----------disable favorite button----------//
+
+    function disableFavorite() {
+        loginSvc.getUser().then(response => {
+            if (response) {
+                for (var i = 0; i < response.data.favorites.length; i++) {
+                    if (response.data.favorites[i].trail_id === $stateParams.id) {
+                        document.getElementById('favorite').innerHTML = "<a>Favorite!</a>"
+                    }
+                }
+            }
+        })
+    }
+
+
+
+
 
 
 
