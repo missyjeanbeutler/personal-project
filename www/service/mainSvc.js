@@ -101,6 +101,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             if (!response) return "Not logged in";
             return $http.put('/api/addtofavorites/' + trailId)
                 .then(response => {
+                    console.log(response)
                     if (response.status === 200) return response.data[0].trail_id;
                 })
         })

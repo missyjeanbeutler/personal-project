@@ -10,9 +10,13 @@
     // 0 - 5 EASY // 6 - 10 MODERATE // 11 - 16 CHALLENGING // 17 - 22 DIFFICULT // 23 - 28 VERY DIFFICULT // 29 + EXTREME
     <h2>{{trail.time}} - estimated completion time</h2>
 </div>
-<div id='favorite'>
-    <a ng-click='addToFavorites(trail.trail_id)'>add to favorites</a>
+<div>
+    <div id='favorite' ng-show='fav' ng-click='addToFavorites(); show=!show'>
+        <p>add to favorites</p>
+    </div>
+    <div id='removeFavorite' ng-show='rem' ng-click='deleteTrail(); show=false'>
+        <p>remove from favorites</p>
+    </div>
 </div>
-
-<button ng-click='markCompletedFromTrailData(trail.trail_id)'>mark completed</button>
+<button ng-click='markCompletedFromTrailData()'>mark completed</button>
 <div id="trailmap"></div>

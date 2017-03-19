@@ -1,7 +1,7 @@
 angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParams, mainSvc, postSvc, loginSvc) {
 
     trailData($stateParams.id)
-    disableFavorite()
+    toggleFavorite()
 
     function trailData(id) {
         mainSvc.trailData(id).then(response => {
@@ -114,21 +114,24 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
 
     //-------------adjust user lists--------------//
 
-    $scope.addToFavorites = function (trailId) {
-        mainSvc.addToFavorites(trailId).then(response => {
+
+    $scope.fav = true;
+    $scope.rem = false;
+
+    $scope.addToFavorites = function () {
+        mainSvc.addToFavorites($stateParams.id).then(response => {
             if (response !== 'Not logged in') {
                 loginSvc.updateFavorite(response).then(response => {
-                    if (response.status === 200) {
-                        document.getElementById('favorite').innerHTML = "<a>Favorite!</a>"
-                        console.log(response, ' added!')
-                    }
+                    $scope.fav = false;
+                    $scope.rem = true;
+
                 })
             } else console.log(response)
         })
     }
 
-    $scope.markCompletedFromTrailData = function (trailId) {
-        mainSvc.markCompletedFromTrailData(id).then(response => {
+    $scope.markCompletedFromTrailData = function () {
+        mainSvc.markCompletedFromTrailData($stateParams.id).then(response => {
             if (response !== 'Not logged in') {
                 loginSvc.updateCompleted(response).then(response => {
                     if (response.status === 200) {
@@ -141,15 +144,32 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
 
     //----------disable favorite button----------//
 
-    function disableFavorite() {
+    function toggleFavorite() {
         loginSvc.getUser().then(response => {
             if (response) {
                 for (var i = 0; i < response.data.favorites.length; i++) {
                     if (response.data.favorites[i].trail_id === $stateParams.id) {
-                        document.getElementById('favorite').innerHTML = "<a>Favorite!</a>"
+                        console.log('yes')
+                        $scope.fav = false;
+                        $scope.rem = true;
+                        return;
                     }
                 }
+                console.log('nope')
+                $scope.fav = true;
+                $scope.rem = false;
             }
+
+        })
+    }
+
+    $scope.deleteTrail = function () {
+        mainSvc.deleteTrail($stateParams.id).then(response => {
+            loginSvc.updateFavorite(response).then(response => {
+                    $scope.fav = true;
+                    $scope.rem = false;
+
+                })
         })
     }
 

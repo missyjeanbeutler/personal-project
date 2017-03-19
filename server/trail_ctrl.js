@@ -24,25 +24,33 @@ module.exports = {
 
     //---------- adjust trails lists for user -----------//
 
-    deleteFavorite: function(req, res) {
-        db.deleteFavorite([req.params.id, req.user.authid], function(err, deleted) {
-            if (!err) res.send(deleted)
+    deleteFavorite: function (req, res) {
+        db.deleteFavorite([req.params.id, req.user.authid], function (err, deleted) {
+            if (!err) {
+                for (let i = 0; i < req.user.favorites.length; i++) {
+                    if (req.user.favorites[i].trail_id === req.params.id) {
+                        console.log('splicing!')
+                        req.user.favorites.splice(i, 1);
+                    }
+                }
+                res.send(deleted)
+            }
         })
     },
 
-    markCompleted: function(req, res) {
-        db.updateCompleted([req.params.id, req.user.authid], function(err, completed) {
+    markCompleted: function (req, res) {
+        db.updateCompleted([req.params.id, req.user.authid], function (err, completed) {
             if (!err) res.send(completed)
         })
     },
 
-    addtofavorites: function(req, res) {
-        db.updateFavorites([req.params.id, req.user.authid], function(err, added) {
+    addtofavorites: function (req, res) {
+        db.updateFavorites([req.params.id, req.user.authid], function (err, added) {
             if (!err) res.send(added)
         })
     },
 
-    
+
 
     //---------------------------------------------//
     //-------------- Backend Calls ----------------//
