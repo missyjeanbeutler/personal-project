@@ -20,6 +20,10 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
                 zoom: 9 // starting zoom
             });
 
+            //-----------directions------------//
+
+            $scope.directions = "https://www.google.com/maps/preview/dir//'" + coords[0][1] + "," + coords[0][0] + "'/@" + coords[0][1] + "," + coords[0][0] + ",12z";
+
             //------------polyline-------------//
 
             map.on('load', function () {
