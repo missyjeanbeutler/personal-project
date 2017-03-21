@@ -19,7 +19,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
         function searchTrailNames(geo) {
             var nl = []
-            for(let i = 0; i < geo.features.length; i++) {
+            for (let i = 0; i < geo.features.length; i++) {
                 var obj = {
                     name: JSON.parse(geo.features[i].properties.name),
                     id: JSON.parse(geo.features[i].properties.id)
@@ -29,7 +29,26 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             $scope.nameList = nl;
         }
 
+        $scope.showList = function () {
+            document.getElementById("dropdownList").classList.toggle("show")
+        }
+        
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
         searchTrailNames(geojson);
+
 
 
         //---------set map------------//
@@ -98,7 +117,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     "text-size": 12
                 }
             });
-                
+
 
             // }); ORIGINAL
 
@@ -235,7 +254,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             //     map.setFilter('unclustered-points', ['in', 'name'].concat(filtered.map(function (feature) {
             //         return feature.properties.name;
             //     })));
-                
+
 
             // });
 

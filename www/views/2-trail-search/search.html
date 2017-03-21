@@ -31,8 +31,8 @@
         ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
 </ul>
 <div>
-    <input type="text" class="dropdown" ng-model='searchNames'>
-    <div class="dropdown-content">
+    <input type="text" ng-model='searchNames' ng-click="showList()" class="dropbtn">
+    <div class="dropdown-content" id='dropdownList'>
         <div ng-repeat="n in nameList | filter: searchNames" ui-sref='trail-data({id: n.id})'>{{n.name}}</div>
     </div>
 </div>
