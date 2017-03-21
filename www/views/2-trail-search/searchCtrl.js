@@ -129,6 +129,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             }));
             map.addControl(new mapboxgl.NavigationControl());
 
+            map.addControl(new mapboxgl.GeolocateControl())
+
 
             //-------------- center on click  ----------------//
 

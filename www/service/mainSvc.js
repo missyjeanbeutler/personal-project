@@ -22,7 +22,12 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
                     "type": "Feature",
                     "properties": {
                         "name": `"${e.trail_name}"`,
-                        id: e.trail_id,
+                        "id": e.trail_id,
+                        "difficulty": e.difficulty,
+                        "elevation": e.elevation,
+                        "incline": e.incline,
+                        "time": e.time,
+                        "distance": e.gis_miles
                         // polyline: e.coords
                     },
                     "geometry": {
