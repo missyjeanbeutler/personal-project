@@ -28,7 +28,6 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
                         "incline": e.incline,
                         "time": e.time,
                         "distance": e.gis_miles
-                        // polyline: e.coords
                     },
                     "geometry": {
                         "type": "Point",

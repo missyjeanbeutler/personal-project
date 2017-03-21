@@ -36,14 +36,24 @@
         <div ng-repeat="n in nameList | filter: searchNames | limitTo: 15" ui-sref='trail-data({id: n.id})'>{{n.name}}</div>
     </div>
 </div>
-<md-slider ng-model="distance" min="0" max="50" aria-label='range' class="slider">
-</md-slider> {{distance}}
-<md-slider ng-model="time" min="0" max="50" aria-label='range' class="slider">
-</md-slider> {{time}}
+distance
+<md-slider-container class="slider">
+<md-slider ng-model="filter.distance" min="0" max="50" aria-label='range' >
+</md-slider> <div>{{filter.distance}}</div>
+</md-slider-container>
+time
+<md-slider-container class="slider">
+<md-slider ng-model="filter.time" min="0" max="50" aria-label='range'>
+</md-slider> <div style="display: inline-block">{{filter.time}}</div>
+</md-slider-container>
 
-
-
-
-
-
-
+difficulty
+<md-button id='easy' ng-click='selected("easy")'>EASY</md-button>
+<md-button id='moderate' ng-click='selected("moderate")'>MODERATE</md-button>
+<md-button id='challenging' ng-click='selected("challenging")'>CHALLENGING</md-button>
+<md-button id='hard' ng-click='selected("hard")'>HARD</md-button>
+<md-button id='veryHard' ng-click='selected("veryHard")'>VERY HARD</md-button>
+<br>
+<md-button class="md-accent md-raised" ng-click="searchWithFilter()">SEARCH</md-button>
+<br>    
+<md-button class="md-accent md-raised" ng-click="resetFilter()">RESET FILTER</md-button>

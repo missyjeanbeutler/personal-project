@@ -29,24 +29,6 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             $scope.nameList = nl;
         }
 
-        $scope.showList = function () {
-            document.getElementById("dropdownList").classList.toggle("show")
-        }
-        
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-
         searchTrailNames(geojson);
 
 
@@ -198,7 +180,6 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             }
 
 
-
             map.on('render', function () {
                 var features = map.queryRenderedFeatures({
                     layers: ['unclustered-points']
@@ -224,8 +205,6 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 }
             });
 
-
-
             map.on('mousemove', function (e) {
                 var features = map.queryRenderedFeatures(e.point, {
                     layers: ['unclustered-points']
@@ -243,22 +222,94 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     .addTo(map);
             });
 
-            // filterEl.addEventListener('keyup', function (e) {
-            //     var value = normalize(e.target.value);
-            //     // Filter visible features that don't match the input value.
-            //     var filtered = filteredTrails.filter(function (feature) {
-            //         var name = normalize(feature.properties.name);
-            //         return name.indexOf(value) > -1;
-            //     });
-            //     $scope.trailListing = filtered;
-            //     $scope.$digest()
-            //     // Set the filter to populate features into the layer.
-            //     map.setFilter('unclustered-points', ['in', 'name'].concat(filtered.map(function (feature) {
-            //         return feature.properties.name;
-            //     })));
+            //------------drop down search--------------//
+
+            $scope.showList = function () {
+                document.getElementById("dropdownList").classList.toggle("show")
+            }
+
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
+            //--------------button toggle--------------//
+
+            $scope.filter = {};
+            $scope.filter.difficulty = [];
+
+            $scope.selected = function (e) {
+                document.getElementById(e).classList.toggle("button-toggle")
+                if ($scope.filter.difficulty.indexOf(e) === -1) {
+                    $scope.filter.difficulty.push(e)
+                } else {
+                    $scope.filter.difficulty.splice($scope.filter.difficulty.indexOf(e), 1)
+                }
+
+            }
+
+            //------------run filter -------------//
+
+            
+            $scope.searchWithFilter = function () {
+                let newFT = [];
+                let dist = $scope.filter.distance;
+                let time = $scope.filter.time * 60;
+                let diff = $scope.filter.difficulty;
+                let diffNums = []
+                for (let i = 0; i < diff.length; i++) {
+                    if (diff[i] === "easy") {
+                        diffNums.push(0, 1, 2, 3, 4, 5)
+                    }
+                    if (diff[i] === "moderate") {
+                        diffNums.push(6, 7, 8, 9, 10)
+                    }
+                    if (diff[i] === "challenging") {
+                        diffNums.push(11, 12, 13, 14, 15, 16)
+                    }
+                    if (diff[i] === "hard") {
+                        diffNums.push(17, 18, 19, 20, 21, 22)
+                    }
+                    if (diff[i] === "very hard") {
+                        diffNums.push(23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34)
+                    }
+                }
+                for (let i = 0; i < geojson.features.length; i++) {
+                    let geo = geojson.features[i].properties;
+                    if (JSON.parse(geo.distance) <= dist &&
+                        geo.time <= time &&
+                        diffNums.indexOf(geo.difficulty) !== -1) {
+                        newFT.push(geojson.features[i])
+                    }
+                }
+                newGeojson = {
+                    "type": "FeatureCollection",
+                    "features": newFT
+                }
+                map.getSource('trails').setData(newGeojson)
+            }
+
+            $scope.resetFilter = function() {
+                map.getSource('trails').setData(geojson)
+            }
 
 
-            // });
+
+
+
+
+
+
+
 
         });
 
