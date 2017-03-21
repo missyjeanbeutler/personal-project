@@ -4,57 +4,42 @@
     top:0;
     bottom:0;
     width: 75%;
-}
-/*
-.alltrails-overlay {
-    position: absolute;
-    width: 25%;
-    bottom: 0;
-    left: 0;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    background-color: #fff;
-    overflow: hidden;
-    height: 25%;
+} 
+
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.alltrails-overlay fieldset {
+.dropdown-content {
     display: none;
-    background: #ddd;
-    border: none;
-    padding: 10px;
-    margin: 0;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
 }
 
-.alltrails-overlay input {
+.dropdown:active .dropdown-content {
     display: block;
-    border: none;
-    width: 100%;
-    border-radius: 3px;
-    padding: 10px;
-    margin: 0;
 }
 
-.alltrails-overlay .listing {
-    overflow: auto;
-    max-height: 100%;
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-left: 0;
+  background: rgba(0, 0, 0, 0.1);
 }
 
-.alltrails-overlay .listing > * {
-    display: block;
-    padding: 5px 10px;
-    margin: 0;
+::-webkit-scrollbar-track {
+  background: none;
 }
 
-.alltrails-overlay .listing a {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    color: #404;
-    text-decoration: none;
+::-webkit-scrollbar-thumb {
+  background: #00853e;
+  border-radius: 0;
 }
 
-.alltrails-overlay .listing a:last-child {
-    border: none;
-}
 
-.alltrails-overlay .listing a:hover {
-    background: #f0f0f0;
-}*/

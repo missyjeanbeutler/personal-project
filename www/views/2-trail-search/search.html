@@ -25,10 +25,21 @@
 <button ng-click='filterTrails()'>SEARCH!</button>
 <br>-->
 <div id="alltrails"></div>
-<input type="text" placeholder="Search by City or Trail name... " style="display: block">
-
-
-<input id='feature-filter' type='text' placeholder='Filter list by name' />
+<!--<input id='feature-filter' type='text' placeholder='Filter list by name' />-->
 <ul class='alltrails-overlay' ng-repeat="trail in trailListing">
-    <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'>{{trail.properties.name}}</li>
+    <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
+        ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
 </ul>
+<div>
+    <input type="text" class="dropdown" ng-model='searchNames'>
+    <div class="dropdown-content">
+        <div ng-repeat="n in nameList | filter: searchNames" ui-sref='trail-data({id: n.id})'>{{n.name}}</div>
+    </div>
+</div>
+
+
+
+
+
+
+

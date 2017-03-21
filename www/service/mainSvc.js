@@ -31,8 +31,12 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
                     }
                 })
             })
+            var final = {
+                    "type": "FeatureCollection",
+                    "features": geo
+                };
 
-            return geo;
+            return final
         })
     }
 

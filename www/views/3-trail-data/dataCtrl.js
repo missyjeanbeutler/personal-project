@@ -97,7 +97,7 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
                 var features = map.queryRenderedFeatures(e.point, {
                     layers: ['route-point']
                 });
-                map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+                // map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
                 if (!features.length) {
                     popup.remove();
