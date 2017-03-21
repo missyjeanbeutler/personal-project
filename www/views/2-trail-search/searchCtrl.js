@@ -300,6 +300,12 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
             $scope.resetFilter = function() {
                 map.getSource('trails').setData(geojson)
+                $scope.filter.distance = 0;
+                $scope.filter.time = 0;
+                $scope.filter.difficulty.forEach((e) => {
+                    document.getElementById(e).classList.toggle("button-toggle");
+                })
+                $scope.filter.difficulty = [];
             }
 
 
