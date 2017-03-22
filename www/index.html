@@ -13,27 +13,35 @@
     <link href="./views/3-trail-data/data.css" rel="stylesheet">
     <link rel="stylesheet" href="./views/5-profile/profile.css">
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.css' rel='stylesheet' />
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css' type='text/css' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css'
+        type='text/css' />
     <link rel="stylesheet" href="./node_modules/angular-material/angular-material.css">
-
 </head>
 
 <body ng-controller='mainCtrl'>
 
-    <div id='loginProfile'>
-        <a ui-sref="profile">Profile</a>
-    </div>
-    {{user}}
-    <div id="logout">
-        <a href="/auth/logout"><button class="button-primary">Logout</button></a>
-    </div>
-    
+    <!---/////-slide out nav bar - MOBILE-/////-->
 
+    <div layout="row" class="side-menu">
+        <md-sidenav md-component-id="left" class="md-sidenav-left">
+            <div class="menu-options-mobile">
+            <div ng-click="openLeftMenu()" class="close"><img src="./img/close.svg" alt="close button"></div>
+                <a ui-sref='home' ng-click="openLeftMenu()">Home</a>
+                <a ui-sref='search' ng-click="openLeftMenu()">Search</a>
+                <div id='loginProfile'>
+                    <a ui-sref="profile" ng-click="openLeftMenu()">Profile</a>
+                </div>
+                <div id="logout">
+                    <a href="/auth/logout" ng-click="openLeftMenu()">Logout</a>
+                </div>
+            </div>
+        </md-sidenav>
+        <md-content style="background-color: transparent; position: absolute;">
+            <div ng-click="openLeftMenu()" class="open"><img src="./img/menu.svg" alt="open button"></div>
+        </md-content>
+    </div>
 
     <ui-view></ui-view>
-
-
-
 
     <script src="/node_modules/angular/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
@@ -51,9 +59,9 @@
     <script src="./service/loginSvc.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js'></script>
     <script src="./node_modules/angular-aria/angular-aria.js"></script>
-	<script src="./node_modules/angular-animate/angular-animate.js"></script>
-	<script src="./node_modules/angular-material/angular-material.js"></script>
-    
+    <script src="./node_modules/angular-animate/angular-animate.js"></script>
+    <script src="./node_modules/angular-material/angular-material.js"></script>
+    <script src="./views/1-home/homeCtrl.js"></script>
 </body>
 
 </html>

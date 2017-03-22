@@ -7,6 +7,7 @@ angular.module('trailsApp', ['ui.router', 'ngMaterial'])
             .state('home', {
                 url: '/',
                 templateUrl: 'views/1-home/home.html',
+                controller: 'homeCtrl'
             })
             .state('search', {
                 url: '/search',

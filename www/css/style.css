@@ -1,0 +1,36 @@
+.open {
+    height: 40px;
+    width: 35px;
+    margin: 20px;
+}
+
+.close { 
+    height: 30px;
+    width: 30px;
+    margin: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.side-menu img {
+    width: 100%;
+}
+
+.menu-options-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+    padding: 20px;
+    height: calc(100vh - 50px);
+    border: 1px solid #CCC;
+}
+
+.menu-options-mobile a {
+    margin-bottom: 10px;
+}
+
+#loginProfile, #logout {
+    margin-bottom: 10px;
+}

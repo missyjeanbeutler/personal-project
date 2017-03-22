@@ -1,4 +1,4 @@
-angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $state, loginSvc) {
+angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $state, loginSvc, $mdSidenav) {
 
 
   //--------------- login/logout ----------------//
@@ -48,6 +48,13 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
       document.getElementById('logout').style.visibility = 'hidden';
     }
   }
+
+  //---------------slide in nav bar -----------------//
+
+    $scope.openLeftMenu = function () {
+      $mdSidenav('left').toggle();
+    };
+  
 
 
 
