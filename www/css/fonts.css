@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Eczar:700|Playfair+Display');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300|Playfair+Display:900');
 
 h1 {
-    font-family: 'Eczar', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 5rem;
 }
 
 h2 {
-    font-family: 'Eczar', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 3rem;
 }
 
-h3, h4, h5, h6, a, p {
-    font-family: 'Playfair Display', serif;
+h3, h4, h5, h6, a, p, li {
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.5rem;
 }
 
@@ -20,7 +20,7 @@ a {
     cursor: pointer;
 }
 
-a:focus {
+input, button, a:focus {
     outline: none;
 }
 

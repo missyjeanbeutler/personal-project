@@ -1,4 +1,3 @@
-<div id="alltrails"></div>
 <ul class='alltrails-overlay' ng-repeat="trail in trailListing">
     <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
         ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
@@ -30,3 +29,5 @@ difficulty
 <md-button class="md-accent md-raised" ng-click="searchWithFilter()">SEARCH</md-button>
 <br>    
 <md-button class="md-accent md-raised" ng-click="resetFilter()">RESET FILTER</md-button>
+
+<div id="alltrails"></div>
