@@ -8,10 +8,10 @@
     <p><strong>Est. Completion Time: </strong>{{trail.time}} hours</p>
 </div>
 <div>
-    <div id='favorite' ng-show='fav' ng-click='addToFavorites(); show=!show'>
+    <div id='favorite' class='fav-btn' ng-show='fav' ng-click='addToFavorites(); show=!show'>
         <p>add to favorites</p>
     </div>
-    <div id='removeFavorite' ng-show='rem' ng-click='deleteTrail(); show=false'>
+    <div id='removeFavorite' class='fav-btn' ng-show='rem' ng-click='deleteTrail(); show=false'>
         <p>remove from favorites</p>
     </div>
 </div>

@@ -13,7 +13,7 @@
   padding: 20px;
 }
 
-#favorite {
+.fav-btn {
   width: 100%;
   text-align: center;
   height: 40px;
@@ -21,7 +21,7 @@
   padding-top: 5px;
 }
 
-#favorite p {
+.fav-btn p {
   color: white;
 }
 
