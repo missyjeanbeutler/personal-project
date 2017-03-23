@@ -16,7 +16,6 @@ angular.module('trailsApp').service('loginSvc', function ($http) {
     })
   }
 
-
   this.getUser = function () {
     return $http({
         method: 'GET',

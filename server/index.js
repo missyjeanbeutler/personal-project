@@ -47,7 +47,7 @@ passport.use(new Auth0Strategy({
       user = user[0];
       if (!user) { 
         console.log('CREATING USER');
-        db.createUserByAuth([profile.displayName, profile.id], function(err, user) { //right here we're specifying what information we're wanting to store. If we wanted something else we could do profile.whateverWeWanted in the array on this line.
+        db.createUserByAuth([profile.displayName, profile.id, profile.identities[1].picture_large], function(err, user) { //right here we're specifying what information we're wanting to store. If we wanted something else we could do profile.whateverWeWanted in the array on this line.
           console.log('USER CREATED', user);
           return done(err, user[0]); 
         })

@@ -152,13 +152,11 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
             if (response) {
                 for (var i = 0; i < response.data.favorites.length; i++) {
                     if (response.data.favorites[i].trail_id === $stateParams.id) {
-                        console.log('yes')
                         $scope.fav = false;
                         $scope.rem = true;
                         return;
                     }
                 }
-                console.log('nope')
                 $scope.fav = true;
                 $scope.rem = false;
             }
