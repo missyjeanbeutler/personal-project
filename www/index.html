@@ -16,18 +16,34 @@
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css'
         type='text/css' />
     <link rel="stylesheet" href="./node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/loading.css">
 </head>
 
 <body ng-controller='mainCtrl'>
+
+    <!---/////-Loading animation-/////-->
+
+    <div class="loading-container" id='loading'>
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
 
     <!---/////-slide out nav bar - MOBILE-/////-->
 
     <div layout="row" class="side-menu">
         <md-sidenav md-component-id="left" class="md-sidenav-left">
             <div class="menu-options-mobile">
-            <div ng-click="openLeftMenu()" class="close"><img src="./img/close.svg" alt="close button"></div>
-                <a ui-sref='home' ng-click="openLeftMenu()">Home</a>
-                <a ui-sref='search' ng-click="openLeftMenu()">Search</a>
+                <div ng-click="openLeftMenu()" class="close"><img src="./img/close.svg" alt="close button"></div>
+                <div>
+                    <a ui-sref='home' ng-click="openLeftMenu()">Home</a>
+                </div>
+                <div>
+                    <a ui-sref='search' ng-click="openLeftMenu()">Search</a>
+                </div>
                 <div id='loginProfile'>
                     <a ui-sref="profile" ng-click="openLeftMenu()">Profile</a>
                 </div>
@@ -62,6 +78,8 @@
     <script src="./node_modules/angular-animate/angular-animate.js"></script>
     <script src="./node_modules/angular-material/angular-material.js"></script>
     <script src="./views/1-home/homeCtrl.js"></script>
+    <script src="./jquery-3.2.0.js"></script>
+    <script src="./jquery.waypoints.js"></script>
 </body>
 
 </html>

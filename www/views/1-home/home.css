@@ -1,10 +1,13 @@
 .mobile-container {
-    /*margin: 0 auto;*/
     width: 100%;
 }
 
+.mobile-text-container {
+    width: 100%;
+    height: 1500px;
+}
 
-.main-mobile {
+.section1-mobile {
     padding: 80px 20px;
     background: url('../../img/mika-matin.jpg'), no-repeat;
     background-size: cover;
@@ -12,7 +15,62 @@
     height: 100vh;
 }
 
-.parallax {
-  background-position: 0 0;
-    
+.heading {
+    margin: 20px 0 0 10px;
+}
+
+.bar {
+    background-color: black;
+    height: 50px;
+    width: 275px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bar p {
+    color: white;
+}
+
+.section2-mobile {
+    margin-top: 40px;
+}
+
+.section2-mobile h2,
+.section3-mobile h2,
+.section4-mobile h2,
+.section5-mobile h2,
+.section6-mobile h2 {
+    padding: 20px;
+}
+
+.section2-mobile p,
+.section3-mobile p,
+.section4-mobile p,
+.section5-mobile p,
+.section6-mobile p {
+    margin: 0 20px 0 20px;
+}
+
+.section6-mobile {
+    margin-bottom: 40px;
+}
+
+.section2-mobile p,
+.section3-mobile p,
+.section4-mobile p,
+.section5-mobile p {
+    margin-bottom: 60px;
+}
+
+.section3-mobile h2,
+.section5-mobile h2 {
+    text-align: right;
+}
+
+.section3-mobile p,
+.section5-mobile p {
+    text-align: right;
 }

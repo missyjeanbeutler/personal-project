@@ -13,10 +13,17 @@ h2 {
 h3, h4, h5, h6, a, p {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
-    color: #222;
 }
 
 a {
     text-decoration: none;
     cursor: pointer;
+}
+
+a:focus {
+    outline: none;
+}
+
+p {
+    line-height: 27px;
 }
