@@ -39,16 +39,16 @@
             <div class="menu-options-mobile">
                 <div ng-click="openLeftMenu()" class="close"><img src="./img/close.svg" alt="close button"></div>
                 <div>
-                    <a ui-sref='home' ng-click="openLeftMenu()"><h3 style="font-size: 1.5rem">Home</h3></a>
+                    <a ui-sref='home' ng-click="openLeftMenu()">Home</a>
                 </div>
                 <div>
-                    <a ui-sref='search' ng-click="openLeftMenu()"><h3 style="font-size: 1.5rem">Search</h3></a>
+                    <a ui-sref='search' ng-click="openLeftMenu()">Search</a>
                 </div>
                 <div id='loginProfile'>
-                    <a ui-sref="profile" ng-click="openLeftMenu()"><h3 style="font-size: 1.5rem">Profile</h3></a>
+                    <a ui-sref="profile" ng-click="openLeftMenu()">Profile</a>
                 </div>
                 <div id="logout">
-                    <a href="/auth/logout" ng-click="openLeftMenu()"><h3 style="font-size: 1.5rem">Logout</h3></a>
+                    <a href="/auth/logout" ng-click="openLeftMenu()">Logout</a>
                 </div>
             </div>
         </md-sidenav>
@@ -70,7 +70,6 @@
     <script src="./service/elevationSvc.js"></script>
     <script src="./service/postNewTrailSvc.js"></script>
     <script src="./controllers/updateTrailCtrl.js"></script>
-    <script src="./views/3-trail-data/mapDirective.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.js'></script>
     <script src="./service/loginSvc.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js'></script>

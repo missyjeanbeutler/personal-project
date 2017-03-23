@@ -1,14 +1,11 @@
-<div>
-    <h1>here's your trail!</h1>
-    <br>
-    <h1>{{trail.trail_name}}</h1>
-    <br>
-    <h2>{{trail.gis_miles}} - miles</h2>
-    <h2>{{trail.incline}} - incline percent</h2>
-    <h2>{{trail.elevation}} - elevation change</h2>
-    <h2>{{trail.difficulty}} - difficulty number</h2>
-    // 0 - 5 EASY // 6 - 10 MODERATE // 11 - 16 CHALLENGING // 17 - 22 DIFFICULT // 23 - 28 VERY DIFFICULT // 29 + EXTREME
-    <h2>{{trail.time}} - estimated completion time</h2>
+<h3 class="trail-header">
+    {{trail.trail_name}}</h3>
+<div class="stats">
+    <p><strong>Distance: </strong>{{trail.gis_miles}} miles</p>
+    <p><strong>Average Incline: </strong>{{trail.incline}}%</p>
+    <p><strong>Total Elevation Change: </strong>{{trail.elevation}} feet</p>
+    <p><strong>Difficulty: </strong>{{trail.difficulty}}</p>
+    <p><strong>Est. Completion Time: </strong>{{trail.time}} hours</p>
 </div>
 <div>
     <div id='favorite' ng-show='fav' ng-click='addToFavorites(); show=!show'>
@@ -18,6 +15,12 @@
         <p>remove from favorites</p>
     </div>
 </div>
-<a ng-href={{directions}} target="_blank">directions</a>
-<button ng-click='markCompletedFromTrailData()'>mark completed</button>
+<div class="directions-completed">
+    <div class="directions">
+        <a ng-href={{directions}} target="_blank" style="color:#000">directions</a>
+    </div>
+    <div class='completed' ng-click='markCompletedFromTrailData()'>
+        <p>mark completed</p>
+    </div>
+</div>
 <div id="trailmap"></div>

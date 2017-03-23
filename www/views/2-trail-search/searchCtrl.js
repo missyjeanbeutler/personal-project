@@ -1,5 +1,6 @@
 angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, $q, $state, $mdSidenav) {
 
+    document.getElementById('reset-button').style.visibility = 'hidden'
     function allTrails() {
         let deferred = $q.defer()
         if (mainSvc.geojson) {
@@ -194,8 +195,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     // Populate features for the listing overlay.
                     $scope.hoverList = function (coords, name) {
                         popup.setLngLat(coords)
-                            .setHTML('<h3>TrailHead</h3>' +
-                                '<h4>' + name + '</h4>')
+                            .setHTML('<p style="color:black"><strong>TrailHead</strong></p>' +
+                                '<a style="color:black">' + name + '</a>')
                             .addTo(map);
                     }
 
@@ -223,8 +224,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 // Populate the popup and set its coordinates
                 // based on the feature found.
                 popup.setLngLat(feature.geometry.coordinates)
-                    .setHTML('<h3>TrailHead</h3>' +
-                        '<a href="#!/trail/' + feature.properties.id + '"><h4>' + feature.properties.name + '</h4></a>')
+                    .setHTML('<p style="color:black"><strong>TrailHead</strong></p>' +
+                        '<a style="color:black" href="#!/trail/' + feature.properties.id + '">' + feature.properties.name + '</a>')
                     .addTo(map);
             });
 
@@ -243,6 +244,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                         var openDropdown = dropdowns[i];
                         if (openDropdown.classList.contains('show')) {
                             openDropdown.classList.remove('show');
+                            $('#drop-search').blur();
                         }
                     }
                 }
@@ -265,6 +267,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
             //------------run filter -------------//
 
+            $scope.filter.distance = 0;
+            $scope.filter.time = 0;
 
             $scope.searchWithFilter = function () {
                 let newFT = [];
@@ -302,6 +306,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     "features": newFT
                 }
                 map.getSource('trails').setData(newGeojson)
+                $mdSidenav('right').toggle()
+                document.getElementById('reset-button').style.visibility = 'visible'
             }
 
             $scope.resetFilter = function () {
@@ -312,6 +318,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     document.getElementById(e).classList.toggle("button-toggle");
                 })
                 $scope.filter.difficulty = [];
+                document.getElementById('reset-button').style.visibility = 'hidden'
+
             }
 
             //------------ right side filter slide out ------------//
@@ -320,6 +328,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 $mdSidenav('right').toggle();
             };
 
+            
 
 
 

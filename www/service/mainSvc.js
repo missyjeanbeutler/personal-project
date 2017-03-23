@@ -54,8 +54,22 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     function trailData(id) {
         return $http.get('/search/trail/' + id).then(response => {
-            response.data[0].coords = JSON.parse(response.data[0].coords);
-            return response.data[0];
+            let trail = response.data[0]
+            trail.coords = JSON.parse(trail.coords);
+            let lowerCase = trail.trail_name.split(" ");
+            for (let i = 0; i < lowerCase.length; i++) {
+                var w = lowerCase[i][0] + lowerCase[i].slice(1).toLowerCase()
+                lowerCase[i] = w;
+            };
+            trail.trail_name = lowerCase.join(" ").replace(/"/g, "");
+            trail.time = Math.round((trail.time / 60) * 10) / 10
+            let diff = trail.difficulty
+            if(diff < 6) trail.difficulty = 'Easy';
+            if(diff > 5 && diff < 11) trail.difficulty = 'Moderate';
+            if(diff > 10 && diff < 17) trail.difficulty = 'Challenging';
+            if(diff > 16 && diff < 23) trail.difficulty = 'Difficult';
+            if(diff > 22) trail.difficulty = 'Very Difficult';
+            return trail;
         })
     }
 

@@ -1,7 +1,50 @@
 #trailmap {
-        height: 400px;
-        width: 100%;
+  height: 400px;
+  width: 100%;
+}
 
-      }
+.stats {
+  margin: 5px 20px 20px 20px;
+}
 
-     
+.trail-header {
+  text-align: right;
+  width: 100%;
+  padding: 20px;
+}
+
+#favorite {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  background: black;
+  padding-top: 5px;
+}
+
+#favorite p {
+  color: white;
+}
+
+.directions-completed {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.completed {
+  width: 45%;
+  height: 40px;
+  text-align: center;
+  padding-top: 5px;
+  border: 1px solid black;
+  margin-left: 5px;
+}
+
+.directions {
+  width: 45%;
+  height: 40px;
+  text-align: center;
+  padding-top: 9px;
+  border: 1px solid black; 
+  margin-right: 5px;
+}

@@ -11,51 +11,51 @@
 <!--right slide out filter-->
 <div layout="row">
 
-<md-content>
+<md-content style="background-color: transparent;">
     <div class="advanced-search" ng-click="openRightMenu()"><h3>Advanced Search</h3></div>
+    <div id='reset-button' ng-click="resetFilter()"><p>RESET FILTER</p></div>
 </md-content>
 
-<md-sidenav md-component-id="right" class="md-sidenav-right" style="min-width: 100vw !important;">
+<md-sidenav md-component-id="right" class="md-sidenav-right" style="min-width: 100vw !important; overflow-x: hidden; min-height: 100vh;">
     <div ng-click="openRightMenu()" class="search-close"><img src="../../img/close.svg" alt="close button"></div>
 
     <!--dropdown input for trail search by names-->
     <div>
-        <input type="text" ng-model='searchNames' ng-click="showList()" class="dropbtn" placeholder="Search trails by name..." onfocus="placeholder=''"
-            onblur="placeholder='Search trails by name...'">
+        <input type="text" id='drop-search' ng-model='searchNames' ng-click="showList()" class="dropbtn" placeholder="Search trails by name..." onfocus="placeholder=''" onblur="placeholder='Search trails by name...'">
             <div class="dropdown-content" id='dropdownList'>
-                <a ng-repeat="n in nameList | filter: searchNames | limitTo: 15" ui-sref='trail-data({id: n.id})'>{{n.name}}</a>
+                <a ng-repeat="n in nameList | filter: searchNames" ui-sref='trail-data({id: n.id})'>{{n.name}}</a>
             </div>
     </div>
 
     <!--filter options-->
-    <h3>distance</h3>
+    <h3>distance - {{filter.distance}} miles</h3>
     <md-slider-container class="slider">
-        <md-slider ng-model="filter.distance" min="0" max="50" aria-label='range'>
+        <md-slider ng-model="filter.distance" min="0" max="100" aria-label='range'>
         </md-slider>
-        <div>{{filter.distance}}</div>
     </md-slider-container>
-    <h3>time</h3>
+    <h3>time - {{filter.time}} hours</h3>
     <md-slider-container class="slider">
         <md-slider ng-model="filter.time" min="0" max="50" aria-label='range'>
         </md-slider>
-        <div style="display: inline-block">{{filter.time}}</div>
     </md-slider-container>
     <h3>difficulty</h3>
-    <md-button id='easy' ng-click='selected("easy")'>EASY</md-button>
-    <md-button id='moderate' ng-click='selected("moderate")'>MODERATE</md-button>
-    <md-button id='challenging' ng-click='selected("challenging")'>CHALLENGING</md-button>
-    <md-button id='hard' ng-click='selected("hard")'>HARD</md-button>
-    <md-button id='veryHard' ng-click='selected("veryHard")'>VERY HARD</md-button>
+    <div class="button-container">
+        <div class='diff-button' id='easy' ng-click='selected("easy")'><p>EASY</p></div>
+        <div class='diff-button' id='moderate' ng-click='selected("moderate")'><p>MODERATE</p></div>
+        <div class='diff-button' id='challenging' ng-click='selected("challenging")'><p>CHALLENGING</p></div>
+        <div class='diff-button' id='hard' ng-click='selected("hard")'><p>HARD</p></div>
+        <div class='diff-button' id='veryHard' ng-click='selected("veryHard")'><p>VERY HARD</p></div>
+    </div>
 
     <!--search/reset buttons-->
-    <md-button class="md-accent md-raised" ng-click="searchWithFilter()">SEARCH</md-button>
-    <br>
-    <md-button class="md-accent md-raised" ng-click="resetFilter()">RESET FILTER</md-button>
+    <div class='search-button' ng-click="searchWithFilter()"><h3>Search</h3></div>
 
 </md-sidenav>
 
 </div>
 
 <!--map div-->
-<div id="alltrails" class='alltrails-map' style="position: absolute !important; bottom: 0 !important; display: none;"></div>
+
+<div id="alltrails" class='alltrails-map'></div>
+
 </main>

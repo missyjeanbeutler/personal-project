@@ -5,7 +5,6 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
 
     function trailData(id) {
         mainSvc.trailData(id).then(response => {
-            response.time = Math.round((response.time / 60) * 10) / 10;
             $scope.trail = response;
             let coords = response.coords;
             let middle = response.coords[Math.round(response.coords.length / 2)]
@@ -170,10 +169,10 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
     $scope.deleteTrail = function () {
         mainSvc.deleteTrail($stateParams.id).then(response => {
             loginSvc.updateFavorite(response).then(response => {
-                    $scope.fav = true;
-                    $scope.rem = false;
+                $scope.fav = true;
+                $scope.rem = false;
 
-                })
+            })
         })
     }
 
