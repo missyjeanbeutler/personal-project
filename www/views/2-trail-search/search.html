@@ -1,33 +1,61 @@
-<ul class='alltrails-overlay' ng-repeat="trail in trailListing">
-    <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
-        ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
-</ul>
-<div>
-    <input type="text" ng-model='searchNames' ng-click="showList()" class="dropbtn">
-    <div class="dropdown-content" id='dropdownList'>
-        <div ng-repeat="n in nameList | filter: searchNames | limitTo: 15" ui-sref='trail-data({id: n.id})'>{{n.name}}</div>
-    </div>
+<main class="main-search">
+<!--Listing from map view-->
+<h3 class="listing-header">{{listNumber}} Listed Trails</h3>
+<div class="traillisting-container">
+    <ul class='alltrails-overlay' ng-repeat="trail in trailListing">
+        <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
+            ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
+    </ul>
 </div>
-distance
-<md-slider-container class="slider">
-<md-slider ng-model="filter.distance" min="0" max="50" aria-label='range' >
-</md-slider> <div>{{filter.distance}}</div>
-</md-slider-container>
-time
-<md-slider-container class="slider">
-<md-slider ng-model="filter.time" min="0" max="50" aria-label='range'>
-</md-slider> <div style="display: inline-block">{{filter.time}}</div>
-</md-slider-container>
 
-difficulty
-<md-button id='easy' ng-click='selected("easy")'>EASY</md-button>
-<md-button id='moderate' ng-click='selected("moderate")'>MODERATE</md-button>
-<md-button id='challenging' ng-click='selected("challenging")'>CHALLENGING</md-button>
-<md-button id='hard' ng-click='selected("hard")'>HARD</md-button>
-<md-button id='veryHard' ng-click='selected("veryHard")'>VERY HARD</md-button>
-<br>
-<md-button class="md-accent md-raised" ng-click="searchWithFilter()">SEARCH</md-button>
-<br>    
-<md-button class="md-accent md-raised" ng-click="resetFilter()">RESET FILTER</md-button>
+<!--right slide out filter-->
+<div layout="row">
 
-<div id="alltrails"></div>
+<md-content>
+    <div class="advanced-search" ng-click="openRightMenu()"><h3>Advanced Search</h3></div>
+</md-content>
+
+<md-sidenav md-component-id="right" class="md-sidenav-right" style="min-width: 100vw !important;">
+    <div ng-click="openRightMenu()" class="search-close"><img src="../../img/close.svg" alt="close button"></div>
+
+    <!--dropdown input for trail search by names-->
+    <div>
+        <input type="text" ng-model='searchNames' ng-click="showList()" class="dropbtn" placeholder="Search trails by name..." onfocus="placeholder=''"
+            onblur="placeholder='Search trails by name...'">
+            <div class="dropdown-content" id='dropdownList'>
+                <a ng-repeat="n in nameList | filter: searchNames | limitTo: 15" ui-sref='trail-data({id: n.id})'>{{n.name}}</a>
+            </div>
+    </div>
+
+    <!--filter options-->
+    <h3>distance</h3>
+    <md-slider-container class="slider">
+        <md-slider ng-model="filter.distance" min="0" max="50" aria-label='range'>
+        </md-slider>
+        <div>{{filter.distance}}</div>
+    </md-slider-container>
+    <h3>time</h3>
+    <md-slider-container class="slider">
+        <md-slider ng-model="filter.time" min="0" max="50" aria-label='range'>
+        </md-slider>
+        <div style="display: inline-block">{{filter.time}}</div>
+    </md-slider-container>
+    <h3>difficulty</h3>
+    <md-button id='easy' ng-click='selected("easy")'>EASY</md-button>
+    <md-button id='moderate' ng-click='selected("moderate")'>MODERATE</md-button>
+    <md-button id='challenging' ng-click='selected("challenging")'>CHALLENGING</md-button>
+    <md-button id='hard' ng-click='selected("hard")'>HARD</md-button>
+    <md-button id='veryHard' ng-click='selected("veryHard")'>VERY HARD</md-button>
+
+    <!--search/reset buttons-->
+    <md-button class="md-accent md-raised" ng-click="searchWithFilter()">SEARCH</md-button>
+    <br>
+    <md-button class="md-accent md-raised" ng-click="resetFilter()">RESET FILTER</md-button>
+
+</md-sidenav>
+
+</div>
+
+<!--map div-->
+<div id="alltrails" class='alltrails-map' style="position: absolute !important; bottom: 0 !important; display: none;"></div>
+</main>

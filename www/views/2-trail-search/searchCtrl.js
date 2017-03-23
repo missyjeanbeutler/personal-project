@@ -1,4 +1,4 @@
-angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, $q, $state) {
+angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, $q, $state, $mdSidenav) {
 
     function allTrails() {
         let deferred = $q.defer()
@@ -20,8 +20,13 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
         function searchTrailNames(geo) {
             var nl = []
             for (let i = 0; i < geo.features.length; i++) {
+                var lowerCase = JSON.parse(geo.features[i].properties.name).split(" ");
+                for (let i = 0; i < lowerCase.length; i++) {
+                    var w = lowerCase[i][0] + lowerCase[i].slice(1).toLowerCase()
+                    lowerCase[i] = w;
+                };
                 var obj = {
-                    name: JSON.parse(geo.features[i].properties.name),
+                    name: lowerCase.join(" ").replace(/\"/g, ""),
                     id: JSON.parse(geo.features[i].properties.id)
                 }
                 nl.push(obj)
@@ -199,6 +204,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     }
 
                     $scope.trailListing = uniqueFeatures;
+                    $scope.listNumber = uniqueFeatures.length;
                     $scope.$digest()
 
                     filteredTrails = uniqueFeatures;
@@ -259,7 +265,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
             //------------run filter -------------//
 
-            
+
             $scope.searchWithFilter = function () {
                 let newFT = [];
                 let dist = $scope.filter.distance;
@@ -298,7 +304,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 map.getSource('trails').setData(newGeojson)
             }
 
-            $scope.resetFilter = function() {
+            $scope.resetFilter = function () {
                 map.getSource('trails').setData(geojson)
                 $scope.filter.distance = 0;
                 $scope.filter.time = 0;
@@ -307,6 +313,12 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 })
                 $scope.filter.difficulty = [];
             }
+
+            //------------ right side filter slide out ------------//
+
+            $scope.openRightMenu = function () {
+                $mdSidenav('right').toggle();
+            };
 
 
 

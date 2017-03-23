@@ -10,9 +10,19 @@ h2 {
     font-size: 3rem;
 }
 
-h3, h4, h5, h6, a, p, li {
+h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+}
+
+h4, a, p, li {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+}
+
+h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
 }
 
 a {
@@ -26,4 +36,8 @@ input, button, a:focus {
 
 p {
     line-height: 27px;
+}
+
+li {
+    list-style-type: none;
 }

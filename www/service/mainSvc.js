@@ -18,6 +18,12 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             let geo = []
             response.data.forEach(e => {
                 e.coords = JSON.parse(e.coords);
+                let lowerCase = e.trail_name.replace(/"/g, "").split(" ")
+                for (let i = 0; i < lowerCase.length; i++) {
+                    var w = lowerCase[i][0] + lowerCase[i].slice(1).toLowerCase()
+                    lowerCase[i] = w;
+                };
+                e.trail_name = lowerCase.join(" ")
                 geo.push({
                     "type": "Feature",
                     "properties": {
