@@ -34,7 +34,7 @@
   height: 40px;
   text-align: center;
   padding-top: 5px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   margin-right: 5px;
   transition: 0.4s;
 }
@@ -44,7 +44,7 @@
   height: 40px;
   text-align: center;
   padding-top: 5px;
-  border: 1px solid black; 
+  border: 1px solid lightgray; 
   margin-left: 5px;
   transition: 0.4s;  
 }
@@ -52,6 +52,7 @@
 .selected {
     background: black;
     color: white;
+    border: none;
 }
 
 #comChartContainer {
@@ -64,16 +65,18 @@
     padding: 0 20px;
 }
 
-#comChartContainer h3 {
+#comChartContainer p {
     text-align: center;
     margin: 20px 0 0 0;
     padding: 0 20px;
 }
 
-/*#comChartContainer h4 {
+#comChartContainer h4 {
     text-align: center;
     margin: 0 20px;
-}*/
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+}
 
 #disChartContainer {
     height: 120px;
@@ -85,16 +88,18 @@
     padding: 0 20px;
 }
 
-#disChartContainer h3 {
+#disChartContainer p {
     text-align: center;
     margin: 20px 0 0 0;
     padding: 0 20px;
 }
 
-/*#disChartContainer h4 {
+#disChartContainer h4 {
     text-align: center;
     margin: 0 20px;
-}*/
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+}
 
 .fav-expand {
     width: 100%;
@@ -123,9 +128,9 @@
 }
 
 .panel {
-    height: 170px;
+    height: 190px;
     width: 100%;
-    background: #CCC;
+    background: #FFF;
     padding: 5px 18px;
     display: none;
 }
@@ -133,9 +138,10 @@
 .panel p {
     height: 40px;
     width: 230px;
-    margin: 10px auto;
+    margin: 15px auto;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid lightgray;
+    background: white;
     padding: 5px 10px;
     transition: 0.4s;
 }
