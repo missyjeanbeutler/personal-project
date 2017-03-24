@@ -1,6 +1,5 @@
 angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, $q, $state, $mdSidenav) {
 
-    document.getElementById('reset-button').style.visibility = 'hidden'
     function allTrails() {
         let deferred = $q.defer()
         if (mainSvc.geojson) {
@@ -307,7 +306,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 }
                 map.getSource('trails').setData(newGeojson)
                 $mdSidenav('right').toggle()
-                document.getElementById('reset-button').style.visibility = 'visible'
+                resetButton();
             }
 
             $scope.resetFilter = function () {
@@ -318,7 +317,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     document.getElementById(e).classList.toggle("button-toggle");
                 })
                 $scope.filter.difficulty = [];
-                document.getElementById('reset-button').style.visibility = 'hidden'
+                resetButton();
 
             }
 
@@ -328,7 +327,17 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 $mdSidenav('right').toggle();
             };
 
-            
+            function resetButton() {
+                let t = document.getElementsByClassName('advanced-search')
+                var panel = document.getElementById('reset-button')
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            }
+
+
 
 
 

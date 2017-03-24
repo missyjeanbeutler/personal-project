@@ -37,7 +37,7 @@
 }
 
 .advanced-search p {
-    height: 50px;
+    height: 40px;
     width: 100vw;
     color: white;
 }
@@ -50,12 +50,13 @@
     text-align: center;
     padding-top: 10px;
     margin: 7.5px auto;
+    display: none;
 }
 
 .search-close {
-    width: 30px;
-    height: 30px;
-    margin: 40px;
+    width: 20px;
+    height: 20px;
+    margin: 20px;
     position: absolute;
     left: 0;
     top: 0;
@@ -71,10 +72,10 @@
     padding: 16px;
     border: none;
     cursor: pointer;
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
     width: 100%;
-    margin: 110px 0 20px 0;
+    margin: 60px 0 20px 0;
 }
 
 
@@ -131,7 +132,7 @@
     display: block;
 }
 
-.md-sidenav-right h3 {
+.md-sidenav-right p {
     margin: 20px 20px 0 20px;
 }
 
@@ -148,25 +149,31 @@
 }
 
 .diff-button {
-    width: 150px;
+    width: 140px;
     height: 40px;
-    border: 1px solid black;
+    border: 1px solid lightgray;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 3px;
-    margin: 7.5px;
+    padding-bottom: 17px;
+    margin: 5px;
+    transition: 0.4s;
+}
+
+.diff-button p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
 }
 
 .search-button {
     width: 100vw;
-    height: 70px;
+    height: 60px;
     background: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 30px;
-    margin: 7.5px auto;
+    padding-bottom: 23px;
+    margin: 25px auto;
     color: white;
 }
 
@@ -188,7 +195,8 @@
 
 .button-toggle {
     background-color: black;
-    color: white
+    color: white;
+    border: none;
 }
 
 @media(min-width: 650px) {
@@ -218,7 +226,6 @@
 }
 
 .advanced-search p {
-    height: 40px;
     color: white;
     width: 100%;
 }

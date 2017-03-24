@@ -1,12 +1,6 @@
 <main class="main-search">
 <!--Listing from map view-->
 <h3 class="listing-header">{{listNumber}} Listed Trails</h3>
-<div class="traillisting-container">
-    <ul class='alltrails-overlay' ng-repeat="trail in trailListing">
-        <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
-            ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
-    </ul>
-</div>
 
 <!--right slide out filter-->
 <div layout="row" class="hidden-filter">
@@ -21,24 +15,24 @@
 
     <!--dropdown input for trail search by names-->
     <div>
-        <input type="text" id='drop-search' ng-model='searchNames' ng-click="showList()" class="dropbtn" placeholder="Search trails by name..." onfocus="placeholder=''" onblur="placeholder='Search trails by name...'">
+        <input type="text" id='drop-search' ng-model='searchNames' ng-click="showList()" class="dropbtn" placeholder="SEARCH TRAILS BY NAME" onfocus="placeholder=''" onblur="placeholder='SEARCH TRAILS BY NAME'">
             <div class="dropdown-content" id='dropdownList'>
                 <a ng-repeat="n in nameList | filter: searchNames" ui-sref='trail-data({id: n.id})'>{{n.name}}</a>
             </div>
     </div>
 
     <!--filter options-->
-    <h3>distance - {{filter.distance}} miles</h3>
+    <p>Distance - {{filter.distance}} miles</p>
     <md-slider-container class="slider">
         <md-slider ng-model="filter.distance" min="0" max="100" aria-label='range'>
         </md-slider>
     </md-slider-container>
-    <h3>time - {{filter.time}} hours</h3>
+    <p>Time - {{filter.time}} hours</p>
     <md-slider-container class="slider">
         <md-slider ng-model="filter.time" min="0" max="50" aria-label='range'>
         </md-slider>
     </md-slider-container>
-    <h3>difficulty</h3>
+    <p>Difficulty</p>
     <div class="button-container">
         <div class='diff-button' id='easy' ng-click='selected("easy")'><p>EASY</p></div>
         <div class='diff-button' id='moderate' ng-click='selected("moderate")'><p>MODERATE</p></div>
@@ -48,10 +42,18 @@
     </div>
 
     <!--search/reset buttons-->
-    <div class='search-button' ng-click="searchWithFilter()"><h3>Search</h3></div>
+    <div class='search-button' ng-click="searchWithFilter()"><p>SEARCH</p></div>
 
 </md-sidenav>
 
+</div>
+
+<!--Listing from map view-->
+<div class="traillisting-container">
+    <ul class='alltrails-overlay' ng-repeat="trail in trailListing">
+        <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
+            ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
+    </ul>
 </div>
 
 <!--map div-->
