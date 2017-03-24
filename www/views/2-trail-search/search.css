@@ -45,11 +45,8 @@
 #reset-button {
     width: 100vw;
     height: 50px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
     text-align: center;
-    padding-top: 10px;
-    margin: 7.5px auto;
+    padding: 12px 0 9px 0;
     display: none;
 }
 
@@ -200,43 +197,60 @@
 }
 
 @media(min-width: 650px) {
+    .main-search {
+        height: 100vh;
+    }
+
     .alltrails-map {
         position: absolute;
+        top: 0;
         bottom: 0;
         right: 0;
+        width: 100vw;
         height: 100vh;
-        width: 50vw;
+    }
+
+    .hidden-filter {
+        z-index: 100;
+        position: relative;
     }
 
     .listing-header {
-    text-align: left;
-    margin: 20px 20px 70px 20px;
-}
-
-.traillisting-container {
-    height: 100vh;
-    width: 250px;
-    display: inline-block;
-}
-
-.advanced-search {
-    width: 250px;
-    position: absolute;
-    top: 75px;
-}
-
-.advanced-search p {
-    color: white;
-    width: 100%;
-}
-
-#reset-button {
-    width: 250px;
-    width: 100%;    
-}
-
-/*.hidden-filter {
-}*/
-
-
+        text-align: center;
+        margin: 0px;
+        width: 260px;
+        border-right: 1px solid lightgray;
+        padding: 20px 10px;
+        height: 75px;
+        position: absolute;
+        z-index: 100;
+    }
+    .traillisting-container {
+        height: 100vh;
+        width: 260px;
+        display: inline-block;
+        position: absolute;
+        z-index: 100;
+        background: white;
+    }
+    .advanced-search {
+        width: 260px;
+        z-index: 100;
+        margin-top: 75px;
+    }
+    .advanced-search p {
+        color: white;
+        width: 100%;
+        z-index: 100;
+    }
+    #reset-button {
+        width: 260px;
+        width: 100%;
+        border-right: 1px solid lightgray;
+        z-index: 100;
+    }
+    
+    .md-sidenav-right {
+        z-index: 200;
+    }
 }

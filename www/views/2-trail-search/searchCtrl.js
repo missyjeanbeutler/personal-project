@@ -194,8 +194,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                     // Populate features for the listing overlay.
                     $scope.hoverList = function (coords, name) {
                         popup.setLngLat(coords)
-                            .setHTML('<p style="color:black"><strong>TrailHead</strong></p>' +
-                                '<a style="color:black">' + name + '</a>')
+                            .setHTML('<p style="color:black; text-align: center;"><strong>TRAILHEAD</strong></p>' +
+                                '<a style="color:black; text-align: center;">' + name + '</a>')
                             .addTo(map);
                     }
 
@@ -223,8 +223,8 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 // Populate the popup and set its coordinates
                 // based on the feature found.
                 popup.setLngLat(feature.geometry.coordinates)
-                    .setHTML('<p style="color:black"><strong>TrailHead</strong></p>' +
-                        '<a style="color:black" href="#!/trail/' + feature.properties.id + '">' + feature.properties.name + '</a>')
+                    .setHTML('<p style="color:black; text-align: center;"><strong>TRAILHEAD</strong></p>' +
+                        '<a style="color:black; text-align: center;" href="#!/trail/' + feature.properties.id + '">' + feature.properties.name + '</a>')
                     .addTo(map);
             });
 
