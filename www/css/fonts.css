@@ -15,14 +15,15 @@ h3 {
     font-size: 2rem;
 }
 
-h4, a, p, li {
+h5, a, p, li {
     font-family: 'Open Sans', sans-serif;
     font-size: 1.2rem;
 }
 
-h5, h6 {
+h4 {
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
+    line-height: 22px;
 }
 
 a {
