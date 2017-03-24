@@ -18,13 +18,11 @@
     <link rel="stylesheet" href="./node_modules/angular-material/angular-material.css">
     <link rel="stylesheet" href="./css/animate.css">
     <link rel="stylesheet" href="./css/loading.css">
-    
 </head>
 
 <body ng-controller='mainCtrl'>
 
     <!---/////-Loading animation-/////-->
-
     <div class="loading-container" id='loading'>
         <div class="spinner">
             <div class="bounce1"></div>
@@ -34,7 +32,6 @@
     </div>
 
     <!---/////-slide out nav bar - MOBILE-/////-->
-
     <div layout="row" class="side-menu">
         <md-sidenav md-component-id="left" class="md-sidenav-left">
             <div class="menu-options-mobile">
@@ -53,10 +50,26 @@
                 </div>
             </div>
         </md-sidenav>
-        <md-content style="background-color: transparent; position: absolute;">
+        <md-content style="background-color: transparent; position: absolute;" class='mobile-content'>
             <div ng-click="openLeftMenu()" class="open"><img src="./img/menu.svg" alt="open button"></div>
         </md-content>
     </div>
+
+    <!--/////- desktop nav bar -/////-->
+    <nav class="desktop-nav">
+        <div>
+            <a ui-sref='home'>Home</a>
+        </div>
+        <div>
+            <a ui-sref='search'>Search</a>
+        </div>
+        <div id='loginProfile'>
+            <a ui-sref="profile">Profile</a>
+        </div>
+        <div id="logout">
+            <a href="/auth/logout">Logout</a>
+        </div>
+    </nav>
 
     <ui-view></ui-view>
 
@@ -81,7 +94,6 @@
     <script src="./assests/jquery-3.2.0.js"></script>
     <script src="./assests/jquery.waypoints.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
-
 </body>
 
 </html>

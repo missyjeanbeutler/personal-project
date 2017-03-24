@@ -39,3 +39,33 @@
 .menu-options-mobile div a {
     color: white;
 }
+
+.desktop-nav {
+    display: none;
+}
+
+@media(min-width: 600px) {
+    .side-menu, 
+    .md-sidenav-left,
+    .mobile-content {
+        display: none;
+    }
+
+    .desktop-nav {
+        height: 50px;
+        display: flex; 
+        position: absolute;
+        justify-content: flex-end;
+        width: 100%;
+        align-items: center;
+        padding-right: 20px;
+    }
+
+    .desktop-nav div {
+        padding: 0 20px;
+    }
+
+    .desktop-nav div a {
+        color: black;
+    }
+}
