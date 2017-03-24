@@ -36,6 +36,7 @@
   padding-top: 5px;
   border: 1px solid black;
   margin-right: 5px;
+  transition: 0.4s;
 }
 
 .favorites {
@@ -45,6 +46,7 @@
   padding-top: 5px;
   border: 1px solid black; 
   margin-left: 5px;
+  transition: 0.4s;  
 }
 
 .selected {
@@ -65,12 +67,13 @@
 #comChartContainer h3 {
     text-align: center;
     margin: 20px 0 0 0;
+    padding: 0 20px;
 }
 
-#comChartContainer h4 {
+/*#comChartContainer h4 {
     text-align: center;
     margin: 0 20px;
-}
+}*/
 
 #disChartContainer {
     height: 120px;
@@ -85,36 +88,66 @@
 #disChartContainer h3 {
     text-align: center;
     margin: 20px 0 0 0;
+    padding: 0 20px;
 }
 
-#disChartContainer h4 {
+/*#disChartContainer h4 {
     text-align: center;
     margin: 0 20px;
-}
+}*/
 
 .fav-expand {
     width: 100%;
     text-align: center;
-    height: 40px;
     border-top: 1px solid #DDD;
-    padding-top: 6px;
 }
 
 .fav-expand:last-child {
     border-bottom: 1px solid #DDD;
 }
 
-.fav-expand div {
-    height: 60px;
+.accordion {
+    background-color: #FFF;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
     width: 100%;
-    background: #CCC;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
 }
 
-.fav-expand a {
+.accordion.active, .accordion:hover {
+    background-color: #EEE;
+}
+
+.panel {
+    height: 170px;
+    width: 100%;
+    background: #CCC;
+    padding: 5px 18px;
+    display: none;
+}
+
+.panel p {
     height: 40px;
-    width: 40%;
-    margin: 10px 5px;
+    width: 230px;
+    margin: 10px auto;
     text-align: center;
     border: 1px solid black;
-    background: white;
+    padding: 5px 10px;
+    transition: 0.4s;
+}
+
+.panel p.active, .panel p:hover {
+    background-color: black;
+    color: white;
+}
+
+@media(min-width: 650px) {
+    .profile-container {
+        width: 100%;
+        margin: 80px auto 20px auto;
+    }
 }

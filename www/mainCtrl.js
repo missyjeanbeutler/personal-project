@@ -12,7 +12,7 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
         $scope.photo = response.data.photo
         var totalEl = userTotalElevation(response.data.completed)
         var totalMi = userTotalMiles(response.data.completed)
-        
+
       } else {
         $scope.user = 'NOT LOGGED IN';
       }
@@ -59,6 +59,7 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
       //---------------------------charts-----------------------------//
 
       var radius = 0;
+
       function makeComChart() {
         var ctx = document.getElementById("comChart").getContext('2d');
         var comChart = new Chart(ctx, {
@@ -147,7 +148,7 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
 
       };
 
-      $(document).ready(function() {
+      $(document).ready(function () {
         makeDisChart()
         makeComChart()
       })
@@ -225,7 +226,19 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
   $scope.expand = false;
 
 
-
+  //-------------------expand fav list--------------------//
+  
+    $scope.accordion = function (id) {
+      let t = document.getElementById(id)
+      t.classList.toggle("active");
+      var panel = t.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    }
+  
 
 
 
