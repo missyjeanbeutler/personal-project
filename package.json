@@ -20,7 +20,6 @@
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
     "q": "^1.4.1",
-    "querystring": "^0.2.0",
-    "babel-preset-es2015": "^6.24.0"
+    "querystring": "^0.2.0"
   }
 }
