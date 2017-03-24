@@ -1,63 +1,70 @@
 <main class="main-search">
-<!--Listing from map view-->
-<h3 class="listing-header">{{listNumber}} Listed Trails</h3>
-
-<!--right slide out filter-->
-<div layout="row" class="hidden-filter">
-
-<md-content style="background-color: transparent;">
-    <div class="advanced-search" ng-click="openRightMenu()"><p>ADVANCED SEARCH</p></div>
-    <div id='reset-button' ng-click="resetFilter()"><p>RESET FILTER</p></div>
-</md-content>
-
-<md-sidenav md-component-id="right" class="md-sidenav-right" style="min-width: 100vw !important; overflow-x: hidden; min-height: 100vh;">
-    <div ng-click="openRightMenu()" class="search-close"><img src="../../img/close.svg" alt="close button"></div>
-
-    <!--dropdown input for trail search by names-->
-    <div>
-        <input type="text" id='drop-search' ng-model='searchNames' ng-click="showList()" class="dropbtn" placeholder="SEARCH TRAILS BY NAME" onfocus="placeholder=''" onblur="placeholder='SEARCH TRAILS BY NAME'">
-            <div class="dropdown-content" id='dropdownList'>
-                <a ng-repeat="n in nameList | filter: searchNames" ui-sref='trail-data({id: n.id})'>{{n.name}}</a>
+    <!--Listing from map view-->
+    <h3 class="listing-header">{{listNumber}} Listed Trails</h3>
+    <!--right slide out filter-->
+    <div layout="row" class="hidden-filter">
+        <md-content style="background-color: transparent;">
+            <div class="advanced-search" ng-click="openRightMenu()">
+                <p>ADVANCED SEARCH</p>
             </div>
+            <div id='reset-button' ng-click="resetFilter()">
+                <p>RESET FILTER</p>
+            </div>
+        </md-content>
+        <md-sidenav md-component-id="right" class="md-sidenav-right" style="min-width: 100vw !important; overflow-x: hidden; min-height: 100vh;">
+            <div class="filter-container">
+                <div ng-click="openRightMenu()" class="search-close"><img src="../../img/close.svg" alt="close button"></div>
+                <!--dropdown input for trail search by names-->
+                <div>
+                    <input type="text" id='drop-search' ng-model='searchNames' ng-click="showList()" class="dropbtn" placeholder="SEARCH TRAILS BY NAME"
+                        onfocus="placeholder=''" onblur="placeholder='SEARCH TRAILS BY NAME'">
+                        <div class="dropdown-content" id='dropdownList'>
+                            <a ng-repeat="n in nameList | filter: searchNames" ui-sref='trail-data({id: n.id})'>{{n.name}}</a>
+                        </div>
+                </div>
+                <!--filter options-->
+                <p>Distance - {{filter.distance}} miles</p>
+                <md-slider-container class="slider">
+                    <md-slider ng-model="filter.distance" min="0" max="100" aria-label='range'>
+                    </md-slider>
+                </md-slider-container>
+                <p>Time - {{filter.time}} hours</p>
+                <md-slider-container class="slider">
+                    <md-slider ng-model="filter.time" min="0" max="50" aria-label='range'>
+                    </md-slider>
+                </md-slider-container>
+                <p>Difficulty</p>
+                <div class="button-container">
+                    <div class='diff-button' id='easy' ng-click='selected("easy")'>
+                        <p>EASY</p>
+                    </div>
+                    <div class='diff-button' id='moderate' ng-click='selected("moderate")'>
+                        <p>MODERATE</p>
+                    </div>
+                    <div class='diff-button' id='challenging' ng-click='selected("challenging")'>
+                        <p>CHALLENGING</p>
+                    </div>
+                    <div class='diff-button' id='hard' ng-click='selected("hard")'>
+                        <p>HARD</p>
+                    </div>
+                    <div class='diff-button' id='veryHard' ng-click='selected("veryHard")'>
+                        <p>VERY HARD</p>
+                    </div>
+                </div>
+                <!--search/reset buttons-->
+                <div class='search-button' ng-click="searchWithFilter()">
+                    <p>SEARCH</p>
+                </div>
+            </div>
+        </md-sidenav>
     </div>
-
-    <!--filter options-->
-    <p>Distance - {{filter.distance}} miles</p>
-    <md-slider-container class="slider">
-        <md-slider ng-model="filter.distance" min="0" max="100" aria-label='range'>
-        </md-slider>
-    </md-slider-container>
-    <p>Time - {{filter.time}} hours</p>
-    <md-slider-container class="slider">
-        <md-slider ng-model="filter.time" min="0" max="50" aria-label='range'>
-        </md-slider>
-    </md-slider-container>
-    <p>Difficulty</p>
-    <div class="button-container">
-        <div class='diff-button' id='easy' ng-click='selected("easy")'><p>EASY</p></div>
-        <div class='diff-button' id='moderate' ng-click='selected("moderate")'><p>MODERATE</p></div>
-        <div class='diff-button' id='challenging' ng-click='selected("challenging")'><p>CHALLENGING</p></div>
-        <div class='diff-button' id='hard' ng-click='selected("hard")'><p>HARD</p></div>
-        <div class='diff-button' id='veryHard' ng-click='selected("veryHard")'><p>VERY HARD</p></div>
+    <!--Listing from map view-->
+    <div class="traillisting-container">
+        <ul class='alltrails-overlay' ng-repeat="trail in trailListing">
+            <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
+                ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
+        </ul>
     </div>
-
-    <!--search/reset buttons-->
-    <div class='search-button' ng-click="searchWithFilter()"><p>SEARCH</p></div>
-
-</md-sidenav>
-
-</div>
-
-<!--Listing from map view-->
-<div class="traillisting-container">
-    <ul class='alltrails-overlay' ng-repeat="trail in trailListing">
-        <li id='feature-listing' class='listing' ui-sref='trail-data({id: trail.properties.id})' ng-mouseover='hoverList(trail.geometry.coordinates, trail.properties.name)'
-            ng-mouseleave='hidePopup()'>{{trail.properties.name}}</li>
-    </ul>
-</div>
-
-<!--map div-->
-
-<div id="alltrails" class='alltrails-map'></div>
-
+    <!--map div-->
+    <div id="alltrails" class='alltrails-map'></div>
 </main>

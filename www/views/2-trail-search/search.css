@@ -28,12 +28,14 @@
     height: 40px;
     border-bottom: 1px solid #DDD;
     padding: 10px;
+    cursor: pointer;
 }
 
 .advanced-search {
     text-align: center;
     background: black;
     padding-top: 10px;
+    cursor: pointer;
 }
 
 .advanced-search p {
@@ -57,6 +59,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    cursor: pointer;
 }
 
 .search-close img {
@@ -73,6 +76,7 @@
     font-size: 1.2rem;
     width: 100%;
     margin: 60px 0 20px 0;
+    transition: 0.4s;
 }
 
 
@@ -81,6 +85,7 @@
 .dropbtn:hover,
 .dropbtn:focus {
     background-color: #EEE;
+    color: black;
 }
 
 
@@ -113,13 +118,15 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    transition: 0.4s;
+    cursor: pointer;
 }
 
 
 /* Change color of dropdown links on hover */
 
 .dropdown-content a:hover {
-    background-color: #FFF
+    background-color: #DDD;
 }
 
 
@@ -154,6 +161,7 @@
     align-items: center;
     padding-bottom: 17px;
     margin: 5px;
+    cursor: pointer;
     transition: 0.4s;
 }
 
@@ -172,6 +180,7 @@
     padding-bottom: 23px;
     margin: 25px auto;
     color: white;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar {
@@ -200,7 +209,6 @@
     .main-search {
         height: 100vh;
     }
-
     .alltrails-map {
         position: absolute;
         top: 0;
@@ -209,12 +217,6 @@
         width: 100vw;
         height: 100vh;
     }
-
-    .hidden-filter {
-        z-index: 100;
-        position: relative;
-    }
-
     .listing-header {
         text-align: center;
         margin: 0px;
@@ -249,8 +251,45 @@
         border-right: 1px solid lightgray;
         z-index: 100;
     }
-    
     .md-sidenav-right {
         z-index: 200;
+    }
+    .md-sidenav-right {
+        padding: 0 20% 0 20%;
+    }
+    .search-button {
+        width: 100%;
+        margin: 25px auto 60px auto;
+    }
+    .dropbtn:hover,
+    .dropbtn:focus {
+        background-color: #FFF;
+    }
+    .diff-button {
+        background: white;
+        width: 130px;
+    }
+
+    .diff-button:hover {
+        background: #CCC;
+    }
+    .diff-button p {
+        font-size: 1rem;
+    }
+    .button-toggle {
+    background-color: black;
+    color: white;
+    border: none;
+}
+    .filter-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100vh;
+        background: #EEE;
+    }
+
+    #dropdownList {
+        width: 60%;
     }
 }
