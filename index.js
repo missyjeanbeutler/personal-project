@@ -8,13 +8,13 @@ const express = require('express'),
       // config = require('./config.js');
 
 const app = module.exports = express();
-// const host = process.env;
-const host = config;
+const host = process.env;
+// const host = config;
 
 //---------------
 
-// let heroku = 'https://trailsapp.herokuapp.com/'
-let heroku = 'http://localhost:3000/'
+let heroku = 'https://trailsapp.herokuapp.com/'
+// let heroku = 'http://localhost:3000/'
 
 app.use(express.static('./www'));   
 
