@@ -332,8 +332,10 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 var panel = document.getElementById('reset-button')
                 if (panel.style.display === "block") {
                     panel.style.display = "none";
+                    // document.getElementsByClassName('traillisting-container').style.top = '125px'
                 } else {
                     panel.style.display = "block";
+                    // document.getElementsByClassName('traillisting-container').style.top = '175px'
                 }
             }
 
