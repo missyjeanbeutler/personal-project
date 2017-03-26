@@ -109,10 +109,8 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     //--------------- adjust trails lists for user ----------------//
 
     function deleteTrail(id) {
-        console.log(id)
         return $http.delete('/api/deletefavorite/' + id)
             .then(response => {
-                console.log(response)
                 return response.data;
             })
     }
@@ -125,11 +123,9 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     function addToFavorites(trailId) {
         return $http.get('/api/userid').then(response => {
-            console.log(response)
             if (!response) return "Not logged in";
             return $http.put('/api/addtofavorites/' + trailId)
                 .then(response => {
-                    console.log(response)
                     if (response.status === 200) return response.data[0].trail_id;
                 })
         })
@@ -138,7 +134,6 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     function markCompletedFromTrailData(trailId) {
         return $http.get('/api/userid').then(response => {
-            console.log(response)
             if (!response) return "Not logged in";
             return $http.put('/api/markcompleted/' + trailId).then(response => {
                 return response.data[0].trail_id;

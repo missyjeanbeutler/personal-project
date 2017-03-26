@@ -51,10 +51,12 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
         $scope.favorites = response.data.favorites;
         $scope.completed = response.data.completed;
         $scope.photo = response.data.photo;
+        console.log(response.data);
         var totalEl = userTotalElevation(response.data.completed);
         var totalMi = userTotalMiles(response.data.completed);
       } else {
         $scope.user = 'NOT LOGGED IN';
+        console.log($scope.user);
       }
       getLoginStatus();
 
@@ -194,7 +196,9 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
       function getLoginStatus() {
         if ($scope.user === 'NOT LOGGED IN') {
           document.getElementById('loginProfile').innerHTML = "<a href='/auth'>Login</a>";
-          document.getElementById('logout').style.visibility = 'hidden';
+          document.getElementById('logoutProfile').style.visibility = 'hidden';
+          document.getElementById('loginProfile-desktop').innerHTML = "<a href='/auth'>Login</a>";
+          document.getElementById('logoutProfile-desktop').style.display = 'none';
         }
       }
 
@@ -448,9 +452,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     //--------------- adjust trails lists for user ----------------//
 
     function deleteTrail(id) {
-        console.log(id);
         return $http.delete('/api/deletefavorite/' + id).then(function (response) {
-            console.log(response);
             return response.data;
         });
     }
@@ -463,10 +465,8 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     function addToFavorites(trailId) {
         return $http.get('/api/userid').then(function (response) {
-            console.log(response);
             if (!response) return "Not logged in";
             return $http.put('/api/addtofavorites/' + trailId).then(function (response) {
-                console.log(response);
                 if (response.status === 200) return response.data[0].trail_id;
             });
         });
@@ -474,7 +474,6 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     function markCompletedFromTrailData(trailId) {
         return $http.get('/api/userid').then(function (response) {
-            console.log(response);
             if (!response) return "Not logged in";
             return $http.put('/api/markcompleted/' + trailId).then(function (response) {
                 return response.data[0].trail_id;
@@ -918,7 +917,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                         newFT.push(geojson.features[_i2]);
                     }
                 }
-                newGeojson = {
+                var newGeojson = {
                     "type": "FeatureCollection",
                     "features": newFT
                 };

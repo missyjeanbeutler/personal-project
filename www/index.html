@@ -47,7 +47,7 @@
                 <div id='loginProfile'>
                     <a ui-sref="profile" ng-click="openLeftMenu()">Profile</a>
                 </div>
-                <div id="logout">
+                <div id="logoutProfile">
                     <a href="/auth/logout" ng-click="openLeftMenu()">Logout</a>
                 </div>
             </div>
@@ -65,18 +65,18 @@
         <div>
             <a ui-sref='search'>Search</a>
         </div>
-        <div id='loginProfile'>
+        <div id='loginProfile-desktop'>
             <a ui-sref="profile">Profile</a>
         </div>
-        <div id="logout">
+        <div id="logoutProfile-desktop">
             <a href="/auth/logout">Logout</a>
         </div>
     </nav>
 
     <ui-view></ui-view>
 
+
     <script src="./assets/angular.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>-->
     <script src="./assets/angular-ui-router.js"></script>
     <script src="app.js"></script>
     <!--<script src="./dist/all.js"></script>-->

@@ -299,7 +299,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                         newFT.push(geojson.features[i])
                     }
                 }
-                newGeojson = {
+                let newGeojson = {
                     "type": "FeatureCollection",
                     "features": newFT
                 }
@@ -331,11 +331,9 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 var panel = document.getElementById('reset-button')
                 if (panel.style.display === "block") {
                     panel.style.display = "none";
-                    console.log('Im here!')
                     document.getElementById('tlc').style.top = '125px'
                 } else {
                     panel.style.display = "block";
-                    console.log('also here')
                     document.getElementById('tlc').style.top = '175px'
                 }
             }

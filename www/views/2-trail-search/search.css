@@ -220,14 +220,13 @@
     }*/
     .alltrails-map {
         position: absolute;
-        /*top: 75px;*/
-        /*bottom: 0;*/
-        right: 0;
         width: calc(100vw - 260px);
-        /*height: calc(100vh - 75px);*/
         height: 100vh;
         float: right;
-        /*top: 0;*/
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100vw;
     }
     .listing-header {
         text-align: center;
@@ -238,6 +237,7 @@
         height: 75px;
         position: absolute;
         z-index: 100;
+        background: white;
     }
 
     .adv-search-container {
@@ -249,12 +249,18 @@
     .traillisting-container {
         height: calc(100vh - 125px);
         width: 260px;
-        /*display: inline-block;*/
         position: absolute;
         z-index: 100;
         background: white;
         top: 125px;
     }
+
+    .advanced-container {
+        width: 260px;
+        position: absolute;
+        z-index: 100;
+    }
+
     .advanced-search {
         width: 260px;
         z-index: 100;
@@ -311,5 +317,11 @@
 
     #dropdownList {
         width: 60%;
+    }
+
+    .mapboxgl-canvas-container {
+        height: 100vh !important;
+        position: absolute;
+        top: 0 !important;
     }
 }

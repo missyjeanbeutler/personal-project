@@ -10,11 +10,13 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
         $scope.favorites = response.data.favorites;
         $scope.completed = response.data.completed;
         $scope.photo = response.data.photo
+        console.log(response.data)
         var totalEl = userTotalElevation(response.data.completed)
         var totalMi = userTotalMiles(response.data.completed)
 
       } else {
         $scope.user = 'NOT LOGGED IN';
+        console.log($scope.user)
       }
       getLoginStatus();
 
@@ -159,7 +161,9 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
       function getLoginStatus() {
         if ($scope.user === 'NOT LOGGED IN') {
           document.getElementById('loginProfile').innerHTML = "<a href='/auth'>Login</a>";
-          document.getElementById('logout').style.visibility = 'hidden';
+          document.getElementById('logoutProfile').style.visibility = 'hidden';
+          document.getElementById('loginProfile-desktop').innerHTML = "<a href='/auth'>Login</a>";
+          document.getElementById('logoutProfile-desktop').style.display = 'none';
         }
       }
 
