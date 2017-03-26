@@ -5,16 +5,16 @@ const express = require('express'),
       massive = require('massive'),
       passport = require('passport'),
       Auth0Strategy = require('passport-auth0')
-      config = require('./config.js');
+      // config = require('./config.js');
 
-const app = module.exports = express();
-// const host = process.env;
+// const app = module.exports = express();
+const host = process.env;
 const host = config;
 
 //---------------
 
-// let heroku = 'https://trailsapp.herokuapp.com/'
-let heroku = 'http://localhost:3000/'
+let heroku = 'https://trailsapp.herokuapp.com/'
+// let heroku = 'http://localhost:3000/'
 
 app.use(express.static('./www'));   
 
