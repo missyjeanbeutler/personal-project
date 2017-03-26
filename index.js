@@ -7,9 +7,9 @@ const express = require('express'),
       Auth0Strategy = require('passport-auth0')
       // config = require('./config.js');
 
-// const app = module.exports = express();
+const app = module.exports = express();
 const host = process.env;
-const host = config;
+// const host = config;
 
 //---------------
 
