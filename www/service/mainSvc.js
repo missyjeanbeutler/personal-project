@@ -1,4 +1,4 @@
-angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, elevationSvc, loginSvc) {
+angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, elevationSvc, loginSvc, $q) {
 
     this.allTrails = allTrails;
     this.trailData = trailData;
@@ -70,6 +70,10 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             if(diff > 16 && diff < 23) trail.difficulty = 'Difficult';
             if(diff > 22) trail.difficulty = 'Very Difficult';
             return trail;
+        }).then(response => {
+            let deferred = $q.defer()
+            deferred.resolve(getElevation(coordsLength(response), response))
+            return deferred.promise;
         })
     }
 
@@ -98,7 +102,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     }
 
 
-    function getElevation(polyline, trail) {
+    function getElevation(polyline, trail) {    
         return elevationSvc.getTrailElevation(polyline, trail.coords.length)
             .then(response => {
                 trail.elevation_array = response;
@@ -123,21 +127,25 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     function addToFavorites(trailId) {
         return $http.get('/api/userid').then(response => {
-            if (!response) return "Not logged in";
+            // if (!response) return "Not logged in";
             return $http.put('/api/addtofavorites/' + trailId)
                 .then(response => {
                     if (response.status === 200) return response.data[0].trail_id;
                 })
+        }).catch(function(err) {
+            return 'Not logged in'
         })
 
     }
 
     function markCompletedFromTrailData(trailId) {
         return $http.get('/api/userid').then(response => {
-            if (!response) return "Not logged in";
+            // if (!response) return "Not logged in";
             return $http.put('/api/markcompleted/' + trailId).then(response => {
                 return response.data[0].trail_id;
             })
+        }).catch(function(err) {
+            return 'Not logged in'
         })
 
     }

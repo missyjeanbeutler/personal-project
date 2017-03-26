@@ -25,7 +25,7 @@ angular.module('trailsApp').service('loginSvc', function ($http) {
         return res
       })
       .catch(function (err) {
-        console.log(err);
+        console.log('No user');
       })
   }
 
@@ -38,7 +38,7 @@ angular.module('trailsApp').service('loginSvc', function ($http) {
         return res.data;
       })
       .catch(function (err) {
-        console.log(err);
+        console.log('Didnt work');
       })
   }
 

@@ -16,7 +16,6 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
 
       } else {
         $scope.user = 'NOT LOGGED IN';
-        console.log($scope.user)
       }
       getLoginStatus();
 

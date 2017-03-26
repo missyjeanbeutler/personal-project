@@ -113,6 +113,7 @@ app.get('/auth/logout', function(req, res) {
 
 app.get('/api/search', controller.allTrails);
 app.get('/search/trail/:id', controller.trailData);
+app.get('/api/googleAPIdata', controller.elevationData)
 
 //-----------adjust trail lists for user ------------//
 

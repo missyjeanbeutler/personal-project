@@ -8,6 +8,7 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
             $scope.trail = response;
             let coords = response.coords;
             let middle = response.coords[Math.round(response.coords.length / 2)]
+            makeDataChart(response.elevation_array)
 
             //--------- create map -----------//
 
@@ -129,7 +130,9 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
                     $scope.rem = true;
 
                 })
-            } else console.log(response)
+            } else {
+                alert('not logged in')
+            }
         })
     }
 
@@ -141,7 +144,9 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
                         console.log(response, ' added!')
                     }
                 })
-            } else console.log(response)
+            } else {
+                alert('not logged in')
+            }
         })
     }
 
@@ -174,7 +179,50 @@ angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParam
         })
     }
 
+    //-----------------elevation chart------------------//
 
+function makeDataChart(elData) {
+            var ctx = document.getElementById('elevationChart').getContext('2d');          
+            var myChart = new Chart(ctx, {
+                type: 'line',
+
+                options: {
+                    legend: {
+                        display: false,
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    },
+                scales: {
+                    xAxes: [{
+                        display: false,
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            tickMarkLength: 0,
+                            color: '#FFF',
+                        },
+                        ticks: {
+                            padding: 15,
+                            fontColor: '#FFF'
+                        }
+                    }],
+                }
+                },
+                data: {
+                    labels: elData,
+                    datasets: [{
+                        data: elData,
+                        backgroundColor: "#7edccc",
+                    }]
+                }
+            });
+            
+        };
 
 
 
