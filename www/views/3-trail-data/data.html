@@ -1,26 +1,28 @@
-<h3 class="trail-header">
-    {{trail.trail_name}}</h3>
-<div class="stats">
-    <p><strong>Distance: </strong>{{trail.gis_miles}} miles</p>
-    <p><strong>Average Incline: </strong>{{trail.incline}}%</p>
-    <p><strong>Total Elevation Change: </strong>{{trail.elevation}} feet</p>
-    <p><strong>Difficulty: </strong>{{trail.difficulty}}</p>
-    <p><strong>Est. Completion Time: </strong>{{trail.time}} hours</p>
-</div>
-<div>
-    <div id='favorite' class='fav-btn' ng-show='fav' ng-click='addToFavorites(); show=!show'>
-        <p>add to favorites</p>
+<main class="main-trail-data">
+    <h3 class="trail-header">
+        {{trail.trail_name}}</h3>
+    <div class="stats">
+        <p><strong>Distance: </strong>{{trail.gis_miles}} miles</p>
+        <p><strong>Average Incline: </strong>{{trail.incline}}%</p>
+        <p><strong>Total Elevation Change: </strong>{{trail.elevation}} feet</p>
+        <p><strong>Difficulty: </strong>{{trail.difficulty}}</p>
+        <p><strong>Est. Completion Time: </strong>{{trail.time}} hours</p>
     </div>
-    <div id='removeFavorite' class='fav-btn' ng-show='rem' ng-click='deleteTrail(); show=false'>
-        <p>remove from favorites</p>
+    <div>
+        <div id='favorite' class='fav-btn' ng-show='fav' ng-click='addToFavorites(); show=!show'>
+            <p>add to favorites</p>
+        </div>
+        <div id='removeFavorite' class='fav-btn' ng-show='rem' ng-click='deleteTrail(); show=false'>
+            <p>remove from favorites</p>
+        </div>
     </div>
-</div>
-<div class="directions-completed">
-    <div class="directions">
-        <a ng-href={{directions}} target="_blank" style="color:#000">directions</a>
+    <div class="directions-completed">
+        <div class="directions">
+            <a ng-href={{directions}} target="_blank" style="color:#000">directions</a>
+        </div>
+        <div class='completed-data' ng-click='markCompletedFromTrailData()'>
+            <p>mark completed</p>
+        </div>
     </div>
-    <div class='completed-data' ng-click='markCompletedFromTrailData()'>
-        <p>mark completed</p>
-    </div>
-</div>
+</main>
 <div id="trailmap"></div>
