@@ -111,12 +111,11 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             //------------ geocoding ----------------//
 
             map.addControl(new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                position: "top-left"
-            }));
-            map.addControl(new mapboxgl.NavigationControl());
+                accessToken: mapboxgl.accessToken
+            }), 'bottom-right');
+            map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-            map.addControl(new mapboxgl.GeolocateControl())
+            map.addControl(new mapboxgl.GeolocateControl(), 'bottom-right')
 
 
             //-------------- center on click  ----------------//
@@ -332,10 +331,12 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
                 var panel = document.getElementById('reset-button')
                 if (panel.style.display === "block") {
                     panel.style.display = "none";
-                    // document.getElementsByClassName('traillisting-container').style.top = '125px'
+                    console.log('Im here!')
+                    document.getElementById('tlc').style.top = '125px'
                 } else {
                     panel.style.display = "block";
-                    // document.getElementsByClassName('traillisting-container').style.top = '175px'
+                    console.log('also here')
+                    document.getElementById('tlc').style.top = '175px'
                 }
             }
 

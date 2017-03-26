@@ -52,6 +52,7 @@
     padding: 12px 0 9px 0;
     display: none;
     background: white;
+    cursor: pointer;    
 }
 
 .search-close {
@@ -208,21 +209,25 @@
 }
 
 @media(min-width: 650px) {
-    .main-search {
+    /*.main-search {
         height: 100vh;
         display: flex;
         flex-direction: column;
         position: absolute;
         top: 0;
         left: 0;
-    }
+        z-index: 2;
+    }*/
     .alltrails-map {
-        /*position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;*/
-        width: 100vw;
+        position: absolute;
+        /*top: 75px;*/
+        /*bottom: 0;*/
+        right: 0;
+        width: calc(100vw - 260px);
+        /*height: calc(100vh - 75px);*/
         height: 100vh;
+        float: right;
+        /*top: 0;*/
     }
     .listing-header {
         text-align: center;
@@ -231,32 +236,40 @@
         border-right: 1px solid lightgray;
         padding: 20px 10px;
         height: 75px;
-        /*position: absolute;*/
-        /*z-index: 100;*/
+        position: absolute;
+        z-index: 100;
     }
+
+    .adv-search-container {
+        width: 260px;
+        position: absolute;
+        z-index: 100;
+    }
+
     .traillisting-container {
-        height: 100vh;
+        height: calc(100vh - 125px);
         width: 260px;
         /*display: inline-block;*/
-        /*position: absolute;*/
-        /*z-index: 100;*/
+        position: absolute;
+        z-index: 100;
         background: white;
+        top: 125px;
     }
     .advanced-search {
         width: 260px;
-        /*z-index: 100;*/
-        /*margin-top: 75px;*/
+        z-index: 100;
+        margin-top: 75px;
     }
     .advanced-search p {
         color: white;
         width: 100%;
-        /*z-index: 100;*/
+        z-index: 100;
     }
     #reset-button {
         width: 260px;
         width: 100%;
         border-right: 1px solid lightgray;
-        /*z-index: 100;*/
+        z-index: 100;
     }
     .md-sidenav-right {
         z-index: 200;
