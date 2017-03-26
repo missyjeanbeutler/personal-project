@@ -50,6 +50,8 @@
     text-align: center;
     padding: 12px 0 9px 0;
     display: none;
+    background: white;
+    cursor: pointer;
 }
 
 .search-close {
@@ -211,11 +213,11 @@
     }
     .alltrails-map {
         position: absolute;
-        top: 0;
+        top: 0 !important;
         bottom: 0;
         right: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100vh !important;
     }
     .listing-header {
         text-align: center;
@@ -226,15 +228,23 @@
         height: 75px;
         position: absolute;
         z-index: 100;
+        background: white;
     }
     .traillisting-container {
         height: 100vh;
         width: 260px;
-        display: inline-block;
         position: absolute;
         z-index: 100;
         background: white;
+        top: 125px;
     }
+
+    .advanced-container {
+        width: 260px;
+        position: absolute;
+        z-index: 100;
+    }
+
     .advanced-search {
         width: 260px;
         z-index: 100;
@@ -291,5 +301,11 @@
 
     #dropdownList {
         width: 60%;
+    }
+
+    .mapboxgl-canvas-container {
+        height: 100vh !important;
+        position: absolute;
+        top: 0 !important;
     }
 }

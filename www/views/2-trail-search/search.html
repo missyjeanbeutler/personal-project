@@ -2,8 +2,7 @@
     <!--Listing from map view-->
     <h3 class="listing-header">{{listNumber}} Listed Trails</h3>
     <!--right slide out filter-->
-    <div layout="row" class="hidden-filter">
-        <md-content style="background-color: transparent;">
+    <md-content style="background-color: transparent;" class="advanced-container">
             <div class="advanced-search" ng-click="openRightMenu()">
                 <p>ADVANCED SEARCH</p>
             </div>
@@ -11,6 +10,8 @@
                 <p>RESET FILTER</p>
             </div>
         </md-content>
+    <div layout="row" class="hidden-filter">
+        
         <md-sidenav md-component-id="right" class="md-sidenav-right" style="min-width: 100vw !important; overflow-x: hidden; min-height: 100vh;">
             <div class="filter-container">
                 <div ng-click="openRightMenu()" class="search-close"><img src="../../img/close.svg" alt="close button"></div>

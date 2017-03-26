@@ -16,7 +16,7 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css'
         type='text/css' />
-    <link rel="stylesheet" href="./node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="./css/angular-material.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300|Playfair+Display:900">
     <!--<link rel="stylesheet" href="./css/animate.css">
     <link rel="stylesheet" href="./css/loading.css">-->
@@ -47,7 +47,7 @@
                 <div id='loginProfile'>
                     <a ui-sref="profile" ng-click="openLeftMenu()">Profile</a>
                 </div>
-                <div id="logout">
+                <div id="logoutProfile">
                     <a href="/auth/logout" ng-click="openLeftMenu()">Logout</a>
                 </div>
             </div>
@@ -65,17 +65,17 @@
         <div>
             <a ui-sref='search'>Search</a>
         </div>
-        <div id='loginProfile'>
+        <div id='loginProfile-desktop'>
             <a ui-sref="profile">Profile</a>
         </div>
-        <div id="logout">
+        <div id="logoutProfile-desktop">
             <a href="/auth/logout">Logout</a>
         </div>
     </nav>
 
     <ui-view></ui-view>
 
-    <script src="./node_modules/angular/angular.js"></script>
+    <script src="./assests/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
     <!--<script src="app.js"></script>-->
     <script src="./dist/all.js"></script>
@@ -90,9 +90,9 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
     <!--<script src="./service/loginSvc.js"></script>-->
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js'></script>
-    <script src="./node_modules/angular-aria/angular-aria.js"></script>
-    <script src="./node_modules/angular-animate/angular-animate.js"></script>
-    <script src="./node_modules/angular-material/angular-material.js"></script>
+    <script src="./assests/angular-aria.js"></script>
+    <script src="./assests/angular-animate.js"></script>
+    <script src="./assests/angular-material.js"></script>
     <!--<script src="./views/1-home/homeCtrl.js"></script>-->
     <script src="./assests/jquery-3.2.0.js"></script>
     <script src="./assests/jquery.waypoints.js"></script>
