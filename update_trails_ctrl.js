@@ -5,14 +5,15 @@ const axios = require('axios');
 const q = require('q');
 const polylineCtrl = require('./polyline_ctrl')
 const controller = require('./trail_ctrl')
-const host = process.env;
+// const host = process.env;
 
 module.exports = {
 
     updateTrail: function (req, res, next) {
-        let trails = req.body.trails;
+        // let trails = req.body.trails;
         // for (let i = 8; i <= 20; i++) {
-        startUpdate(22)
+            console.log('step 4')
+        startUpdate(req.params.id)
         // } 
 
 
@@ -21,26 +22,32 @@ module.exports = {
         //---------- elevation data ------------//
 
         function startUpdate(id) {
+            console.log('step 5')
             controller.trailDataWithPromise(id)
                 .then(response => {
                     let trail = response[0]
                     trail.coords = JSON.parse(trail.coords)
                     let polyline = coordsLength(trail);
                     return [polyline, trail];
+                    console.log('step 6')
                 })
                 .then(data => {
+                    console.log('step 7')
                     return getElevation(data[0], data[1]).then(response => {
+                        console.log('step 8')
                         return response;
                     })
                 })
                 .then(response => {
+                    console.log('step 9')
                     let arrayToSend = calculations(response)
                     let diff = difficulty(response.gis_miles, arrayToSend[0]);
                     let time = naismithTime(response.gis_miles, arrayToSend[0], 2.5);
-                    let gradient = Math.round((arrayToSend[0]/(response.gis_miles * 5280))); // fix tabe so you don't have to round anymore
-                    arrayToSend.push(diff, time, gradient);
+                    // let gradient = Math.round((arrayToSend[0]/(response.gis_miles * 5280))); // fix tabe so you don't have to round anymore
+                    arrayToSend.push(diff, time);
                     console.log(arrayToSend, ' post calculations')
                     db.UPDATEtrailInfo(arrayToSend, function (err, updated) {
+                        console.log('step 10')
                         if (err) return next(err);
                         else return res.send('updated!');
                     })
@@ -77,8 +84,9 @@ module.exports = {
 
 
         function getElevation(polyline, trail) {
+            console.log('elevation 1')
             let samp = trail.coords.length;
-            return axios.get('https://maps.googleapis.com/maps/api/elevation/json?path=enc:' + polyline + '&samples=' + samp + '&key=' + host.elevatationAPIkey)
+            return axios.get('https://maps.googleapis.com/maps/api/elevation/json?path=enc:' + polyline + '&samples=' + samp + '&key=' + config.elevatationAPIkey)
                 .then(response => {
                     if (response.data.status !== 'OK') return 'Error!';
                     return response.data.results;

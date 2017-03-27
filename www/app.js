@@ -39,6 +39,11 @@ angular.module('trailsApp', ['ui.router', 'ngMaterial'])
                 url: '/login',
                 templateUrl: 'views/4-login/login.html',
             })
+            .state('update', {
+                url: '/updater',
+                templateUrl: 'controllers/update.html',
+                controller: 'updateCtrl'
+            })
 
 
 

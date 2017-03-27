@@ -135,7 +135,7 @@ app.put('/api/updateCompletedList/:id', (req, res) => {
 
 //--------- Update Trail in Mass ---------//
 
-app.put('/api/updateTrail', updater.updateTrail);
+app.put('/api/updateTrail/:id', updater.updateTrail);
 app.get('/search/trail/:id', controller.trailDataWithPromise);
 
 
