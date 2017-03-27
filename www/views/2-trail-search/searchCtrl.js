@@ -44,7 +44,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
         var map = new mapboxgl.Map({
             container: 'alltrails', // container id
             style: 'mapbox://styles/missyjean/cj0bnm0ka00202rpbyll4nvzl', //stylesheet location
-            center: [-110.6585, 40.3338], // starting position
+            center: [-111.248932, 40.344304], // starting position
             zoom: 9 // starting zoom
         });
 

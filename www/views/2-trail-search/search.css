@@ -30,6 +30,7 @@
     border-bottom: 1px solid #DDD;
     padding: 10px;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .advanced-search {

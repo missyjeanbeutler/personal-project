@@ -13,7 +13,9 @@ module.exports = {
 
     allTrails: function (req, res) {
         db.readAll(function (err, trails) {
-            if (!err) {
+            if (err) {
+                console.log(err)
+            } else {
                 res.send(trails);
             }
         })

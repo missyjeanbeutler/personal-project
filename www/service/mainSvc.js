@@ -11,42 +11,60 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
 
     //-------------- all trails ---------------//
 
-    allTrails()
+    // allTrails()
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 
     function allTrails() {
         return $http.get('/api/search').then(response => {
             let geo = []
+            console.log('step 4')
             response.data.forEach(e => {
-                e.coords = JSON.parse(e.coords);
-                let lowerCase = e.trail_name.replace(/"/g, "").split(" ")
-                for (let i = 0; i < lowerCase.length; i++) {
-                    var w = lowerCase[i][0] + lowerCase[i].slice(1).toLowerCase()
-                    lowerCase[i] = w;
-                };
-                e.trail_name = lowerCase.join(" ")
-                geo.push({
-                    "type": "Feature",
-                    "properties": {
-                        "name": `"${e.trail_name}"`,
-                        "id": e.trail_id,
-                        "difficulty": e.difficulty,
-                        "elevation": e.elevation,
-                        "incline": e.incline,
-                        "time": e.time,
-                        "distance": e.gis_miles
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": e.coords[0]
-                    }
-                })
+                if (IsJsonString(e.coords) && e.coords) {
+
+
+                    console.log('step 5')
+                    e.coords = JSON.parse(e.coords);
+                    let lowerCase = e.trail_name.replace(/"/g, "").split(" ")
+                    for (let i = 0; i < lowerCase.length; i++) {
+                        var w = lowerCase[i][0] + lowerCase[i].slice(1).toLowerCase()
+                        lowerCase[i] = w;
+                    };
+                    e.trail_name = lowerCase.join(" ")
+                    geo.push({
+                        "type": "Feature",
+                        "properties": {
+                            "name": `"${e.trail_name}"`,
+                            "id": e.trail_id,
+                            "difficulty": e.difficulty,
+                            "elevation": e.elevation,
+                            "incline": e.incline,
+                            "time": e.time,
+                            "distance": e.gis_miles
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": e.coords[0]
+                        }
+                    })
+                } else {
+                    console.log('I love you coder - site')
+                }
             })
             var final = {
-                    "type": "FeatureCollection",
-                    "features": geo
-                };
+                "type": "FeatureCollection",
+                "features": geo
+            };
 
             return final
+        }).catch(err => {
+            console.log('stupid', err)
         })
     }
 
@@ -64,11 +82,11 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             trail.trail_name = lowerCase.join(" ").replace(/"/g, "");
             trail.time = Math.round((trail.time / 60) * 10) / 10
             let diff = trail.difficulty
-            if(diff < 6) trail.difficulty = 'Easy';
-            if(diff > 5 && diff < 11) trail.difficulty = 'Moderate';
-            if(diff > 10 && diff < 17) trail.difficulty = 'Challenging';
-            if(diff > 16 && diff < 23) trail.difficulty = 'Difficult';
-            if(diff > 22) trail.difficulty = 'Very Difficult';
+            if (diff < 6) trail.difficulty = 'Easy';
+            if (diff > 5 && diff < 11) trail.difficulty = 'Moderate';
+            if (diff > 10 && diff < 17) trail.difficulty = 'Challenging';
+            if (diff > 16 && diff < 23) trail.difficulty = 'Difficult';
+            if (diff > 22) trail.difficulty = 'Very Difficult';
             return trail;
         }).then(response => {
             let deferred = $q.defer()
@@ -102,7 +120,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     }
 
 
-    function getElevation(polyline, trail) {    
+    function getElevation(polyline, trail) {
         return elevationSvc.getTrailElevation(polyline, trail.coords.length)
             .then(response => {
                 trail.elevation_array = response;
@@ -132,7 +150,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
                 .then(response => {
                     if (response.status === 200) return response.data[0].trail_id;
                 })
-        }).catch(function(err) {
+        }).catch(function (err) {
             return 'Not logged in'
         })
 
@@ -144,7 +162,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
             return $http.put('/api/markcompleted/' + trailId).then(response => {
                 return response.data[0].trail_id;
             })
-        }).catch(function(err) {
+        }).catch(function (err) {
             return 'Not logged in'
         })
 
