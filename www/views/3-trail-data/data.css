@@ -71,6 +71,8 @@
   .trail-header {
     text-align: left;
     padding: 20px 20px 40px 20px;
+    z-index: 101;
+    position: relative;
   }
   .chart {
     margin: 20px auto;
@@ -86,25 +88,41 @@
     width: 380px;
     padding-top: 1px;
     height: 190px;
-    /*background: rgba(255, 255, 255, 0.5);*/
-    background: white;
+    background: rgba(255, 255, 255, 0.5);
+    /*background: white;*/
     position: absolute;
     bottom: 0;
     overflow: hidden;
+    transition: 0.2s;
+  }
+
+  .expanded-el-map {
+    width: 100%;
+    padding-right: 20px;
   }
 
   .el-samp-title {
     background: black;
     height: 40px;
-    padding: 5px 0 0 20px;
+    padding: 5px 0 0 0;
     color: white;
     position: absolute;
     left: 0;
-    width: 400px;
+    margin: 0 15px;
+    width: 370px;
     bottom: 190px;
+    text-align: center;
+    cursor: pointer;
   }
 
   .fav-btn {
-    margin: 40px 0;
+    margin: 20px 15px;
+    width: 370px;
+  }
+
+  .disclaimer {
+    font-size: 0.9rem;
+    margin: 20px;
+    line-height: 18px;
   }
 }

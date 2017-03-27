@@ -224,6 +224,19 @@ function makeDataChart(elData) {
             
         };
 
+        //---------- expand elevation chart -----------//
+
+
+        $scope.expandElMap = function() {
+            let cc = document.getElementById('cc');
+            if (cc.classList.contains('expanded-el-map')) {
+                cc.classList.remove('expanded-el-map');
+            } else {
+                cc.classList.add('expanded-el-map');
+            }
+        }
+        
+
 
 
 

@@ -24,10 +24,11 @@
             <p>mark completed</p>
         </div>
     </div>
+    <p class="disclaimer">* Trail data is calculated for one way only unless the trail is a loop. Difficulty and estimated completion time are to give a general idea. Actual time and difficulty may vary.</p>
 </main>
 <div id="trailmap"></div>
-<p class="el-samp-title">Elevation Map</p>
-<div class="crappy-chart">
+<p class="el-samp-title" ng-click='expandElMap()'>elevation map</p>
+<div class="crappy-chart" id='cc'>
     <div class="container">
         
         <div class="chart">
