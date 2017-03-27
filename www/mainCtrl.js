@@ -44,12 +44,12 @@ getLoginStatus();
 
       //-----------------fav/completed toggle-------------------------//
 
-      $('#com').addClass('selected')
+      $('#comChartContainer').addClass('selected')
       $scope.section = true;
       $scope.selected = function (e) {
         $(e).addClass('selected');
         if (e === '#fav') {
-          $('#com').removeClass('selected');
+          $('#comChartContainer').removeClass('selected');
           $scope.section = false;
         } else {
           $('#fav').removeClass('selected')

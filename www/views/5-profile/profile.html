@@ -4,7 +4,7 @@
         <p>{{user}}</p>
     </div>
     <div class="completed-favorites">
-        <p class="completed" id='com' ng-click="selected('#com')">Completed</p>
+        <p class="completed" id='com' ng-click="selected('#comChartContainer')">Completed</p>
         <p class="favorites" id='fav' ng-click="selected('#fav')">Favorites</p>
     </div>
 </div>
@@ -22,7 +22,7 @@
     </div>
     <!--<h4>This is how many miles you've hiked since you started logging! Conquer that mountain!</h4>-->
 </div>
-<div class="fav-list-container" style="overflow: scroll;" ng-hide='section'>
+<div class="fav-list-container" style="overflow: scroll;" ng-hide='section' id='fav'>
     <div ng-repeat='favorite in favorites' class="fav-expand">
         <p class='accordion' id='{{favorite.trail_id}}' ng-click='accordion(favorite.trail_id)'>{{favorite.trail_name}}</p>
         <div class='panel'>
