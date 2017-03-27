@@ -266,14 +266,27 @@
         z-index: 100;
     }
     .md-sidenav-right {
+        background: linear-gradient( 
+        rgba(250, 250, 250, 0.3), 
+        rgba(250, 250, 250, 0.3)),
+        url('../../img/adrian.jpg') no-repeat;
+    background-size: cover;
+    background-position: center center;
         z-index: 200;
-    }
-    .md-sidenav-right {
         padding: 0 20% 0 20%;
     }
+    
     .search-button {
-        width: 100%;
-        margin: 25px auto 60px auto;
+        width: 90%;
+        margin: 25px auto 30px auto;
+    }
+    .dropbtn {
+        margin: 30px auto 20px auto;
+    }
+
+    .picky-search {
+        width: 90%;
+        margin: 0 auto;
     }
     .dropbtn:hover,
     .dropbtn:focus {
@@ -298,8 +311,9 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        height: 100vh;
-        background: #EEE;
+        height: calc(100vh - 80px);
+        background: rgba(255, 255, 255, 0.4);
+        margin: 40px 0;
     }
     #dropdownList {
         width: 60%;

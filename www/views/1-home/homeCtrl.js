@@ -46,7 +46,7 @@ angular.module('trailsApp').controller('homeCtrl', function () {
         $('#home-7').waypoint(function () {
             $('#home-7').addClass('fadeInLeft');
         }, {
-            offset: '60%'
+            offset: '80%'
         });
 
     });

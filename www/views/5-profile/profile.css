@@ -178,6 +178,7 @@
         left: 0;
         height: 100%;
         background: #171d1f;
+        z-index: 101;
     }
     .completed-favorites {
         flex-direction: column;
@@ -224,6 +225,7 @@
         height: calc(100vh - 70px);
         position: absolute;
         right: 0;
+        z-index: 101;
     }
     #comChartContainer p {
         background: black;
