@@ -1,22 +1,28 @@
-<div class="profile-container">
-    <div class="user-photo"><img src={{photo}}></div>
-    <p>{{user}}</p>
-</div>
-
-<div class="completed-favorites">
-    <p class="completed" id='com' ng-click="selected('#com')">Completed</p>
-    <p class="favorites" id='fav' ng-click="selected('#fav')">Favorites</p>
+<div class="side-bar-profile">
+    <div class="profile-container">
+        <div class="user-photo"><img src={{photo}}></div>
+        <p>{{user}}</p>
+    </div>
+    <div class="completed-favorites">
+        <p class="completed" id='com' ng-click="selected('#com')">Completed</p>
+        <p class="favorites" id='fav' ng-click="selected('#fav')">Favorites</p>
+    </div>
 </div>
 <div ng-show='section' id='comChartContainer'>
-    <p>TOTAL ELEVATION CLIMBED</p>
+    
+    <div class="elevation-container">
+        <p>TOTAL ELEVATION CLIMBED</p>
     <canvas id="comChart" width="100%" height="120px"></canvas>
+    </div>
     <!--<h4>This is how many feet you've climbed since you started logging! Keep it up!</h4>-->
-    <p>TOTAL DISTANCE HIKED</p>
+    
+    <div class="distance-container">
+<p>TOTAL DISTANCE HIKED</p>
     <canvas id="disChart" width="100%" height="120px"></canvas>
+    </div>
     <!--<h4>This is how many miles you've hiked since you started logging! Conquer that mountain!</h4>-->
 </div>
-
-<div style="overflow: scroll;"  ng-hide='section'>
+<div class="fav-list-container" style="overflow: scroll;" ng-hide='section'>
     <div ng-repeat='favorite in favorites' class="fav-expand">
         <p class='accordion' id='{{favorite.trail_id}}' ng-click='accordion(favorite.trail_id)'>{{favorite.trail_name}}</p>
         <div class='panel'>

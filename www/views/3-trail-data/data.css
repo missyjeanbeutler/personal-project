@@ -54,10 +54,11 @@
 @media(min-width: 650px) {
   .main-trail-data {
     position: absolute;
-    height: 100vh;
+    height: calc(100vh - 190px);
     width: 400px;
     left: 0;
     top: 0;
+    overflow: hidden;
   }
   #trailmap {
     position: absolute;
@@ -65,10 +66,11 @@
     right: 0;
     height: 100vh;
     width: calc(100vw - 400px);
+    overflow: hidden;
   }
   .trail-header {
     text-align: left;
-    padding: 20px;
+    padding: 20px 20px 40px 20px;
   }
   .chart {
     margin: 20px auto;
@@ -81,11 +83,28 @@
     padding-left: 15px;
   }
   .crappy-chart {
-    width: 100%;
+    width: 380px;
     padding-top: 1px;
     height: 190px;
-    background: black;
+    /*background: rgba(255, 255, 255, 0.5);*/
+    background: white;
     position: absolute;
-    bottom: 20px;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  .el-samp-title {
+    background: black;
+    height: 40px;
+    padding: 5px 0 0 20px;
+    color: white;
+    position: absolute;
+    left: 0;
+    width: 400px;
+    bottom: 190px;
+  }
+
+  .fav-btn {
+    margin: 40px 0;
   }
 }

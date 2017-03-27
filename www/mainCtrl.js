@@ -2,7 +2,8 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
 
 
   //--------------- login/logout ----------------//
-
+getLoginStatus();
+  getUser();
   function getUser() {
     loginSvc.getUser().then((response) => {
       if (response) {
@@ -10,14 +11,13 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
         $scope.favorites = response.data.favorites;
         $scope.completed = response.data.completed;
         $scope.photo = response.data.photo
-        console.log(response.data)
         var totalEl = userTotalElevation(response.data.completed)
         var totalMi = userTotalMiles(response.data.completed)
 
       } else {
-        $scope.user = 'NOT LOGGED IN';
+        $scope.user = 'NOT LOGGED IN'
       }
-      getLoginStatus();
+      getLoginStatus()
 
 
 
@@ -148,11 +148,19 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
         });
 
       };
-
-      $(document).ready(function () {
         makeDisChart()
         makeComChart()
-      })
+      }).catch(err => {
+      getLoginStatus();
+    })
+  }
+
+  
+
+      // $(document).ready(function () {
+      //   makeDisChart()
+      //   makeComChart()
+      // })
 
       //---------- disable profile button when not logged in --------- //
 
@@ -172,7 +180,7 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
         $mdSidenav('left').toggle();
       };
 
-      //--------------loading animation---------------//
+  //--------------loading animation---------------//
 
       function onReady(callback) {
         var intervalID = window.setInterval(checkReady, 1000);
@@ -192,11 +200,6 @@ angular.module('trailsApp').controller('mainCtrl', function ($scope, mainSvc, $s
       onReady(function () {
         show('loading', false);
       });
-
-    })
-  }
-
-  getUser();
 
   //----------------create totals-------------------//
 

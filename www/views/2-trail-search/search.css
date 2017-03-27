@@ -52,7 +52,7 @@
     padding: 12px 0 9px 0;
     display: none;
     background: white;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 .search-close {
@@ -209,15 +209,7 @@
 }
 
 @media(min-width: 650px) {
-    /*.main-search {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 2;
-    }*/
+
     .alltrails-map {
         position: absolute;
         width: calc(100vw - 260px);
@@ -226,7 +218,7 @@
         right: 0;
         top: 0;
         bottom: 0;
-        width: 100vw;
+        width: calc(100vw - 260px);
     }
     .listing-header {
         text-align: center;
@@ -239,13 +231,11 @@
         z-index: 100;
         background: white;
     }
-
     .adv-search-container {
         width: 260px;
         position: absolute;
         z-index: 100;
     }
-
     .traillisting-container {
         height: calc(100vh - 125px);
         width: 260px;
@@ -254,13 +244,11 @@
         background: white;
         top: 125px;
     }
-
     .advanced-container {
         width: 260px;
         position: absolute;
         z-index: 100;
     }
-
     .advanced-search {
         width: 260px;
         z-index: 100;
@@ -295,7 +283,6 @@
         background: white;
         width: 130px;
     }
-
     .diff-button:hover {
         background: #CCC;
     }
@@ -303,10 +290,10 @@
         font-size: 1rem;
     }
     .button-toggle {
-    background-color: black;
-    color: white;
-    border: none;
-}
+        background-color: black;
+        color: white;
+        border: none;
+    }
     .filter-container {
         display: flex;
         flex-direction: column;
@@ -314,11 +301,9 @@
         height: 100vh;
         background: #EEE;
     }
-
     #dropdownList {
         width: 60%;
     }
-
     .mapboxgl-canvas-container {
         height: 100vh !important;
         position: absolute;

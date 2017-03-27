@@ -204,11 +204,11 @@ function makeDataChart(elData) {
                     yAxes: [{
                         gridLines: {
                             tickMarkLength: 0,
-                            color: '#FFF',
+                            color: '#000',
                         },
                         ticks: {
                             padding: 15,
-                            fontColor: '#FFF'
+                            fontColor: '#000'
                         }
                     }],
                 }
@@ -217,7 +217,7 @@ function makeDataChart(elData) {
                     labels: elData,
                     datasets: [{
                         data: elData,
-                        backgroundColor: "#7edccc",
+                        backgroundColor: "#171d1f",
                     }]
                 }
             });
