@@ -1,6 +1,6 @@
 const app = require('./index');
 const db = app.get('db');
-const config = require('./config.js');
+// const config = require('./config.js');
 const axios = require('axios');
 const q = require('q');
 const polylineCtrl = require('./polyline_ctrl')
