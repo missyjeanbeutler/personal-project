@@ -24,7 +24,6 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     function allTrails() {
         return $http.get('/api/search').then(response => {
             let geo = []
-            console.log('step 4')
             response.data.forEach(e => {
                 if (IsJsonString(e.coords) && e.coords) {
 

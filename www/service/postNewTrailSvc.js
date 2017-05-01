@@ -13,7 +13,6 @@ angular.module('trailsApp').service('postSvc', function ($http, $q, mainSvc) {
             // mainSvc.allTrails(id).then(response => {
                 // trails = response;
                 // callBackend(id).then(response => {
-                    // console.log('1')
                     // deferred.resolve(response)
                     // return response;
                 // })
