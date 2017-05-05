@@ -67,7 +67,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
         })
     }
 
-    //----------- single trail data ------------//
+    //-------------- single trail data ---------------//
 
     function trailData(id) {
         return $http.get('/search/trail/' + id).then(response => {
