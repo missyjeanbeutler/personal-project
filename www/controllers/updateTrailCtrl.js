@@ -10,7 +10,6 @@ function updateTrail(id) {
         console.log(error);
     })
 }
-console.log('step 1')
 
 var counter = 1;
 var updater
@@ -22,7 +21,6 @@ function updaterTimeout() {
         clearTimeout(updater)
         return;
       } else {
-          console.log(counter, ' counter')
         updaterTimeout()
       }
     }, 2000);

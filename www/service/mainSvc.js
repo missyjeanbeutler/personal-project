@@ -164,9 +164,6 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
         }).catch(function (err) {
             return 'Not logged in'
         })
-
     }
-
-
 
 })
