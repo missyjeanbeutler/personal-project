@@ -21,9 +21,9 @@ angular.module('trailsApp').service('postSvc', function ($http, $q, mainSvc) {
         // return deferred.promise;
     // }
 
-    this.callBackend =  (id) => {
+    this.callBackend =  (trails) => {
         console.log('step 3')
-        return $http.put('/api/updateTrail/' + id).then(response => {
+        return $http.post('/api/updateTrail/', {trails: trails}).then(response => {
             console.log('step 11')
             return response.data;
         })

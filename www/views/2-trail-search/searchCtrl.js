@@ -106,8 +106,6 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             });
 
 
-            // }); ORIGINAL
-
             //------------ geocoding ----------------//
 
             map.addControl(new MapboxGeocoder({
@@ -163,8 +161,6 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
             var popup = new mapboxgl.Popup({
                 closeButton: false
             });
-
-            // var filterEl = document.getElementById('feature-filter'); // input bar
 
             function normalize(string) {
                 return string.trim().toLowerCase();
@@ -340,19 +336,7 @@ angular.module('trailsApp').controller('searchCtrl', function ($scope, mainSvc, 
 
 
 
-
-
-
-
-
-
-
-
         });
-
-
-
-
 
     });
 

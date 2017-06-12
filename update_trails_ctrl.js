@@ -10,11 +10,19 @@ const host = process.env;
 module.exports = {
 
     updateTrail: function (req, res, next) {
-        // let trails = req.body.trails;
-        // for (let i = 8; i <= 20; i++) {
-            console.log('step 4')
-        startUpdate(req.params.id)
-        // } 
+
+        if (req.body.password != 'updaterGo') return res.send('wrong password')
+
+        let trailIds;
+        let errors = []
+
+        db.getIds(function (err, response) {
+            if (err) console.log(err)
+            else trailIds = response
+            let first = trailIds.shift()
+            startUpdate(first)
+        })
+
 
 
 
@@ -22,40 +30,60 @@ module.exports = {
         //---------- elevation data ------------//
 
         function startUpdate(id) {
-            console.log('step 5')
-            controller.trailDataWithPromise(id)
+            console.log('start ', id)
+            controller.trailDataWithPromise(id.trail_id)
                 .then(response => {
+                    console.log('1')
                     let trail = response[0]
-                    trail.coords = JSON.parse(trail.coords)
+                    try {
+                        trail.coords = JSON.parse("[" + trail.coords + "]")
+                    } catch (e) {
+                        return console.error(e);
+                    }
                     let polyline = coordsLength(trail);
                     return [polyline, trail];
-                    console.log('step 6')
                 })
                 .then(data => {
-                    console.log('step 7')
+                    console.log('step 2 with id ', data[1].trail_id)
+                    console.log(data[1].coords[0])
+                    if (!data[1].coords[0]) return data[1]
                     return getElevation(data[0], data[1]).then(response => {
-                        console.log('step 8')
-                        return response;
+                        if (response === 'Error!') {
+                            errors.push(id.trail_id)
+                            let nextId = trailIds.shift()
+                            console.log('errored at ', id.trail_id)
+                            return startUpdate(nextId)
+                        } else return response;
                     })
                 })
                 .then(response => {
-                    console.log('step 9')
-                    let arrayToSend = calculations(response)
+                    console.log('step 3 with id ', response.trail_id)
+
+                    let arrayToSend = response.coords[0] ? calculations(response) : []
                     let diff = difficulty(response.gis_miles, arrayToSend[0]);
                     let time = naismithTime(response.gis_miles, arrayToSend[0], 2.5);
-                    // let gradient = Math.round((arrayToSend[0]/(response.gis_miles * 5280))); // fix tabe so you don't have to round anymore
-                    arrayToSend.push(diff, time);
-                    console.log(arrayToSend, ' post calculations')
+                    let head = JSON.stringify(response.coords[0]) || null
+                    // let gradient = Math.round((arrayToSend[0]/(response.gis_miles * 5280))); // fix tabel so you don't have to round anymore
+                    arrayToSend.push(diff, time, head);
                     db.UPDATEtrailInfo(arrayToSend, function (err, updated) {
-                        console.log('step 10')
-                        if (err) return next(err);
-                        else return res.send('updated!');
+                        if (err) errors.push(id.trail_id)
+                        if (trailIds.length > 0) {
+                            let nextId = trailIds.shift()
+                            console.log(trailIds.length)
+                            startUpdate(nextId)
+                        } else {
+                            console.log(errors)
+                            return res.send({
+                                errored: errors
+                            })
+                        }
                     })
                 });
         }
 
 
         function coordsLength(trail) {
+            if (trail.coords.length < 5) return null
 
             if (trail.coords.length < 500) {
                 polyline = polylineCtrl.createEncodings(trail.coords);
@@ -84,7 +112,6 @@ module.exports = {
 
 
         function getElevation(polyline, trail) {
-            console.log('elevation 1')
             let samp = trail.coords.length;
             return axios.get('https://maps.googleapis.com/maps/api/elevation/json?path=enc:' + polyline + '&samples=' + samp + '&key=' + config.elevatationAPIkey)
                 .then(response => {

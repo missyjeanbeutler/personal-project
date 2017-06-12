@@ -5,16 +5,16 @@ const express = require('express'),
       massive = require('massive'),
       passport = require('passport'),
       Auth0Strategy = require('passport-auth0')
-      // config = require('./config.js');
+      config = require('./config.js');
 
 const app = module.exports = express();
-const host = process.env;
-// const host = config;
+// const host = process.env;
+const host = config;
 
 //---------------
 
-let heroku = 'https://trailsapp.herokuapp.com/'
-// let heroku = 'http://localhost:3000/'
+// let heroku = 'https://trailsapp.herokuapp.com/'
+let heroku = 'http://localhost:3000/'
 
 app.use(express.static('./www'));   
 
@@ -78,8 +78,6 @@ passport.serializeUser(function(userA, done) {
 
 passport.deserializeUser(function(userB, done) {  
   var userC = userB;
-  //Things you might do here :
-    // Query the database with the user id, get other information to put on req.user
     db.getUserFavorites(userC.authid, function(err, favorites) {
       if (!err) userC.favorites = favorites;
       else return err;
@@ -135,7 +133,7 @@ app.put('/api/updateCompletedList/:id', (req, res) => {
 
 //--------- Update Trail in Mass ---------//
 
-app.put('/api/updateTrail/:id', updater.updateTrail);
+app.post('/api/updateTrail', updater.updateTrail);
 app.get('/search/trail/:id', controller.trailDataWithPromise);
 
 

@@ -25,11 +25,9 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
         return $http.get('/api/search').then(response => {
             let geo = []
             response.data.forEach(e => {
-                if (IsJsonString(e.coords) && e.coords) {
+                if (e.head) {
 
-
-                    console.log('step 5')
-                    e.coords = JSON.parse(e.coords);
+                    e.head = JSON.parse("[" + e.head + "]");
                     let lowerCase = e.trail_name.replace(/"/g, "").split(" ")
                     for (let i = 0; i < lowerCase.length; i++) {
                         var w = lowerCase[i][0] + lowerCase[i].slice(1).toLowerCase()
@@ -49,11 +47,11 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
                         },
                         "geometry": {
                             "type": "Point",
-                            "coordinates": e.coords[0]
+                            "coordinates": e.head[0]
                         }
                     })
                 } else {
-                    console.log('I love you coder - site')
+                    console.log('I love you coder - your app')
                 }
             })
             var final = {
@@ -72,7 +70,7 @@ angular.module('trailsApp').service('mainSvc', function ($http, polylineSvc, ele
     function trailData(id) {
         return $http.get('/search/trail/' + id).then(response => {
             let trail = response.data[0]
-            trail.coords = JSON.parse(trail.coords);
+            trail.coords = JSON.parse("[" + trail.coords + "]");
             let lowerCase = trail.trail_name.split(" ");
             for (let i = 0; i < lowerCase.length; i++) {
                 var w = lowerCase[i][0] + lowerCase[i].slice(1).toLowerCase()
