@@ -29,17 +29,12 @@ angular.module('trailsApp', ['ui.router', 'ngMaterial'])
                             if (!response) {
                                 console.log('not logged in')
                                 event.preventDefault()
-                                $state.go("login")
+                                $state.go("home")
                             }
                         })
                     }
                 }
             })
-            .state('login', {
-                url: '/login',
-                templateUrl: 'views/4-login/login.html',
-            })
-
 
 
         $urlRouterProvider.otherwise('/');
