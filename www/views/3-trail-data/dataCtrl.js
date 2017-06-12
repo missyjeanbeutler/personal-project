@@ -1,4 +1,4 @@
-angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParams, mainSvc, postSvc, loginSvc) {
+angular.module('trailsApp').controller('dataCtrl', function ($scope, $stateParams, mainSvc, loginSvc) {
 
     trailData($stateParams.id)
     toggleFavorite()
