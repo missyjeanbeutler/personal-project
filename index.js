@@ -4,8 +4,8 @@ const express = require('express'),
   cors = require('cors'),
   massive = require('massive'),
   passport = require('passport'),
-  Auth0Strategy = require('passport-auth0')
-config = require('./config.js');
+  Auth0Strategy = require('passport-auth0');
+  config = require('./config.js');
 
 const app = module.exports = express();
 // const host = process.env;
@@ -26,7 +26,6 @@ app.use(bodyParser.urlencoded({
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  // secret: config.secret
   secret: host.secret
 }))
 app.use(passport.initialize());
@@ -34,7 +33,6 @@ app.use(passport.session());
 
 
 let db = massive.connectSync({
-  // connectionString: config.connectionString
   connectionString: host.connectionString
 })
 app.set('db', db);
@@ -46,10 +44,6 @@ let updater = require('./update_trails_ctrl')
 //------------Auth----------------//
 
 passport.use(new Auth0Strategy({
-    //  domain:       config.auth0domain,
-    //  clientID:     config.auth0clientID,
-    //  clientSecret: config.auth0clientSecret,
-    //  callbackURL:  'http://localhost:3000/auth/callback'
     domain: host.auth0domain,
     clientID: host.auth0clientID,
     clientSecret: host.auth0clientSecret,

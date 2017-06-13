@@ -1,11 +1,11 @@
 const app = require('./index');
 const db = app.get('db');
-// const config = require('./config.js');
 const axios = require('axios');
 const q = require('q');
 const polylineCtrl = require('./polyline_ctrl')
 const controller = require('./trail_ctrl')
-const host = process.env;
+const host =  require('./config.js');
+// const host = process.env;
 
 module.exports = {
 
@@ -113,7 +113,7 @@ module.exports = {
 
         function getElevation(polyline, trail) {
             let samp = trail.coords.length;
-            return axios.get('https://maps.googleapis.com/maps/api/elevation/json?path=enc:' + polyline + '&samples=' + samp + '&key=' + config.elevatationAPIkey)
+            return axios.get('https://maps.googleapis.com/maps/api/elevation/json?path=enc:' + polyline + '&samples=' + samp + '&key=' + host.elevatationAPIkey)
                 .then(response => {
                     if (response.data.status !== 'OK') return 'Error!';
                     return response.data.results;

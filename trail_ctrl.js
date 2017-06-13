@@ -1,6 +1,5 @@
 const app = require('./index');
 const db = app.get('db');
-// const config = require('./config.js');
 const host = require('./config.js');
 // const host = process.env;
 const axios = require('axios');
